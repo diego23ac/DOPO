@@ -1,5 +1,5 @@
-Project "shapes"
-Authors: Michael Kolling and David J. Barnes
+Project "stackinCups"
+Authors: Diego Corso and Camilo ortiz
 
 This project is part of the material for the book
 
