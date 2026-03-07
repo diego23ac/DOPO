@@ -36,4 +36,7 @@ public class Tower{
         frame.makeVisible();
     }
 
+    public int height(){
+        return height;
+    }
 }
