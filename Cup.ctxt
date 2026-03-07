@@ -1,3 +1,11 @@
 #BlueJ class context
 comment0.target=Cup
-numComments=1
+comment1.params=value\ tHeight
+comment1.target=Cup(int,\ int)
+comment2.params=tHeight
+comment2.target=void\ createCup(int)
+comment3.params=
+comment3.target=void\ makeInvisible()
+comment4.params=
+comment4.target=void\ assignColor()
+numComments=5

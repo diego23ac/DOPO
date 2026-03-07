@@ -35,6 +35,17 @@ public class Tower{
         isVisible = true;
         frame.makeVisible();
     }
+    
+    public void pushCup(int i){
+       Cup cup = new Cup(i,this.height);
+       cups.put(i,cup);
+       
+    }
+    
+    public void removeCup(int i){
+        Cup rCup = cups.remove(i);
+        rCup.makeInvisible();
+    }
 
     public int height(){
         return height;
