@@ -39,13 +39,17 @@ public class Tower{
     
     public void removeCup(int i){
         int counter = 0;
+        System.out.println(counter);
         for (Cup cup : cups.values()) {
-            if (i == cup.getHeight()) {
+            if (i *2-1== cup.getHeight()) {
                 Cup rCup = cups.remove(counter);
                 rCup.makeInvisible();
+                System.out.println(i);
                 break;
             }
             counter += 1;
+            System.out.println(cups.values());
+            System.out.println(counter);
         }
     }
 

@@ -22,12 +22,12 @@ public class Rectangle{
     /**
      * Create a new rectangle at default position with default color.
      */
-    public Rectangle(){
-        height = 30;
-        width = 40;
-        xPosition = 70;
-        yPosition = 15;
-        color = "magenta";
+     public Rectangle(int height,int width,String color,int xPos,int yPos){
+        this.height = height;
+        this.width = width;
+        this.xPosition = xPos;
+        this.yPosition = yPos;
+        this.color = color;
         isVisible = false;
     }
     

@@ -35,4 +35,8 @@ public class Cup{
     private void assignColor(){
 
     }
+    
+    public int getHeight(){
+        return height;
+    }
 }
