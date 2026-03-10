@@ -1,4 +1,3 @@
-import java.awt.*;
 
 /**
  * A rectangle that can be manipulated and that draws itself on a canvas.
@@ -23,12 +22,12 @@ public class Rectangle{
     /**
      * Create a new rectangle at default position with default color.
      */
-    public Rectangle(int height,int width,String color,int xPos,int yPos){
-        this.height = height;
-        this.width = width;
-        this.xPosition = xPos;
-        this.yPosition = yPos;
-        this.color = color;
+    public Rectangle(){
+        height = 30;
+        width = 40;
+        xPosition = 70;
+        yPosition = 15;
+        color = "magenta";
         isVisible = false;
     }
     
@@ -167,8 +166,7 @@ public class Rectangle{
         if(isVisible) {
             Canvas canvas = Canvas.getCanvas();
             canvas.draw(this, color,
-                new java.awt.Rectangle(xPosition, yPosition, 
-                                       width, height));
+                new java.awt.Rectangle(xPosition, yPosition, width, height));
             canvas.wait(10);
         }
     }
