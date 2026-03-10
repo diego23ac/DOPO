@@ -7,21 +7,22 @@ public class Cup {
     private Lid lid;
     private boolean isVisible;
 
-    public Cup(int value,int tHeight) {
+    public Cup(int value,int tHeight,int tWidth) {
         this.height = 2*value -1;
         this.assignColor();
         this.cupRectangle = new Rectangle[3];
-        this.createCup(tHeight);
+        this.createCup(tHeight,tWidth);
     }
 
-    private void createCup(int tHeight) {
-        Rectangle base = new Rectangle(5,this.height*15,"blue",30,295);
+    private void createCup(int tHeight,int tWidth) {
+        int mid= (tWidth*15/2)-this.height*15/2;
+        Rectangle base = new Rectangle(20,this.height*15,"blue",30+mid,280);
         base.makeVisible();
         cupRectangle[0] = base;
-        Rectangle ladoA = new Rectangle(this.height*15,5,"blue",30,300-this.height*15);
+        Rectangle ladoA = new Rectangle(this.height*15,20,"blue",30+mid,300-this.height*15);
         ladoA.makeVisible();
         cupRectangle[1] = ladoA;
-        Rectangle ladoB = new Rectangle(this.height*15,5,"blue",30+this.height*15,300-this.height*15);
+        Rectangle ladoB = new Rectangle(this.height*15,20,"blue",mid+30+this.height*15,300-this.height*15);
         ladoB.makeVisible();
         cupRectangle[2] = ladoB;
     }

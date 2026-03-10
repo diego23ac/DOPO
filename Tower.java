@@ -17,6 +17,7 @@ public class Tower{
         this.isVisible = false;
         this.isOk = true;
         this.createTower();
+        
     }
     
     private void createTower(){
@@ -33,7 +34,8 @@ public class Tower{
     }
     
     public void pushCup(int i){ //validar
-       Cup cup = new Cup(i, this.height);
+       Cup cup = new Cup(i, this.height,this.width);
+       
        cups.put(cups.size(), cup);
     }
     
@@ -55,7 +57,7 @@ public class Tower{
     }
 
     public void pushLid(int i){ //validar
-       Lid lid = new Lid(i, this.height);
+       Lid lid = new Lid(i, this.height,this.width);
        lids.put(lids.size(), lid);
     }
 
