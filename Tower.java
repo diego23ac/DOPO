@@ -21,11 +21,10 @@ public class Tower{
     
     private void createTower(){
         ArrayList<Rectangle> frames;
-        for(int i = 0;i < this.height;i++){
+        for(int i = 0; i < this.height; i++){
             Rectangle rectangle = new Rectangle(5,20,"black",0,300-this.height-i*15);
             rectangle.makeVisible();
         }
-
     }
     
     /**
@@ -37,9 +36,8 @@ public class Tower{
     }
     
     public void pushCup(int i){
-       Cup cup = new Cup(i,this.height);
-       cups.put(i,cup);
-       
+       Cup cup = new Cup(i, this.height);
+       cups.put(cups.size(), cup);
     }
     
     public void removeCup(int i){
