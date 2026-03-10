@@ -27,21 +27,30 @@ public class Tower{
         }
     }
     
-    /**
-     * Make this rectangle visible. If it was already visible, do nothing.
-     */
     public void makeVisible(){
         isVisible = true;
         frame.makeVisible();
     }
     
-    public void pushCup(int i){
+    public void pushCup(int i){ //validar
        Cup cup = new Cup(i, this.height);
        cups.put(cups.size(), cup);
     }
     
     public void removeCup(int i){
-        Cup rCup = cups.remove(i);
+        int counter = 0;
+        for (Cup cup : cups.values()) {
+            if (i == cup.getHeight()) {
+                Cup rCup = cups.remove(counter);
+                rCup.makeInvisible();
+                break;
+            }
+            counter += 1;
+        }
+    }
+
+    public void popCup() {
+        Cup rCup = cups.remove(cups.size() - 1);
         rCup.makeInvisible();
     }
 

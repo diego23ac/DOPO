@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Lid{
+public class Lid {
     private static final int HEIGHT = 1;
     private int width;
     private String color;
