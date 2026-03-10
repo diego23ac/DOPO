@@ -1,20 +1,20 @@
 import java.util.*;
 
-public class Cup{
+public class Cup {
     private int height;
     private String color;
     private Rectangle cupRectangle[];
     private Lid lid;
     private boolean isVisible;
 
-    public Cup(int value,int tHeight){
+    public Cup(int value,int tHeight) {
         this.height = 2*value -1;
         this.assignColor();
         this.cupRectangle = new Rectangle[3];
         this.createCup(tHeight);
     }
 
-    private void createCup(int tHeight){
+    private void createCup(int tHeight) {
         Rectangle base = new Rectangle(5,this.height*15,"blue",30,295);
         base.makeVisible();
         cupRectangle[0] = base;
@@ -26,17 +26,17 @@ public class Cup{
         cupRectangle[2] = ladoB;
     }
 
-    public void makeInvisible(){
-        for(int i = 0;i<3;i++){
+    public void makeInvisible() {
+        for(int i = 0; i<3;i++){
             cupRectangle[i].makeInvisible();
         }
     }
 
-    private void assignColor(){
+    private void assignColor() {
 
     }
     
-    public int getHeight(){
+    public int getHeight() {
         return height;
     }
 }

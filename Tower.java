@@ -37,25 +37,43 @@ public class Tower{
        cups.put(cups.size(), cup);
     }
     
+    public void popCup() {
+        Cup rCup = cups.remove(cups.size() - 1);
+        rCup.makeInvisible();
+    }
+
     public void removeCup(int i){
         int counter = 0;
-        System.out.println(counter);
         for (Cup cup : cups.values()) {
             if (i *2-1== cup.getHeight()) {
                 Cup rCup = cups.remove(counter);
                 rCup.makeInvisible();
-                System.out.println(i);
                 break;
             }
             counter += 1;
-            System.out.println(cups.values());
-            System.out.println(counter);
         }
     }
 
-    public void popCup() {
-        Cup rCup = cups.remove(cups.size() - 1);
-        rCup.makeInvisible();
+    public void pushLid(int i){ //validar
+       Lid lid = new Lid(i, this.height);
+       lids.put(lids.size(), lid);
+    }
+
+    public void popLid() {
+        Lid rLid = lids.remove(lids.size() - 1);
+        rLid.makeInvisible();
+    }
+
+    public void removeLid(int i){
+        int counter = 0;
+        for (Lid lid : lids.values()) {
+            if (i *2-1 == lid.getWidth()) {
+                Lid rLid = lids.remove(counter);
+                rLid.makeInvisible();
+                break;
+            }
+            counter += 1;
+        }
     }
 
     public int height(){
