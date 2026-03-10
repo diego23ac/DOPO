@@ -11,8 +11,7 @@ public class Lid {
     public Lid(int value, int tHeight) {
         this.width = 2*value - 1;
         //this.assignColor();
-        this.cupRectangle = new Rectangle();
-        rectangle = new Rectangle(5 * HEIGHT, this.height * 15, "red", 30, 295);
+        this.rectangle = new Rectangle(5 * HEIGHT, this.width * 15, "red", 30, 295);
         rectangle.makeVisible();
     }
 
