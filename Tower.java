@@ -29,7 +29,7 @@ public class Tower{
         this.cupsValues = new ArrayList<Integer>();
         this.lidsValues = new ArrayList<Integer>();
         this.isVisible = false;
-        this.isOk = true;
+        this.isOk = false;
         this.createTower();
     }
     
@@ -40,16 +40,17 @@ public class Tower{
      * de inserción supera la altura máxima permitida. Si se puede insertar, crea una copa, la ingresa 
      * en el HashMap de copas y aumenta la altura de la torre 2*i - 1.
      * 
-     * @param maxHeight La altura maxima de la torre
-     * @param width El ancho de la torre
+     * @param i El número de la taza
      */
     
     public void pushCup(int i){
+        this.isOk = false;
         if (!cupsValues.contains(i) && this.height + 2*i - 1 <= this.maxHeight) {
             cupsValues.add(i);
             Cup cup = new Cup(i,this.maxHeight,this.width,this.height);
             cups.put(cups.size(), cup);   
             height += (cup.getHeight());
+            this.isOk = true;
         } else if (cupsValues.contains(i)){
             JOptionPane.showMessageDialog(null, 
             "La copa ya está en la torre",
@@ -71,6 +72,7 @@ public class Tower{
     }
 
     public void removeCup(int i){
+        this.isOk = false;
         if (cupsValues.contains(i)) {
             cupsValues.remove(Integer.valueOf(i));
             int counter = 0;
@@ -82,15 +84,37 @@ public class Tower{
                 }
                 counter += 1;
             }
+            this.isOk = true;
+        } else {
+            JOptionPane.showMessageDialog(null, 
+            "La copa no existe en la torre",
+            "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
+    
+    /**
+     * Inserta la tapa identificada con el número i en la torre.
+     * 
+     * Este método valida si la tapa ya está en la torre (para evitar duplicados) y si la operación 
+     * de inserción supera la altura máxima permitida. Si se puede insertar, crea una tapa, la ingresa 
+     * en el HashMap de tapas y aumenta la altura de la torre en 1.
+     * 
+     * @param i El número de la tapa
+     */
+    
     public void pushLid(int i){
+        this.isOk = false;
         if (!lidsValues.contains(i) && this.height + 1 <= this.maxHeight) {
             lidsValues.add(i);
-            Lid lid = new Lid(i, this.height,this.width);
+            Lid lid = new Lid(i,this.height,this.width);
             lids.put(lids.size(), lid);
             height++;
+            this.isOk = true;
+        } else if (lidsValues.contains(i)){
+            JOptionPane.showMessageDialog(null, 
+            "La tapa ya está en la torre",
+            "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -160,6 +184,24 @@ public class Tower{
         for(Rectangle rectangle: frame){
             rectangle.makeVisible();
         }
+    }
+    
+    public void exit(){
+        for(Cup cup : this.cups.values()){
+            cup.makeInvisible();
+        }
+
+        for(Lid lid : this.lids.values()){
+            lid.makeInvisible();
+        }
+        
+        for(Rectangle rectangle : this.frame){
+            rectangle.makeInvisible();
+        }
+    }
+    
+    public boolean ok(){
+        return this.isOk;
     }
     
     private void createTower(){
