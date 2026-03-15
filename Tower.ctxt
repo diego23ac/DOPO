@@ -2,7 +2,9 @@
 comment0.target=Tower
 comment1.params=maxHeight\ width
 comment1.target=Tower(int,\ int)
+comment1.text=\r\n\ Constructor\ de\ la\ clase\ Tower\r\n\ @param\ maxHeight\ La\ altura\ maxima\ de\ la\ torre\r\n\ @param\ width\ El\ ancho\ de\ la\ torre\r\n
 comment10.params=
+<<<<<<< HEAD
 comment10.target=int[]\ lidedCups()
 comment11.params=
 comment11.target=java.lang.String[][]\ stackingItems()
@@ -14,18 +16,40 @@ comment14.params=
 comment14.target=int\ height()
 comment2.params=
 comment2.target=void\ createTower()
+=======
+comment10.target=int\ height()
+comment11.params=
+comment11.target=void\ makeVisible()
+comment12.params=
+comment12.target=void\ exit()
+comment13.params=
+comment13.target=boolean\ ok()
+comment14.params=
+comment14.target=void\ createTower()
+comment2.params=i
+comment2.target=void\ pushCup(int)
+comment2.text=\r\n\ Inserta\ la\ copa\ identificada\ con\ el\ n\u00FAmero\ i\ en\ la\ torre.\r\n\ \r\n\ Este\ m\u00E9todo\ valida\ si\ la\ copa\ ya\ est\u00E1\ en\ la\ torre\ (para\ evitar\ duplicados)\ y\ si\ la\ operaci\u00F3n\ \r\n\ de\ inserci\u00F3n\ supera\ la\ altura\ m\u00E1xima\ permitida.\ Si\ se\ puede\ insertar,\ crea\ una\ copa,\ la\ ingresa\ \r\n\ en\ el\ HashMap\ de\ copas\ y\ aumenta\ la\ altura\ de\ la\ torre\ 2*i\ -\ 1.\r\n\ \r\n\ @param\ i\ El\ n\u00FAmero\ de\ la\ taza\r\n
+>>>>>>> 1280a5a83afb1a8a81a90bc403fafb4bee47440c
 comment3.params=
-comment3.target=void\ makeVisible()
+comment3.target=void\ popCup()
+comment3.text=\r\n\ Quita\ de\ la\ torre\ la\ \u00FAltima\ copa\ insertada.\r\n\ \r\n
 comment4.params=i
-comment4.target=void\ pushCup(int)
-comment5.params=
-comment5.target=void\ popCup()
-comment6.params=i
-comment6.target=void\ removeCup(int)
+comment4.target=void\ removeCup(int)
+comment5.params=i
+comment5.target=void\ pushLid(int)
+comment5.text=\r\n\ Inserta\ la\ tapa\ identificada\ con\ el\ n\u00FAmero\ i\ en\ la\ torre.\r\n\ \r\n\ Este\ m\u00E9todo\ valida\ si\ la\ tapa\ ya\ est\u00E1\ en\ la\ torre\ (para\ evitar\ duplicados)\ y\ si\ la\ operaci\u00F3n\ \r\n\ de\ inserci\u00F3n\ supera\ la\ altura\ m\u00E1xima\ permitida.\ Si\ se\ puede\ insertar,\ crea\ una\ tapa,\ la\ ingresa\ \r\n\ en\ el\ HashMap\ de\ tapas\ y\ aumenta\ la\ altura\ de\ la\ torre\ en\ 1.\r\n\ \r\n\ @param\ i\ El\ n\u00FAmero\ de\ la\ tapa\r\n
+comment6.params=
+comment6.target=void\ popLid()
 comment7.params=i
-comment7.target=void\ pushLid(int)
+comment7.target=void\ removeLid(int)
 comment8.params=
+<<<<<<< HEAD
 comment8.target=void\ popLid()
 comment9.params=i
 comment9.target=void\ removeLid(int)
+=======
+comment8.target=void\ orderTower()
+comment9.params=
+comment9.target=void\ reverseTower()
+>>>>>>> 1280a5a83afb1a8a81a90bc403fafb4bee47440c
 numComments=15
