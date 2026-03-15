@@ -72,8 +72,8 @@ public class Rectangle{
     /**
      * Move the rectangle a few pixels down.
      */
-    public void moveDown(){
-        moveVertical(20);
+    public void moveDown(int value){
+        moveVertical(20 * value);
     }
 
     /**

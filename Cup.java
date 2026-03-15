@@ -2,6 +2,7 @@
 public class Cup {
     private int height;
     private String color;
+    private int yBasePosition;
     private Rectangle cupRectangle[];
     private Lid lid;
     private boolean isVisible;
@@ -13,7 +14,7 @@ public class Cup {
         this.createCup(towerMaxHeight,towerWidth, towerHeight);
     }
 
-    private void createCup(int towerMaxHeight,int towerWidth, int towerHeight) {
+    private void createCup(int towerMaxHeight, int towerWidth, int towerHeight) {
         int middle = (towerWidth*20 - this.height*20)/2;
         if (this.height > 1) {
             Rectangle base = new Rectangle(20,this.height*20,color,30 + middle,280 - towerHeight*20);
@@ -27,21 +28,32 @@ public class Cup {
             cupRectangle[0] = base;
         }
         this.makeVisible();
+        this.yBasePosition = 280 - towerHeight*20;
     }
 
     public void makeVisible(){
         isVisible = true;
         for(int i = 0; i < 3; i++){
             if (cupRectangle[i] != null) {
-            cupRectangle[i].makeVisible();
+                cupRectangle[i].makeVisible();
             }
         }
+    }
+    
+    public void moveDown(int value){
+        for(int i = 0; i < 3; i++){
+            if (cupRectangle[i] != null) {
+                cupRectangle[i].moveDown(value);
+            }
+        }
+        this.yBasePosition += value * 20;
+        System.out.println("Cup" + (this.height +1)/2 +this.yBasePosition);
     }
     
     public void makeInvisible() {
         for(int i = 0; i < 3; i++) {
             if (cupRectangle[i] != null) {
-            cupRectangle[i].makeInvisible();
+                cupRectangle[i].makeInvisible();
             }
         }
     }
@@ -53,6 +65,10 @@ public class Cup {
     }
     
     public int getHeight() {
-        return height;
+        return this.height;
+    }
+    
+    public int getBasePosition() {
+        return this.yBasePosition;
     }
 }
