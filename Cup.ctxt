@@ -1,9 +1,9 @@
 #BlueJ class context
 comment0.target=Cup
-comment1.params=value\ tHeight\ tWidth
-comment1.target=Cup(int,\ int,\ int)
-comment2.params=tHeight\ tWidth
-comment2.target=void\ createCup(int,\ int)
+comment1.params=value\ tMaxHeight\ tWidth\ tHeight
+comment1.target=Cup(int,\ int,\ int,\ int)
+comment2.params=tMaxHeight\ tWidth\ tHeight
+comment2.target=void\ createCup(int,\ int,\ int)
 comment3.params=
 comment3.target=void\ makeInvisible()
 comment4.params=

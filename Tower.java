@@ -2,15 +2,17 @@ import java.util.*;
 
 public class Tower{
     private int height; //altura
+    private int maxHeight;
     private int width; //ancho
     private HashMap<Integer,Cup> cups;
     private HashMap<Integer,Lid> lids;
     private boolean isVisible;
     private boolean isOk;
-    private Rectangle frame;
+    private ArrayList<Rectangle> frame;
     
     public Tower(int maxHeight,int width){
-        this.height = maxHeight;
+        this.height = 0;
+        this.maxHeight = maxHeight;
         this.width = width;
         this.cups = new HashMap<Integer,Cup>();
         this.lids = new HashMap<Integer,Lid>();
@@ -21,27 +23,34 @@ public class Tower{
     }
     
     private void createTower(){
-        ArrayList<Rectangle> frames;
-        for(int i = 0; i < this.height; i++){
-            Rectangle rectangle = new Rectangle(5,20,"black",0,300-this.height-i*15);
-            rectangle.makeVisible();
+        frame = new ArrayList<Rectangle>();
+        for(int i = 0; i < this.maxHeight; i++){
+            Rectangle rectangle = new Rectangle(5,20,"black",0,300-this.maxHeight-i*20);
+            this.frame.add(rectangle);
         }
+        Rectangle yAxis = new Rectangle(this.maxHeight*20,2,"black",25,300-this.maxHeight*20);
+        this.frame.add(yAxis);
+        Rectangle xAxis = new Rectangle(2,this.width*20,"black",0,300);
+        this.frame.add(xAxis);
     }
     
     public void makeVisible(){
         isVisible = true;
-        frame.makeVisible();
+        for(Rectangle rectangle: frame){
+            rectangle.makeVisible();
+        }
     }
     
     public void pushCup(int i){ //validar
-       Cup cup = new Cup(i, this.height,this.width);
-       
-       cups.put(cups.size(), cup);
+        Cup cup = new Cup(i, this.maxHeight,this.width, this.height);
+        cups.put(cups.size(), cup);   
+        height += (cup.getHeight());
     }
     
     public void popCup() {
         Cup rCup = cups.remove(cups.size() - 1);
         rCup.makeInvisible();
+        height -= (rCup.getHeight());
     }
 
     public void removeCup(int i){
@@ -57,13 +66,15 @@ public class Tower{
     }
 
     public void pushLid(int i){ //validar
-       Lid lid = new Lid(i, this.height,this.width);
+       Lid lid = new Lid(i, this.maxHeight,this.width);
        lids.put(lids.size(), lid);
+       height++;
     }
 
     public void popLid() {
         Lid rLid = lids.remove(lids.size() - 1);
         rLid.makeInvisible();
+        height--;
     }
 
     public void removeLid(int i){
