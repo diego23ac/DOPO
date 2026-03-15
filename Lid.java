@@ -8,19 +8,29 @@ public class Lid {
     private Cup cup;
     private boolean isVisible;
     
-    public Lid(int value, int tHeight, int tWidth) {
+    public Lid(int value, int towerHeight, int towerWidth) {
         this.width = 2*value - 1;
-        int mid= (tWidth*15/2)-this.width*15/2;
-        //this.assignColor();
-        this.rectangle = new Rectangle(20 * HEIGHT, this.width * 15, "red", 30+mid, 280);
+        this.assignColor(value);
+        int middle = (20*towerWidth - 20*this.width)/2;
+        this.rectangle = new Rectangle(20 * HEIGHT, this.width * 20, color, 30 + middle, 280 - towerHeight*20);
         rectangle.makeVisible();
     }
 
-    public int getWidth(){
+    public int getowerWidth() {
         return width;
     }
 
     public void makeInvisible() {
         this.rectangle.makeInvisible();
+    }
+    
+    private void assignColor(int value) {
+        String[] colors = {"black","red","blue","green","yellow","magenta"};
+        String color = colors[value - 1 % 6];
+        this.color = color;
+    }
+    
+    public int getWidth() {
+        return width;
     }
 }

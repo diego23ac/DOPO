@@ -66,7 +66,7 @@ public class Tower{
     }
 
     public void pushLid(int i){ //validar
-       Lid lid = new Lid(i, this.maxHeight,this.width);
+       Lid lid = new Lid(i, this.height,this.width);
        lids.put(lids.size(), lid);
        height++;
     }
