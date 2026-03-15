@@ -1,9 +1,11 @@
 #BlueJ class context
 comment0.target=Lid
-comment1.params=value\ tHeight\ tWidth
+comment1.params=value\ towerHeight\ towerWidth
 comment1.target=Lid(int,\ int,\ int)
 comment2.params=
 comment2.target=int\ getWidth()
 comment3.params=
 comment3.target=void\ makeInvisible()
-numComments=4
+comment4.params=value
+comment4.target=void\ assignColor(int)
+numComments=5
