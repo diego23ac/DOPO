@@ -16,7 +16,7 @@ public class Lid {
         rectangle.makeVisible();
     }
 
-    public int getowerWidth() {
+    public int getWidth() {
         return width;
     }
 
@@ -25,12 +25,8 @@ public class Lid {
     }
     
     private void assignColor(int value) {
-        String[] colors = {"black","red","blue","green","yellow","magenta"};
-        String color = colors[value - 1 % 6];
+        String[] colors = {"blue","green","red","yellow","magenta","black"};
+        String color = colors[value - 1 % 5];
         this.color = color;
-    }
-    
-    public int getWidth() {
-        return width;
     }
 }
