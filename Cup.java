@@ -13,7 +13,43 @@ public class Cup {
         this.createCup(towerMaxHeight,towerWidth, towerHeight);
         if (isVisible) { makeVisible(); }
     }
+    
+    public void moveDown(int value){
+        for(int i = 0; i < 3; i++){
+            if (cupRectangle[i] != null) {
+                cupRectangle[i].moveDown(value);
+            }
+        }
+        yBasePosition += value * 20;
+    }
 
+    public void makeVisible(){
+        isVisible = true;
+        for(int i = 0; i < 3; i++){
+            if (cupRectangle[i] != null) {
+                cupRectangle[i].makeVisible();
+            }
+        }
+    }
+    
+    public void makeInvisible() {
+        for(int i = 0; i < 3; i++) {
+            if (cupRectangle[i] != null) {
+                cupRectangle[i].makeInvisible();
+            }
+        }
+    }
+
+    public int getHeight() { return height; }
+    
+    public int getBasePosition() { return yBasePosition; }
+    
+    private void assignColor(int value) {
+        String[] colors = {"blue","green","red","yellow","magenta","black"};
+        String color = colors[(value - 1) % 5];
+        this.color = color;
+    }
+    
     private void createCup(int towerMaxHeight, int towerWidth, int towerHeight) {
         int middle = (towerWidth*20 - height*20)/2;
         if (height > 1) {
@@ -29,40 +65,4 @@ public class Cup {
         }
         yBasePosition = 280 - towerHeight*20;
     }
-
-    public void makeVisible(){
-        isVisible = true;
-        for(int i = 0; i < 3; i++){
-            if (cupRectangle[i] != null) {
-                cupRectangle[i].makeVisible();
-            }
-        }
-    }
-    
-    public void moveDown(int value){
-        for(int i = 0; i < 3; i++){
-            if (cupRectangle[i] != null) {
-                cupRectangle[i].moveDown(value);
-            }
-        }
-        yBasePosition += value * 20;
-    }
-    
-    public void makeInvisible() {
-        for(int i = 0; i < 3; i++) {
-            if (cupRectangle[i] != null) {
-                cupRectangle[i].makeInvisible();
-            }
-        }
-    }
-
-    private void assignColor(int value) {
-        String[] colors = {"blue","green","red","yellow","magenta","black"};
-        String color = colors[(value - 1) % 5];
-        this.color = color;
-    }
-    
-    public int getHeight() { return height; }
-    
-    public int getBasePosition() { return yBasePosition; }
 }

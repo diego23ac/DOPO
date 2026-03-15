@@ -145,7 +145,7 @@ public class Tower{
     public void pushLid(int i) {
         if (!lidsValues.contains(i) && height + 1 <= maxHeight) {
             lidsValues.add(i);
-            Lid lid = new Lid(i, height, width);
+            Lid lid = new Lid(i, height, width, isVisible);
             lids.add(lid);
             height++;
             isOk = true;
