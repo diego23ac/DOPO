@@ -25,12 +25,12 @@ public class Tower{
     private void createTower(){
         frame = new ArrayList<Rectangle>();
         for(int i = 0; i < this.maxHeight; i++){
-            Rectangle rectangle = new Rectangle(5,20,"black",0,300-this.maxHeight-i*20);
+            Rectangle rectangle = new Rectangle(4,20,"black",0,280-i*20);
             this.frame.add(rectangle);
         }
-        Rectangle yAxis = new Rectangle(this.maxHeight*20,2,"black",25,300-this.maxHeight*20);
+        Rectangle yAxis = new Rectangle(this.maxHeight*20,2,"black",25,302-this.maxHeight*20);
         this.frame.add(yAxis);
-        Rectangle xAxis = new Rectangle(2,this.width*20,"black",0,300);
+        Rectangle xAxis = new Rectangle(2,this.width*20,"black",25,300);
         this.frame.add(xAxis);
     }
     

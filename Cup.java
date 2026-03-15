@@ -15,7 +15,7 @@ public class Cup {
     }
 
     private void createCup(int tMaxHeight,int tWidth, int tHeight) {
-        int mid = (tWidth*15/2) - this.height*15/2;
+        int mid = (tWidth*20/2) - this.height*20/2;
         if (this.height > 1) {
             Rectangle base = new Rectangle(20,this.height*20,"blue",30+mid,280-tHeight*20);
             base.makeVisible();
@@ -23,7 +23,7 @@ public class Cup {
             Rectangle ladoA = new Rectangle(this.height*20,20,"blue",30+mid,300-this.height*20-tHeight*20);
             ladoA.makeVisible();
             cupRectangle[1] = ladoA;
-            Rectangle ladoB = new Rectangle(this.height*20,20,"blue",mid+30+this.height*20,300-this.height*20-tHeight*20);
+            Rectangle ladoB = new Rectangle(this.height*20,20,"blue",mid+10+this.height*20,300-this.height*20-tHeight*20);
             ladoB.makeVisible();
             cupRectangle[2] = ladoB;
         } else {
