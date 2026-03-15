@@ -1,4 +1,5 @@
 import java.util.*;
+import javax.swing.JOptionPane;
 
 public class Tower{
     private int height; //altura
@@ -12,7 +13,14 @@ public class Tower{
     private boolean isOk;
     private ArrayList<Rectangle> frame;
     
+    /**
+     * Constructor de la clase Tower
+     * @param maxHeight La altura maxima de la torre
+     * @param width El ancho de la torre
+     */
+    
     public Tower(int maxHeight,int width){
+        //Se inicia con valores predeterminados
         this.height = 0;
         this.maxHeight = maxHeight;
         this.width = width;
@@ -25,16 +33,36 @@ public class Tower{
         this.createTower();
     }
     
+    /**
+     * Inserta la copa identificada con el número i en la torre.
+     * 
+     * Este método valida si la copa ya está en la torre (para evitar duplicados) y si la operación 
+     * de inserción supera la altura máxima permitida. Si se puede insertar, crea una copa, la ingresa 
+     * en el HashMap de copas y aumenta la altura de la torre 2*i - 1.
+     * 
+     * @param maxHeight La altura maxima de la torre
+     * @param width El ancho de la torre
+     */
+    
     public void pushCup(int i){
-        if (!cupsValues.contains(i)) {
+        if (!cupsValues.contains(i) && this.height + 2*i - 1 <= this.maxHeight) {
             cupsValues.add(i);
-            Cup cup = new Cup(i, this.maxHeight,this.width, this.height);
+            Cup cup = new Cup(i,this.maxHeight,this.width,this.height);
             cups.put(cups.size(), cup);   
             height += (cup.getHeight());
+        } else if (cupsValues.contains(i)){
+            JOptionPane.showMessageDialog(null, 
+            "La copa ya está en la torre",
+            "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
-    public void popCup() {
+    /**
+     * Quita de la torre la última copa insertada.
+     * 
+     */
+    
+    public void popCup() { //Falta validar en caso de que no hayan copas
         Cup rCup = cups.remove(cups.size() - 1);
         int cupValue = (rCup.getHeight() + 1)/2;
         cupsValues.remove(Integer.valueOf(cupValue));
@@ -43,40 +71,49 @@ public class Tower{
     }
 
     public void removeCup(int i){
-        int counter = 0;
-        for (Cup cup : cups.values()) {
-            if (i*2 - 1 == cup.getHeight()) {
-                Cup rCup = cups.remove(counter);
-                rCup.makeInvisible();
-                break;
+        if (cupsValues.contains(i)) {
+            cupsValues.remove(Integer.valueOf(i));
+            int counter = 0;
+            for (Cup cup : cups.values()) {
+                if (i*2 - 1 == cup.getHeight()) {
+                    Cup rCup = cups.remove(counter);
+                    rCup.makeInvisible();
+                    break;
+                }
+                counter += 1;
             }
-            counter += 1;
         }
     }
 
     public void pushLid(int i){
-        if (!lids.containsKey(i)) {
-           Lid lid = new Lid(i, this.height,this.width);
-           lids.put(lids.size(), lid);
-           height++;
+        if (!lidsValues.contains(i) && this.height + 1 <= this.maxHeight) {
+            lidsValues.add(i);
+            Lid lid = new Lid(i, this.height,this.width);
+            lids.put(lids.size(), lid);
+            height++;
         }
     }
 
     public void popLid() {
         Lid rLid = lids.remove(lids.size() - 1);
+        int lidValue = (rLid.getWidth() + 1)/2;
+        lidsValues.remove(Integer.valueOf(lidValue));
         rLid.makeInvisible();
         height--;
     }
 
     public void removeLid(int i){
-        int counter = 0;
-        for (Lid lid : lids.values()) {
-            if (i *2-1 == lid.getWidth()) {
-                Lid rLid = lids.remove(counter);
-                rLid.makeInvisible();
-                break;
+        if (cupsValues.contains(i)) {
+            cupsValues.remove(Integer.valueOf(i));
+            int counter = 0;
+            for (Lid lid : lids.values()) {
+                if (i *2-1 == lid.getWidth()) {
+                    Lid rLid = lids.remove(counter);
+                    rLid.makeInvisible();
+                    break;
+                }
+                counter += 1;
             }
-            counter += 1;
         }
     }
     
@@ -86,7 +123,7 @@ public class Tower{
             int cupValue = (cup.getHeight() + 1)/2;
             orderedValues.add(cupValue);
         }
-        Collections.sort(orderedValues);
+        Collections.sort(orderedValues, Collections.reverseOrder());
         int cupsNumber = this.cups.size();
         for(int i = 0; i < cupsNumber; i++) {
             this.popCup();
@@ -103,7 +140,7 @@ public class Tower{
             int cupValue = (cup.getHeight() + 1)/2;
             reverseOrderedValues.add(cupValue);
         }
-        Collections.sort(reverseOrderedValues, Collections.reverseOrder());
+        Collections.sort(reverseOrderedValues);
         int cupsNumber = this.cups.size();
         for(int i = 0; i < cupsNumber; i++) {
             this.popCup();
