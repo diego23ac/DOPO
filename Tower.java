@@ -75,9 +75,16 @@ public class Tower{
         if (cups.size() > 0) {
             Cup rCup = cups.remove(cups.size() - 1);
             int cupValue = (rCup.getHeight() + 1)/2;
+            int cupPosition = 0;
             cupsValues.remove(Integer.valueOf(cupValue));
             rCup.makeInvisible();
-            height -= (rCup.getHeight());
+            cupPosition = rCup.getBasePosition();
+             for (Lid lid : lids) {
+                if (lid.getBasePosition() < cupPosition) {
+                    lid.moveDown(rCup.getHeight());
+                }
+            }
+            this.height -= rCup.getHeight();
             this.isOk = true;
         } else {
             JOptionPane.showMessageDialog(null, "No es posible hacer popCup porque no hay copas en la torre.",
@@ -137,7 +144,7 @@ public class Tower{
         if (!lidsValues.contains(i) && this.height + 1 <= this.maxHeight) {
             lidsValues.add(i);
             Lid lid = new Lid(i,this.height,this.width);
-            lids.add(lids.size(), lid);
+            lids.add(lid);
             height++;
             this.isOk = true;
         } else if (lidsValues.contains(i)){
@@ -151,7 +158,7 @@ public class Tower{
     /**
      * Quita de la torre la última copa insertada.
      * 
-     * Este método valida si hay tapas en la torre, remueve del HashMap y del ArrayList y disminuye en 1 la
+     * Este método valida si hay tapas en la torre, remueve del ArrayList y disminuye en 1 la
      * altura de la torre.
      */
     
@@ -159,9 +166,16 @@ public class Tower{
         if (lids.size() > 0) {
             Lid rLid = lids.remove(lids.size() - 1);
             int lidValue = (rLid.getWidth() + 1)/2;
+            int lidPosition = 0;
             lidsValues.remove(Integer.valueOf(lidValue));
             rLid.makeInvisible();
-            height--;
+            lidPosition = rLid.getBasePosition();
+            for (Cup cup : cups) {
+                if (cup.getBasePosition() < lidPosition) {
+                    cup.moveDown(1);
+                }
+            }
+            this.height--;
         } else {
             JOptionPane.showMessageDialog(null, "No es posible hacer popLid porque no hay tapas en la torre.",
             "Error", JOptionPane.ERROR_MESSAGE);
