@@ -302,7 +302,6 @@ public class Tower{
             }
         }
     
-        Collections.sort(result);
     
         int[] out = new int[result.size()];
         for (int i = 0; i < result.size(); i++) {

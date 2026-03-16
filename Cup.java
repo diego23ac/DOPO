@@ -1,4 +1,5 @@
 public class Cup {
+    private int value;
     private int height;
     private String color;
     private int yBasePosition;
@@ -7,6 +8,7 @@ public class Cup {
     private boolean isVisible;
 
     public Cup(int value,int towerMaxHeight,int towerWidth,int towerHeight,boolean isVisible) {
+        this.value = value;
         this.height = 2*value -1;
         this.assignColor(value);
         this.cupRectangle = new Rectangle[3];
@@ -43,6 +45,8 @@ public class Cup {
     public int getHeight() { return height; }
     
     public int getBasePosition() { return yBasePosition; }
+    
+    public int getValue() { return value; }
     
     private void assignColor(int value) {
         String[] colors = {"blue","green","red","yellow","magenta","black"};

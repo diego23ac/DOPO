@@ -2,6 +2,7 @@ import java.util.*;
 
 public class Lid {
     private static final int HEIGHT = 1;
+    private int value;
     private int width;
     private String color;
     private int yBasePosition;
@@ -30,6 +31,8 @@ public class Lid {
     public int getWidth(){ return width; }
     
     public int getBasePosition() {return yBasePosition; }
+    
+    public int getValue() { return value; }
     
     private void assignColor(int value) {
         String[] colors = {"blue","green","red","yellow","magenta","black"};
