@@ -14,7 +14,7 @@ public class Tower{
     private ArrayList<Rectangle> frame;
     
     /**
-     * Constructor de la clase Tower
+     * Constructor 1 de la clase Tower
      * 
      * @param maxHeight La altura maxima de la torre
      * @param width El ancho de la torre
@@ -31,6 +31,18 @@ public class Tower{
         this.isVisible = false;
         this.isOk = false;
         this.createTower();
+    }
+    
+    /**
+     * Constructor 2 de la clase Tower
+     * Crea una torre con el número de copas deseadas desde 1 a cups.
+     * 
+     * @param cups Cantidad de copas
+     */
+    
+    public Tower(int cups) {
+        this(calculateMaxHeight(cups), calculateMaxHeight(cups));
+        for (int i = 1; i <= cups; i++) { pushCup(i);}
     }
     
     /**
@@ -72,7 +84,7 @@ public class Tower{
         int cupPosition = 0;
         if (cups.size() > 0) {
             Cup rCup = cups.remove(cups.size() - 1);
-            int cupValue = (rCup.getHeight() + 1)/2;
+            int cupValue = rCup.getValue();
             cupsValues.remove(Integer.valueOf(cupValue));
             cupPosition = rCup.getBasePosition();
             for (Lid lid : lids) {
@@ -165,7 +177,7 @@ public class Tower{
         int lidPosition = 0;
         if (lids.size() > 0) {
             Lid rLid = lids.remove(lids.size() - 1);
-            int lidValue = (rLid.getWidth() + 1)/2;
+            int lidValue =  rLid.getValue();
             lidsValues.remove(Integer.valueOf(lidValue));
             lidPosition = rLid.getBasePosition();
             for (Cup cup : cups) {
@@ -236,7 +248,7 @@ public class Tower{
     public void orderTower() {
         ArrayList<Integer> orderedValues = new ArrayList<Integer>();
         for (Cup cup : cups) {
-            int cupValue = (cup.getHeight() + 1)/2;
+            int cupValue = cup.getValue();
             orderedValues.add(cupValue);
         }
         Collections.sort(orderedValues, Collections.reverseOrder());
@@ -268,7 +280,7 @@ public class Tower{
     public void reverseTower() {
         ArrayList<Integer> reverseOrderedValues = new ArrayList<Integer>();
         for (Cup cup : cups) {
-            int cupValue = (cup.getHeight() + 1)/2;
+            int cupValue = cup.getValue();
             reverseOrderedValues.add(cupValue);
         }
         Collections.sort(reverseOrderedValues);
@@ -285,41 +297,105 @@ public class Tower{
             }
         }
     }
+    
+    /**
+     * Intercambia la posición de dos objetos de la torre.
+     *
+     * Obtiene los elementos actuales de la torre usando stackingItems, 
+     * identifica las posiciones de los elementos a intercambiar y los intercambia 
+     * en el arreglo. Luego elimina todas las copas y tapas de la torre y vuelve a hacer
+     * push con el nuevo orden del arreglo.
+     *
+     * @param o1 Objeto 1 identificado por su tipo y numero {{tipo:String},{valor:String}}.
+     * @param o2 Objeto 1 identificado por su tipo y numero {{tipo:String},{valor:String}}.
+     */
+    public void swap(String[] o1, String[] o2) {
+        String[][] items = stackingItems();
+        int o1ItemsPosition = -1;
+        int o2ItemsPosition = -1;
+        
+        for (int i = 0; i < items.length; i++) {
+            if (o1[0].equals(items[i][0]) && o1[1].equals(items[i][1])) { o1ItemsPosition = i; }
+            
+            if (o2[0].equals(items[i][0]) && o2[1].equals(items[i][1])) { o2ItemsPosition = i;}
+        }
+        
+        if (o1ItemsPosition != -1 && o2ItemsPosition != -1) {
+            String[] temporal = items[o1ItemsPosition];
+            items[o1ItemsPosition] = items[o2ItemsPosition];
+            items[o2ItemsPosition] = temporal;
+        }
+        
+        while (cups.size() > 0) { popCup(); }
+        
+        while (lids.size() > 0) { popLid(); }
 
+        for (int i = 0; i < items.length; i++) {
+            if ("cup".equals(items[i][0])) { 
+                pushCup(Integer.parseInt(items[i][1]));
+            } else if ("lid".equals(items[i][0])) {
+                pushLid(Integer.parseInt(items[i][1]));
+            }
+        }        
+    }
+
+    /**
+     * @return height Altura de la torre
+     */
+    
     public int height() { return height; }
     
+    /**
+     * Retorna los numeros de las copas que tienen una tapa del mismo numero en la torre.
+     *
+     * Recorre las copas de la torre, obtiene su valor y verifica si existe una tapa con el mismo 
+     * número en la torre. Si existe, agrega el número de la copa a una lista temporal.
+     * Ordena los valores de menor a mayor y convierte la lista a un arreglo de enteros y lo retorna.
+     *
+     * @return items Arreglo con los números de las copas que tienen tapa.
+     */
+    
     public int[] lidedCups() {
-        ArrayList<Integer> result = new ArrayList<Integer>();
-    
+        ArrayList<Integer> temporalItems = new ArrayList<Integer>();
         for (Cup cup : cups) {
-            int cupH = cup.getHeight();
-            int value = (cupH + 1) / 2;
-    
-            if (existsLidWithWidth(cupH)) {
-                if (!result.contains(value)) {
-                    result.add(value);
-                }
+            int value = cup.getValue();
+            if (isLidInTower(value)) {
+                if (!temporalItems.contains(value)) { temporalItems.add(value); }
             }
         }
-    
-    
-        int[] out = new int[result.size()];
-        for (int i = 0; i < result.size(); i++) {
-            out[i] = result.get(i);
-        }
-        return out;
+        Collections.sort(temporalItems);
+        int[] items = new int[temporalItems.size()];
+        for (int i = 0; i < temporalItems.size(); i++) { items[i] = temporalItems.get(i); }
+        return items;
     }
+    
+    
+    /**
+     * Retorna una matriz con los elementos de la torre desde la base hasta la cima.
+     *
+     * Recorre las copas de la torre y las añade en una lista temporal con lo siguiente 
+     * {"cup", valor:String, posición de la base}. Luego recorre las tapas y hace el mismo 
+     * procedimiento, cambiando "cup" por "lid". Se ordena la lista según la posición de la 
+     * base, de modo que queden ordenados desde la base hasta la cima. Y por último se 
+     * construye una matriz de String con el tipo y el valor de cada elemento y se retorna.
+     *
+     * @return items Matriz donde cada fila contiene:
+     * - El tipo de elemento ("cup" o "lid")
+     * - El valor del elemento
+     */
     
     public String[][] stackingItems() {
         ArrayList<Object[]> temporalItems = new ArrayList<>();
         for (Cup cup : cups) {
-            int value = (cup.getHeight() + 1) / 2;
-            temporalItems.add(new Object[]{"cup", "" + value, cup.getBasePosition()});
+            int value = cup.getValue();
+            Object[] item = new Object[]{"cup", "" + value, cup.getBasePosition()};
+            temporalItems.add(item);
         }
     
         for (Lid lid : lids) {
-            int value = (lid.getWidth() + 1) / 2;
-            temporalItems.add(new Object[]{"lid", "" + value, lid.getBasePosition()});
+            int value = lid.getValue();
+            Object[] item = new Object[]{"lid", "" + value, lid.getBasePosition()};
+            temporalItems.add(item);
         }
         
         temporalItems.sort((a,b) -> Integer.compare((int)b[2], (int)a[2]));
@@ -416,27 +492,9 @@ public class Tower{
         frame.add(new Rectangle(2,width*20 + 25,"black",0,300));
     }
     
-    private void sortItemsByNumber(ArrayList<String[]> items) {
-        for (int i = 0; i < items.size(); i++) {
-            int minIndex = i;
-            for (int j = i + 1; j < items.size(); j++) {
-                int numJ = Integer.parseInt(items.get(j)[1]);
-                int numMin = Integer.parseInt(items.get(minIndex)[1]);
-                if (numJ < numMin) {
-                    minIndex = j;
-                }
-            }
-            String[] temp = items.get(i);
-            items.set(i, items.get(minIndex));
-            items.set(minIndex, temp);
-        }
-    }
-    
-    private boolean existsLidWithWidth(int width) {
+    private boolean isLidInTower(int value) {
         for (Lid lid : lids) {
-            if (lid.getWidth() == width) {
-                return true;
-            }
+            if (lid.getValue() == value) { return true; }
         }
         return false;
     }
@@ -454,16 +512,12 @@ public class Tower{
         }
     }
     
-    public Tower(int cups) {
-        this(calculateMaxHeight(cups), calculateMaxHeight(cups));
-        for (int i = 1; i <= cups; i++) { pushCup(i);}
-    }
-    
     private static int calculateMaxHeight(int cups) {
         int maxHeight = 0;
         for (int i = 1; i <= cups; i++) { maxHeight += 2*i - 1; }
         return maxHeight;
     }
+<<<<<<< Updated upstream
     
     public void swap(String[] o1, String[] o2) {
         String[][] items = stackingItems();
@@ -529,4 +583,6 @@ public class Tower{
     
         isOk = true;
     }
+=======
+>>>>>>> Stashed changes
 }
