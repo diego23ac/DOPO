@@ -517,38 +517,7 @@ public class Tower{
         for (int i = 1; i <= cups; i++) { maxHeight += 2*i - 1; }
         return maxHeight;
     }
-<<<<<<< Updated upstream
-    
-    public void swap(String[] o1, String[] o2) {
-        String[][] items = stackingItems();
-        int o1ItemsPosition = -1;
-        int o2ItemsPosition = -1;
-        
-        for (int i = 0; i < items.length; i++) {
-            if (o1[0].equals(items[i][0]) && o1[1].equals(items[i][1])) { o1ItemsPosition = i; }
-            
-            if (o2[0].equals(items[i][0]) && o2[1].equals(items[i][1])) { o2ItemsPosition = i;}
-        }
-        
-        if (o1ItemsPosition != -1 && o2ItemsPosition != -1) {
-            String[] temporal = items[o1ItemsPosition];
-            items[o1ItemsPosition] = items[o2ItemsPosition];
-            items[o2ItemsPosition] = temporal;
-        }
-        
-        while (cups.size() > 0) { popCup(); }
-        
-        while (lids.size() > 0) { popLid(); }
 
-        for (int i = 0; i < items.length; i++) {
-            if ("cup".equals(items[i][0])) { 
-                pushCup(Integer.parseInt(items[i][1]));
-            } else if ("lid".equals(items[i][0])) {
-                pushLid(Integer.parseInt(items[i][1]));
-            }
-        }        
-    }
-    
     public void cover() {
         boolean moved = true;
     
@@ -583,6 +552,47 @@ public class Tower{
     
         isOk = true;
     }
-=======
->>>>>>> Stashed changes
+
+    public String[][] swapToReduce() {
+        String[][] original = stackingItems();
+    
+        String[][] nuevo = new String[original.length][2];
+        for (int i = 0; i < original.length; i++) {
+            nuevo[i][0] = original[i][0];
+            nuevo[i][1] = original[i][1];
+        }
+    
+        int baseHeight = height();
+    
+        for (int i = 0; i < nuevo.length; i++) {
+            for (int j = i + 1; j < nuevo.length; j++) {
+    
+                String[] o1 = new String[] { nuevo[i][0], nuevo[i][1] };
+                String[] o2 = new String[] { nuevo[j][0], nuevo[j][1] };
+    
+                swap(o1, o2);
+                int newHeight = height();
+    
+                while (cups.size() > 0) { popCup(); }
+                while (lids.size() > 0) { popLid(); }
+    
+                for (int k = 0; k < nuevo.length; k++) {
+                    int v = Integer.parseInt(nuevo[k][1]);
+                    if ("cup".equals(nuevo[k][0])) {
+                        pushCup(v);
+                    } else if ("lid".equals(nuevo[k][0])) {
+                        pushLid(v);
+                    }
+                }
+    
+                if (newHeight < baseHeight) {
+                    isOk = true;
+                    return new String[][] { o1, o2 };
+                }
+            }
+        }
+    
+        isOk = false;
+        return null;
+    }
 }
