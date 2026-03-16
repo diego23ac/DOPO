@@ -495,4 +495,39 @@ public class Tower{
             }
         }        
     }
+    
+    public void cover() {
+        boolean moved = true;
+    
+        while (moved) {
+            moved = false;
+            String[][] items = stackingItems();
+    
+            for (int i = 0; i < items.length; i++) {
+                if ("cup".equals(items[i][0])) {
+                    String v = items[i][1];
+    
+                    int lidIndex = -1;
+                    for (int j = 0; j < items.length; j++) {
+                        if ("lid".equals(items[j][0]) && v.equals(items[j][1])) {
+                            lidIndex = j;
+                            break;
+                        }
+                    }
+    
+                    if (lidIndex != -1 && lidIndex != i + 1) {
+                        if (lidIndex > i + 1) {
+                            swap(new String[]{"lid", v}, items[lidIndex - 1]);
+                        } else if (lidIndex + 1 < items.length) {
+                            swap(new String[]{"lid", v}, items[lidIndex + 1]);
+                        }
+                        moved = true;
+                        break;
+                    }
+                }
+            }
+        }
+    
+        isOk = true;
+    }
 }
