@@ -312,27 +312,25 @@ public class Tower{
     }
     
     public String[][] stackingItems() {
-        ArrayList<Object[]> items = new ArrayList<>();
-
+        ArrayList<Object[]> temporalItems = new ArrayList<>();
         for (Cup cup : cups) {
             int value = (cup.getHeight() + 1) / 2;
-            items.add(new Object[]{"cup", "" + value, cup.getBasePosition()});
+            temporalItems.add(new Object[]{"cup", "" + value, cup.getBasePosition()});
         }
     
         for (Lid lid : lids) {
             int value = (lid.getWidth() + 1) / 2;
-            items.add(new Object[]{"lid", "" + value, lid.getBasePosition()});
+            temporalItems.add(new Object[]{"lid", "" + value, lid.getBasePosition()});
         }
-    
-        items.sort((a,b) -> Integer.compare((int)b[2], (int)a[2]));
-        String[][] out = new String[items.size()][2];
-    
-        for (int i = 0; i < items.size(); i++) {
-            out[i][0] = (String)items.get(i)[0];
-            out[i][1] = (String)items.get(i)[1];
+        
+        temporalItems.sort((a,b) -> Integer.compare((int)b[2], (int)a[2]));
+        String[][] items = new String[temporalItems.size()][2];
+        
+        for (int i = 0; i < temporalItems.size(); i++) {
+            items[i][0] = (String)temporalItems.get(i)[0];
+            items[i][1] = (String)temporalItems.get(i)[1];
         }
-    
-        return out;
+        return items;
     }
     
     /**
@@ -400,7 +398,6 @@ public class Tower{
         return isOk;
     }
     
-    
     /**
      * Método para crear la interfaz de la torre
      * 
@@ -419,7 +416,6 @@ public class Tower{
         frame.add(new Rectangle(maxHeight*20,2,"black",20,302 - maxHeight*20));
         frame.add(new Rectangle(2,width*20 + 25,"black",0,300));
     }
-    
     
     private void sortItemsByNumber(ArrayList<String[]> items) {
         for (int i = 0; i < items.size(); i++) {
@@ -460,22 +456,14 @@ public class Tower{
     }
     
     public Tower(int cups) {
-        this.maxHeight = 0;
-        for (int i = 1; i < cups + 1; i++) {
-            maxHeight += 2*i - 1;
-        }
-        this.height = 0;
-        this.width = maxHeight;
-        this.cups = new ArrayList<Cup>();
-        this.lids = new ArrayList<Lid>();
-        this.cupsValues = new ArrayList<Integer>();
-        this.lidsValues = new ArrayList<Integer>();
-        this.isVisible = false;
-        this.isOk = false;
-        this.createTower();
-        for (int i = 1; i < cups + 1; i++) {
-            pushCup(i);
-        }
+        this(calculateMaxHeight(cups), calculateMaxHeight(cups));
+        for (int i = 1; i <= cups; i++) { pushCup(i);}
+    }
+    
+    private static int calculateMaxHeight(int cups) {
+        int maxHeight = 0;
+        for (int i = 1; i <= cups; i++) { maxHeight += 2*i - 1; }
+        return maxHeight;
     }
     
     public void swap(String[] o1, String[] o2) {
