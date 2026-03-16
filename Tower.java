@@ -50,7 +50,6 @@ public class Tower{
             Cup cup = new Cup(i, maxHeight, width, height, isVisible);
             cups.add(cup);   
             height += (cup.getHeight());
-            
             isOk = true;
         } else if (cupsValues.contains(i)){
             showJOptionPane("La copa ya está en la torre.");
@@ -174,6 +173,7 @@ public class Tower{
             }
             rLid.makeInvisible();
             height--;
+            isOk = true;
         } else {
             showJOptionPane("No es posible hacer popLid porque no hay tapas en la torre.");
             isOk = false;
@@ -312,25 +312,26 @@ public class Tower{
     }
     
     public String[][] stackingItems() {
-        ArrayList<String[]> items = new ArrayList<String[]>();
-    
+        ArrayList<Object[]> items = new ArrayList<>();
+
         for (Cup cup : cups) {
             int value = (cup.getHeight() + 1) / 2;
-            items.add(new String[] {"cup", "" + value});
+            items.add(new Object[]{"cup", "" + value, cup.getBasePosition()});
         }
     
         for (Lid lid : lids) {
             int value = (lid.getWidth() + 1) / 2;
-            items.add(new String[] {"lid", "" + value});
+            items.add(new Object[]{"lid", "" + value, lid.getBasePosition()});
         }
     
-        sortItemsByNumber(items);
-    
+        items.sort((a,b) -> Integer.compare((int)b[2], (int)a[2]));
         String[][] out = new String[items.size()][2];
+    
         for (int i = 0; i < items.size(); i++) {
-            out[i][0] = items.get(i)[0];
-            out[i][1] = items.get(i)[1];
+            out[i][0] = (String)items.get(i)[0];
+            out[i][1] = (String)items.get(i)[1];
         }
+    
         return out;
     }
     
@@ -341,7 +342,6 @@ public class Tower{
     
     public void makeVisible() {
         isVisible = true;
-        
         for(Cup cup : cups){
             cup.makeVisible();
         }
@@ -457,5 +457,54 @@ public class Tower{
             JOptionPane.showMessageDialog(null, message,
             "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+    
+    public Tower(int cups) {
+        this.maxHeight = 0;
+        for (int i = 1; i < cups + 1; i++) {
+            maxHeight += 2*i - 1;
+        }
+        this.height = 0;
+        this.width = maxHeight;
+        this.cups = new ArrayList<Cup>();
+        this.lids = new ArrayList<Lid>();
+        this.cupsValues = new ArrayList<Integer>();
+        this.lidsValues = new ArrayList<Integer>();
+        this.isVisible = false;
+        this.isOk = false;
+        this.createTower();
+        for (int i = 1; i < cups + 1; i++) {
+            pushCup(i);
+        }
+    }
+    
+    public void swap(String[] o1, String[] o2) {
+        String[][] items = stackingItems();
+        int o1ItemsPosition = -1;
+        int o2ItemsPosition = -1;
+        
+        for (int i = 0; i < items.length; i++) {
+            if (o1[0].equals(items[i][0]) && o1[1].equals(items[i][1])) { o1ItemsPosition = i; }
+            
+            if (o2[0].equals(items[i][0]) && o2[1].equals(items[i][1])) { o2ItemsPosition = i;}
+        }
+        
+        if (o1ItemsPosition != -1 && o2ItemsPosition != -1) {
+            String[] temporal = items[o1ItemsPosition];
+            items[o1ItemsPosition] = items[o2ItemsPosition];
+            items[o2ItemsPosition] = temporal;
+        }
+        
+        while (cups.size() > 0) { popCup(); }
+        
+        while (lids.size() > 0) { popLid(); }
+
+        for (int i = 0; i < items.length; i++) {
+            if ("cup".equals(items[i][0])) { 
+                pushCup(Integer.parseInt(items[i][1]));
+            } else if ("lid".equals(items[i][0])) {
+                pushLid(Integer.parseInt(items[i][1]));
+            }
+        }        
     }
 }
