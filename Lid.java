@@ -2,25 +2,41 @@ import java.util.*;
 
 public class Lid {
     private static final int HEIGHT = 1;
+    private int value;
     private int width;
     private String color;
+    private int yBasePosition;
     private Rectangle rectangle;
     private Cup cup;
     private boolean isVisible;
     
-    public Lid(int value, int tHeight, int tWidth) {
+    public Lid(int value, int towerHeight, int towerWidth, boolean isVisible) {
         this.width = 2*value - 1;
-        int mid= (tWidth*15/2)-this.width*15/2;
-        //this.assignColor();
-        this.rectangle = new Rectangle(20 * HEIGHT, this.width * 15, "red", 30+mid, 280);
-        rectangle.makeVisible();
+        this.assignColor(value);
+        int middle = (20*towerWidth - 20*width)/2;
+        this.rectangle = new Rectangle(20 * HEIGHT, width * 20, color, 30 + middle, 280 - towerHeight*20);
+        this.yBasePosition = 280 - towerHeight*20;
+        if(isVisible) { makeVisible(); }
     }
 
-    public int getWidth(){
-        return width;
+    public void moveDown(int value){
+        rectangle.moveDown(value);
+        yBasePosition += value * 20;
     }
-
-    public void makeInvisible() {
-        this.rectangle.makeInvisible();
+    
+    public void makeVisible() { rectangle.makeVisible(); }
+    
+    public void makeInvisible() { rectangle.makeInvisible(); }
+    
+    public int getWidth(){ return width; }
+    
+    public int getBasePosition() {return yBasePosition; }
+    
+    public int getValue() { return value; }
+    
+    private void assignColor(int value) {
+        String[] colors = {"blue","green","red","yellow","magenta","black"};
+        String color = colors[value - 1 % 5];
+        this.color = color;
     }
 }

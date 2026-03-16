@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=TowerCC2Test
+comment0.text=\r\n\ The\ test\ class\ TowerCC2Test.\r\n
+comment1.params=
+comment1.target=TowerCC2Test()
+comment1.text=\r\n\ Default\ constructor\ for\ test\ class\ TowerCC2Test\r\n
+comment2.params=
+comment2.target=void\ accordingMVShouldHaveHeightFourWithTwoCups()
+comment2.text=\r\n\ Una\ torre\ con\ 2\ tazas\ debe\ tener\ altura\ 4\ (1+3).\r\n
+numComments=3
