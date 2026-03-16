@@ -530,4 +530,48 @@ public class Tower{
     
         isOk = true;
     }
+    
+
+    public String[][] swapToReduce() {
+        String[][] original = stackingItems();
+    
+        String[][] nuevo = new String[original.length][2];
+        for (int i = 0; i < original.length; i++) {
+            nuevo[i][0] = original[i][0];
+            nuevo[i][1] = original[i][1];
+        }
+    
+        int baseHeight = height();
+    
+        for (int i = 0; i < nuevo.length; i++) {
+            for (int j = i + 1; j < nuevo.length; j++) {
+    
+                String[] o1 = new String[] { nuevo[i][0], nuevo[i][1] };
+                String[] o2 = new String[] { nuevo[j][0], nuevo[j][1] };
+    
+                swap(o1, o2);
+                int newHeight = height();
+    
+                while (cups.size() > 0) { popCup(); }
+                while (lids.size() > 0) { popLid(); }
+    
+                for (int k = 0; k < nuevo.length; k++) {
+                    int v = Integer.parseInt(nuevo[k][1]);
+                    if ("cup".equals(nuevo[k][0])) {
+                        pushCup(v);
+                    } else if ("lid".equals(nuevo[k][0])) {
+                        pushLid(v);
+                    }
+                }
+    
+                if (newHeight < baseHeight) {
+                    isOk = true;
+                    return new String[][] { o1, o2 };
+                }
+            }
+        }
+    
+        isOk = false;
+        return null;
+    }
 }
