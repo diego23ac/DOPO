@@ -6,7 +6,7 @@ public class Lid {
     private int width;
     private String color;
     private int yBasePosition;
-    private Rectangle rectangle;
+    private Rectangle lidRectangle[];
     private Cup cup;
     private boolean isVisible;
     
@@ -14,20 +14,31 @@ public class Lid {
         this.value = value;
         this.width = 2*value - 1;
         this.assignColor(value);
-        int middle = (20*towerWidth - 20*width)/2 + 22;
-        this.rectangle = new Rectangle(20 * HEIGHT, width * 20, color,middle, towerMaxHeight*20-20 - towerHeight*20);
-        this.yBasePosition = 280 - towerHeight*20;
+        this.lidRectangle = new Rectangle[2];
+        this.createLid(towerMaxHeight,towerWidth, towerHeight);
         if(isVisible) { makeVisible(); }
     }
 
     public void moveDown(int value){
-        rectangle.moveDown(value);
+        for(int i = 0; i < 2; i++){
+            lidRectangle[i].moveDown(value);
+        }
         yBasePosition += value * 20;
     }
     
-    public void makeVisible() { rectangle.makeVisible(); }
+    public void makeVisible() { 
+        isVisible = true;
+        for(int i = 0; i < 2; i++){
+            lidRectangle[i].makeVisible();
+        }
+    }
     
-    public void makeInvisible() { rectangle.makeInvisible(); }
+    public void makeInvisible() { 
+        isVisible = false;
+        for(int i = 0; i < 2; i++){
+            lidRectangle[i].makeInvisible();
+        } 
+    }
     
     public int getWidth(){ return width; }
     
@@ -36,8 +47,15 @@ public class Lid {
     public int getValue() { return value; }
     
     private void assignColor(int value) {
-        String[] colors = {"LBlue","LGreen","LRed","LYellow","LPink","black"};
+        String[] colors = {"LPink","LGreen","LRed","LBlue","LYellow","black"};
         String color = colors[value - 1 % 5];
         this.color = color;
+    }
+    
+    private void createLid(int towerMaxHeight, int towerWidth, int towerHeight) {
+        int middle = (20*towerWidth - 20*width)/2 + 22;
+        lidRectangle[0] = new Rectangle(20 * HEIGHT, width * 20, color,middle, towerMaxHeight*20-20 - towerHeight*20);
+        lidRectangle[1] = new Rectangle(12 * HEIGHT, 12 * HEIGHT, "LYellowDiamond",(10*towerWidth) + 22 - 6, towerMaxHeight*20-20 - towerHeight*20+4);
+        yBasePosition = towerMaxHeight*20 - 20 - towerHeight*20;
     }
 }

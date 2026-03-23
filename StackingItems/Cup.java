@@ -35,6 +35,7 @@ public class Cup {
     }
     
     public void makeInvisible() {
+        isVisible = false;
         for(int i = 0; i < 3; i++) {
             if (cupRectangle[i] != null) {
                 cupRectangle[i].makeInvisible();
@@ -49,7 +50,7 @@ public class Cup {
     public int getValue() { return value; }
     
     private void assignColor(int value) {
-        String[] colors = {"CBlue","CGreen","CRed","CYellow","CPink","black"};
+        String[] colors = {"CPink","CGreen","CRed","CBlue","CYellow","black"};
         String color = colors[(value - 1) % 5];
         this.color = color;
     }
@@ -67,6 +68,6 @@ public class Cup {
             Rectangle base = new Rectangle(20, height*20, color, middle, towerMaxHeight*20 - 20 - towerHeight*20);
             cupRectangle[0] = base;
         }
-        yBasePosition = 280 - towerHeight*20;
+        yBasePosition = towerMaxHeight*20 - 20 - towerHeight*20;
     }
 }
