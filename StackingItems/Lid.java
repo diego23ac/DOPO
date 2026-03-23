@@ -53,9 +53,9 @@ public class Lid {
     }
     
     private void createLid(int towerMaxHeight, int towerWidth, int towerHeight) {
-        int middle = (20*towerWidth - 20*width)/2 + 22;
-        lidRectangle[0] = new Rectangle(20 * HEIGHT, width * 20, color,middle, towerMaxHeight*20-20 - towerHeight*20);
-        lidRectangle[1] = new Rectangle(12 * HEIGHT, 12 * HEIGHT, "LYellowDiamond",(10*towerWidth) + 22 - 6, towerMaxHeight*20-20 - towerHeight*20+4);
-        yBasePosition = towerMaxHeight*20 - 20 - towerHeight*20;
+        int middle = 10*(towerWidth - width) + 22;
+        lidRectangle[0] = new Rectangle(20 * HEIGHT, width * 20, color,middle, 20*(towerMaxHeight - towerHeight - 1));
+        lidRectangle[1] = new Rectangle(12 * HEIGHT, 12 * HEIGHT, "LYellowDiamond",(10*towerWidth) + 16, 20*(towerMaxHeight - towerHeight) - 16);
+        yBasePosition = 20*(towerMaxHeight - towerHeight - 1);
     }
 }

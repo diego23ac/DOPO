@@ -31,7 +31,7 @@ public class Canvas{
     
     public static Canvas getCanvas(int towerMaxHeight, int towerWidth){
         if(canvasSingleton == null) {
-            canvasSingleton = new Canvas("BlueJ Shapes Demo", 180 + towerMaxHeight*20, 180 + towerWidth*20, 
+            canvasSingleton = new Canvas("BlueJ Shapes Demo", 180 + towerWidth*20, 180 + towerMaxHeight*20, 
                                          Color.white);
         }
         return canvasSingleton;

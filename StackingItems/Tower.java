@@ -19,7 +19,6 @@ public class Tower{
      * @param maxHeight La altura maxima de la torre
      * @param width El ancho de la torre
      */
-    
     public Tower(int maxHeight,int width){
         this.height = 0;
         this.maxHeight = maxHeight;
@@ -39,7 +38,6 @@ public class Tower{
      * 
      * @param cups Cantidad de copas
      */
-    
     public Tower(int cups) {
         this(calculateMaxHeight(cups), calculateMaxHeight(cups));
         for (int i = 1; i <= cups; i++) { pushCup(i);}
@@ -55,7 +53,6 @@ public class Tower{
      * 
      * @param i El número de la copa
      */
-    
     public void pushCup(int i){
         if (!cupsValues.contains(i) && height + 2*i - 1 <= maxHeight) {
             cupsValues.add(i);
@@ -79,7 +76,6 @@ public class Tower{
      * baja la posición de las tapas que estaban arriba y disminuye la altura de la torre según la altura 
      * de la copa removida (2*i - 1)
      */
-    
     public void popCup() {
         int cupPosition = 0;
         if (cups.size() > 0) {
@@ -151,7 +147,6 @@ public class Tower{
      * 
      * @param i El número de la tapa
      */
-    
     public void pushLid(int i) {
         if (!lidsValues.contains(i) && height + 1 <= maxHeight) {
             lidsValues.add(i);
@@ -162,6 +157,9 @@ public class Tower{
         } else if (lidsValues.contains(i)){
             showJOptionPane("La tapa ya está en la torre");
             isOk = false;
+        } else {
+            showJOptionPane("Límite de altura máximo de la torre superado.");
+            isOk = false;
         }
     }
     
@@ -171,7 +169,6 @@ public class Tower{
      * Este método valida si hay tapas en la torre, si las hay entonces remueve la última del ArrayList,
      * baja la posición de las copas que estaban arriba y disminuye la altura de la torre en 1.
      */
-    
     public void popLid() {
         int lidPosition = 0;
         if (lids.size() > 0) {
@@ -243,7 +240,6 @@ public class Tower{
      * Hace pushCup en orden de las copas.
      * Si habia una tapa y una copa con el mismo número, ubica la tapa encima de la copa.
      */
-    
     public void orderTower() {
         ArrayList<Integer> orderedValues = new ArrayList<Integer>();
         for (Cup cup : cups) {
@@ -275,7 +271,6 @@ public class Tower{
      * Hace pushCup en orden de las copas.
      * Si habia una tapa y una copa con el mismo número, ubica la tapa encima de la copa.
      */
-    
     public void reverseTower() {
         ArrayList<Integer> reverseOrderedValues = new ArrayList<Integer>();
         for (Cup cup : cups) {
@@ -341,7 +336,6 @@ public class Tower{
     /**
      * @return height Altura de la torre
      */
-    
     public int height() { return height; }
     
     /**
@@ -353,7 +347,6 @@ public class Tower{
      *
      * @return items Arreglo con los números de las copas que tienen tapa.
      */
-    
     public int[] lidedCups() {
         ArrayList<Integer> temporalItems = new ArrayList<Integer>();
         for (Cup cup : cups) {
@@ -368,7 +361,6 @@ public class Tower{
         return items;
     }
     
-    
     /**
      * Retorna una matriz con los elementos de la torre desde la base hasta la cima.
      *
@@ -382,7 +374,6 @@ public class Tower{
      * - El tipo de elemento ("cup" o "lid")
      * - El valor del elemento
      */
-    
     public String[][] stackingItems() {
         ArrayList<Object[]> temporalItems = new ArrayList<>();
         for (Cup cup : cups) {
@@ -411,47 +402,32 @@ public class Tower{
      * Hace visible la torre (incluyendo las copas y las tapas que estén en ella)
      * recorriendo los ArrayList (cups, lids, frame) y llamando a makeVisible().
      */
-    
     public void makeVisible() {
         isVisible = true;
-        for(Cup cup : cups){
-            cup.makeVisible();
-        }
+        for(Cup cup : cups){ cup.makeVisible(); }
 
-        for(Lid lid : lids){
-            lid.makeVisible();
-        }
+        for(Lid lid : lids){ lid.makeVisible(); }
         
-        for(Rectangle rectangle: frame){
-            rectangle.makeVisible();
-        }
+        for(Rectangle rectangle: frame){ rectangle.makeVisible(); }
     }
     
     /**
      * Hace invisible la torre (incluyendo las copas y las tapas que estén en ella)
      * recorriendo los ArrayList (cups, lids, frame) y llamando a makeInvisible().
      */
-    
     public void makeInvisible() {
         isVisible = false;
-        for(Cup cup : cups){
-            cup.makeInvisible();
-        }
+        for(Cup cup : cups){ cup.makeInvisible(); }
 
-        for(Lid lid : lids){
-            lid.makeInvisible();
-        }
+        for(Lid lid : lids){ lid.makeInvisible(); }
         
-        for(Rectangle rectangle : frame){
-            rectangle.makeInvisible();
-        }
+        for(Rectangle rectangle : frame){ rectangle.makeInvisible(); }
     }
     
     /**
      * Hace invisible a la torre, vacía todos los ArrayList y reinicia la altura de la
      * torre a cero.
      */
-    
     public void exit() {
         makeInvisible();
         cups.clear();
@@ -467,10 +443,7 @@ public class Tower{
      * 
      * @return true si se logró realizar la ultima operación, false de lo contrario.
      */
-    
-    public boolean ok() {
-        return isOk;
-    }
+    public boolean ok() { return isOk; }
     
     /**
      * Método para crear la interfaz de la torre
@@ -480,7 +453,6 @@ public class Tower{
      * - la base de la torre
      * - la linea vertical que separa las marcas de las copas y tapas
      */
-    
     private void createTower() {
         Canvas canvas = Canvas.getCanvas(maxHeight, width);
         frame = new ArrayList<Rectangle>();
