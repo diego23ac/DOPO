@@ -49,7 +49,7 @@ public class Cup {
     public int getValue() { return value; }
     
     private void assignColor(int value) {
-        String[] colors = {"blue","green","red","yellow","magenta","black"};
+        String[] colors = {"CBlue","CGreen","CRed","CYellow","CPink","black"};
         String color = colors[(value - 1) % 5];
         this.color = color;
     }

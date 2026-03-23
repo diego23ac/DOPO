@@ -118,20 +118,34 @@ public class Canvas{
      * @param  newColour   the new colour for the foreground of the Canvas 
      */
     public void setForegroundColor(String colorString){
-        if(colorString.equals("red"))
-            graphic.setColor(Color.red);
+        if(colorString.equals("CRed"))
+            graphic.setColor(new Color(250, 82, 82));
         else if(colorString.equals("black"))
             graphic.setColor(Color.black);
-        else if(colorString.equals("blue"))
-            graphic.setColor(Color.blue);
-        else if(colorString.equals("yellow"))
-            graphic.setColor(Color.yellow);
-        else if(colorString.equals("green"))
-            graphic.setColor(Color.green);
-        else if(colorString.equals("magenta"))
-            graphic.setColor(Color.magenta);
+        else if(colorString.equals("CBlue"))
+            graphic.setColor(new Color(25, 113, 194));
+        else if(colorString.equals("CYellow"))
+            graphic.setColor(new Color(250, 176, 5));
+        else if(colorString.equals("CGreen"))
+            graphic.setColor(new Color(64, 192, 87));
+        else if(colorString.equals("CPink"))
+            graphic.setColor(new Color(240, 98, 146));
         else if(colorString.equals("white"))
             graphic.setColor(Color.white);
+            
+        else if(colorString.equals("LBlue"))
+            graphic.setColor(new Color(34, 139, 230));
+        else if(colorString.equals("LYellow"))
+            graphic.setColor(new Color(255, 212, 59));
+        else if(colorString.equals("LGreen"))
+            graphic.setColor(new Color(105, 219, 124));
+        else if(colorString.equals("LPink"))
+            graphic.setColor(new Color(244, 143, 177));
+        else if(colorString.equals("LRed"))
+            graphic.setColor(new Color(255, 135, 135));
+            
+        else if(colorString.equals("LYellowDiamond"))
+            graphic.setColor(new Color(255, 236, 153));
         else
             graphic.setColor(Color.black);
     }
