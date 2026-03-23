@@ -25,11 +25,15 @@ public class Canvas{
      * Factory method to get the canvas singleton object.
      */
     public static Canvas getCanvas(){
+        canvasSingleton.setVisible(true);
+        return canvasSingleton;
+    }
+    
+    public static Canvas getCanvas(int towerMaxHeight, int towerWidth){
         if(canvasSingleton == null) {
-            canvasSingleton = new Canvas("BlueJ Shapes Demo", 320, 350, 
+            canvasSingleton = new Canvas("BlueJ Shapes Demo", 180 + towerMaxHeight*20, 180 + towerWidth*20, 
                                          Color.white);
         }
-        canvasSingleton.setVisible(true);
         return canvasSingleton;
     }
 

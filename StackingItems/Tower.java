@@ -108,7 +108,6 @@ public class Tower{
      * 
      * @param i El número de la copa
      */
-    
     public void removeCup(int i) {
         if (cupsValues.contains(i)) {
             cupsValues.remove(Integer.valueOf(i));
@@ -156,7 +155,7 @@ public class Tower{
     public void pushLid(int i) {
         if (!lidsValues.contains(i) && height + 1 <= maxHeight) {
             lidsValues.add(i);
-            Lid lid = new Lid(i, height, width, isVisible);
+            Lid lid = new Lid(i, maxHeight, height, width, isVisible);
             lids.add(lid);
             height++;
             isOk = true;
@@ -483,13 +482,14 @@ public class Tower{
      */
     
     private void createTower() {
+        Canvas canvas = Canvas.getCanvas(maxHeight, width);
         frame = new ArrayList<Rectangle>();
         for(int i = 0; i < maxHeight; i++){
-            Rectangle rectangle = new Rectangle(4,20,"black",0,280 - i*20);
+            Rectangle rectangle = new Rectangle(3,20,"black",0,maxHeight*20 - i*20-20);
             frame.add(rectangle);
         }
-        frame.add(new Rectangle(maxHeight*20,2,"black",20,302 - maxHeight*20));
-        frame.add(new Rectangle(2,width*20 + 25,"black",0,300));
+        frame.add(new Rectangle(maxHeight*20,2,"black",20,0));
+        frame.add(new Rectangle(2,width*20 + 22,"black",0,maxHeight*20+1));
     }
     
     private boolean isLidInTower(int value) {
@@ -515,6 +515,7 @@ public class Tower{
     private static int calculateMaxHeight(int cups) {
         int maxHeight = 0;
         for (int i = 1; i <= cups; i++) { maxHeight += 2*i - 1; }
+        System.out.println(maxHeight);
         return maxHeight;
     }
 

@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=Lid
-comment1.params=value\ towerHeight\ towerWidth\ isVisible
-comment1.target=Lid(int,\ int,\ int,\ boolean)
+comment1.params=value\ towerMaxHeight\ towerHeight\ towerWidth\ isVisible
+comment1.target=Lid(int,\ int,\ int,\ int,\ boolean)
 comment2.params=value
 comment2.target=void\ moveDown(int)
 comment3.params=

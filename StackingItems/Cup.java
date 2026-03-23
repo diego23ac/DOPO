@@ -55,16 +55,16 @@ public class Cup {
     }
     
     private void createCup(int towerMaxHeight, int towerWidth, int towerHeight) {
-        int middle = (towerWidth*20 - height*20)/2;
+        int middle = (towerWidth*20 - height*20)/2 +22;
         if (height > 1) {
-            Rectangle base = new Rectangle(20, height*20, color,30 + middle,280 - towerHeight*20);
-            Rectangle ladoA = new Rectangle(height*20, 20, color,30 + middle,300 - height*20 - towerHeight*20);
-            Rectangle ladoB = new Rectangle(height*20, 20, color, middle + 10 + height*20, 300 - height*20 - towerHeight*20);
+            Rectangle base = new Rectangle(20, height*20, color,middle,towerMaxHeight*20 - 20 - towerHeight*20);
+            Rectangle ladoA = new Rectangle(height*20, 20, color,middle,towerMaxHeight*20 - height*20 - towerHeight*20);
+            Rectangle ladoB = new Rectangle(height*20, 20, color, middle + height*20-20, towerMaxHeight*20 - height*20 - towerHeight*20);
             cupRectangle[0] = base;
             cupRectangle[1] = ladoA;
             cupRectangle[2] = ladoB;
         } else {
-            Rectangle base = new Rectangle(20, height*20, color, 30 + middle, 280 - towerHeight*20);
+            Rectangle base = new Rectangle(20, height*20, color, middle, towerMaxHeight*20 - 20 - towerHeight*20);
             cupRectangle[0] = base;
         }
         yBasePosition = 280 - towerHeight*20;

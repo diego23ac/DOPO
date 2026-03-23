@@ -10,11 +10,12 @@ public class Lid {
     private Cup cup;
     private boolean isVisible;
     
-    public Lid(int value, int towerHeight, int towerWidth, boolean isVisible) {
+    public Lid(int value, int towerMaxHeight, int towerHeight, int towerWidth, boolean isVisible) {
+        this.value = value;
         this.width = 2*value - 1;
         this.assignColor(value);
-        int middle = (20*towerWidth - 20*width)/2;
-        this.rectangle = new Rectangle(20 * HEIGHT, width * 20, color, 30 + middle, 280 - towerHeight*20);
+        int middle = (20*towerWidth - 20*width)/2 + 22;
+        this.rectangle = new Rectangle(20 * HEIGHT, width * 20, color,middle, towerMaxHeight*20-20 - towerHeight*20);
         this.yBasePosition = 280 - towerHeight*20;
         if(isVisible) { makeVisible(); }
     }
