@@ -69,6 +69,38 @@ public class Tower{
         }
     }
     
+    /*
+     * Por aquí va la cosa mas o menos para meter copas dentro de otras
+     * 
+     * public void pushCup(int i){
+     * if (!cupsValues.contains(i) && height + 2*i - 1 <= maxHeight) {
+                cupsValues.add(i);
+                Cup lastCup = null;
+                if (cups.size() > 0) {
+                    lastCup = cups.get(cups.size() - 1);
+                }
+        
+                if (lastCup != null && i < lastCup.getValue()) {
+                    height += (1 - lastCup.getHeight());
+                    Cup cup = new Cup(i, maxHeight, width, height, isVisible);
+                    cups.add(cup);
+                    height += (lastCup.getHeight() - 1);
+                } else {
+                    Cup cup = new Cup(i, maxHeight, width, height, isVisible);
+                    height += (cup.getHeight());
+                    cups.add(cup);
+                }
+                isOk = true;
+            } else if (cupsValues.contains(i)){
+                showJOptionPane("La copa ya está en la torre.");
+                isOk = false;
+            } else {
+                showJOptionPane("Límite de altura máximo de la torre superado.");
+                isOk = false;
+            }
+        }
+     */
+    
     /**
      * Quita de la torre la última copa insertada.
      * 
