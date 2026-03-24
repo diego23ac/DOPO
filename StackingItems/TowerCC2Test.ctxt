@@ -1,10 +1,26 @@
 #BlueJ class context
 comment0.target=TowerCC2Test
-comment0.text=\r\n\ The\ test\ class\ TowerCC2Test.\r\n
 comment1.params=
-comment1.target=TowerCC2Test()
-comment1.text=\r\n\ Default\ constructor\ for\ test\ class\ TowerCC2Test\r\n
+comment1.target=void\ accordingCOShouldReorderItemsUsingThreeSwaps()
+comment1.text=\r\n\ Verifica\ que\ el\ m\u00E9todo\ swap()\ reordene\ de\ manera\ correcta\ las\r\n\ tapas\ y\ las\ copas\ de\ la\ torre\ al\ hacer\ varios\ intercambios\ (tres).\r\n
 comment2.params=
-comment2.target=void\ accordingMVShouldHaveHeightFourWithTwoCups()
-comment2.text=\r\n\ Una\ torre\ con\ 2\ tazas\ debe\ tener\ altura\ 4\ (1+3).\r\n
-numComments=3
+comment2.target=void\ accordingCOShouldCoverCupsWhenMatchingLidsExist()
+comment2.text=\r\n\ Verifica\ que\ el\ m\u00E9todo\ cover()\ coloque\ las\ tapas\ encima\ de\ las\ copas\r\n\ que\ corresponden\ a\ su\ mismo\ n\u00FAmero\ cuando\ los\ dos\ objetos\ existen\ \r\n\ en\ la\ torre.\r\n
+comment3.params=
+comment3.target=void\ accordingMVShouldHaveHeightFourWithTwoCups()
+comment3.text=\r\n\ Verifica\ que\ una\ torre\ creada\ con\ 2\ copas\ tenga\ la\ altura\ correcta.\r\n\r\n\ Utiliza\ el\ constructor\ Tower(int\ cups)\ para\ crear\ las\ copas\ desde\ 1\r\n\ hasta\ el\ n\u00FAmero\ indicado.\ Para\ 2\ copas\ la\ altura\ total\ debe\ ser\ 4.\r\n\ 1\ +\ 3\ \=\ 4\r\n
+comment4.params=
+comment4.target=void\ accordingORShouldCoverNotChangeTowerWithoutPairs()
+comment4.text=\r\n\ Verifica\ que\ el\ m\u00E9todo\ cover()\ no\ modifique\ la\ torre\ cuando\r\n\ no\ existen\ pares\ copa-tapa\ con\ el\ mismo\ n\u00FAmero.\r\n
+comment5.params=
+comment5.target=void\ accordingSShouldStartWithNoLids()
+comment5.text=\r\n\ Verifica\ que\ una\ torre\ creada\ con\ el\ constructor\ Tower(int\ cups)\r\n\ no\ tenga\ tapas\ inicialmente.\r\n
+comment6.params=
+comment6.target=void\ accordingSShouldSwapCupAndLid()
+comment6.text=\r\n\ Verifica\ que\ el\ m\u00E9todo\ swap()\ intercambie\ correctamente\ la\ posici\u00F3n\ de\ \r\n\ una\ copa\ y\ una\ tapa\ dentro\ de\ la\ torre.\r\n
+comment7.params=
+comment7.target=void\ accordingBGShouldNotSwapNonExistentCup()
+comment7.text=\ \r\n\ Verifica\ que\ swap\ falla\ cuando\ una\ de\ las\ tazas\ no\ existe.\ \r\n
+comment8.params=item\ type\ value
+comment8.target=boolean\ sameItem(java.lang.String[],\ java.lang.String,\ java.lang.String)
+numComments=9

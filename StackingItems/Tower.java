@@ -57,7 +57,7 @@ public class Tower{
         if (!cupsValues.contains(i) && height + 2*i - 1 <= maxHeight) {
             cupsValues.add(i);
             Cup cup = new Cup(i, maxHeight, width, height, isVisible);
-            cups.add(cup);   
+            cups.add(cup);
             height += (cup.getHeight());
             isOk = true;
         } else if (cupsValues.contains(i)){
@@ -318,19 +318,26 @@ public class Tower{
             String[] temporal = items[o1ItemsPosition];
             items[o1ItemsPosition] = items[o2ItemsPosition];
             items[o2ItemsPosition] = temporal;
-        }
+            
+            while (cups.size() > 0) { popCup(); }
         
-        while (cups.size() > 0) { popCup(); }
-        
-        while (lids.size() > 0) { popLid(); }
-
-        for (int i = 0; i < items.length; i++) {
-            if ("cup".equals(items[i][0])) { 
-                pushCup(Integer.parseInt(items[i][1]));
-            } else if ("lid".equals(items[i][0])) {
-                pushLid(Integer.parseInt(items[i][1]));
+            while (lids.size() > 0) { popLid(); }
+    
+            for (int i = 0; i < items.length; i++) {
+                if ("cup".equals(items[i][0])) { 
+                    pushCup(Integer.parseInt(items[i][1]));
+                } else if ("lid".equals(items[i][0])) {
+                    pushLid(Integer.parseInt(items[i][1]));
+                }
             }
-        }        
+            isOk = true;
+        } else if (o1ItemsPosition == -1) {
+            showJOptionPane("El objeto 1 no existe en la torre");
+            isOk = false;
+        } else if (o1ItemsPosition == -1) {
+            showJOptionPane("El objeto 2 no existe en la torre");
+            isOk = false;
+        }
     }
 
     /**
@@ -339,26 +346,30 @@ public class Tower{
     public int height() { return height; }
     
     /**
-     * Retorna los numeros de las copas que tienen una tapa del mismo numero en la torre.
+     * Retorna los números de las copas tapadas por sus tapas ordenados de menor a mayor.
      *
-     * Recorre las copas de la torre, obtiene su valor y verifica si existe una tapa con el mismo 
-     * número en la torre. Si existe, agrega el número de la copa a una lista temporal.
-     * Ordena los valores de menor a mayor y convierte la lista a un arreglo de enteros y lo retorna.
+     * Obtiene los elementos de la torre usando stackingItems() y los recorre verificando si existe 
+     * una copa seguida inmediatamente por una tapa con el mismo número. Si existe, agrega el número 
+     * de la copa a una lista temporal. Ordena los valores de menor a mayor y convierte la lista 
+     * a un arreglo de enteros y lo retorna.
      *
-     * @return items Arreglo con los números de las copas que tienen tapa.
+     * @return items Arreglo con los números de las copas tapadas.
      */
-    public int[] lidedCups() {
+    public int[] liddedCups() {
         ArrayList<Integer> temporalItems = new ArrayList<Integer>();
-        for (Cup cup : cups) {
-            int value = cup.getValue();
-            if (isLidInTower(value)) {
-                if (!temporalItems.contains(value)) { temporalItems.add(value); }
+        String[][] items = stackingItems();
+        for (int i = 0; i < items.length - 1; i++) {
+            if (items[i][0].equals("cup")) {
+                if (items[i+1][0].equals("lid") && items[i][1].equals(items[i+1][1])) {
+                    int value = Integer.parseInt(items[i][1]);
+                    if (!temporalItems.contains(value)) { temporalItems.add(value); }
+                }
             }
         }
         Collections.sort(temporalItems);
-        int[] items = new int[temporalItems.size()];
-        for (int i = 0; i < temporalItems.size(); i++) { items[i] = temporalItems.get(i); }
-        return items;
+        int[] liddedCups = new int[temporalItems.size()];
+        for (int i = 0; i < temporalItems.size(); i++) { liddedCups[i] = temporalItems.get(i); }
+        return liddedCups;
     }
     
     /**
@@ -487,7 +498,7 @@ public class Tower{
     private static int calculateMaxHeight(int cups) {
         int maxHeight = 0;
         for (int i = 1; i <= cups; i++) { maxHeight += 2*i - 1; }
-        return maxHeight;
+        return maxHeight + 1;
     }
 
     public void cover() {

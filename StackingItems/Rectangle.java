@@ -167,7 +167,7 @@ public class Rectangle{
             Canvas canvas = Canvas.getCanvas();
             canvas.draw(this, color,
                 new java.awt.Rectangle(xPosition + 80, yPosition + 80, width, height));
-            canvas.wait(10);
+            canvas.wait(5);
         }
     }
 
