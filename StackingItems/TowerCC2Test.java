@@ -14,6 +14,7 @@ public class TowerCC2Test {
         Tower tower = new Tower(25, 15);
         int[] cups = {1, 2, 3, 4};
         int[] lids = {4, 1, 3, 2};
+        tower.makeVisible();
         for (int cup : cups) { tower.pushCup(cup); }
         
         for (int lid : lids) { tower.pushLid(lid); }
@@ -22,7 +23,7 @@ public class TowerCC2Test {
         tower.swap(new String[]{"cup","2"}, new String[]{"lid","3"});
         tower.swap(new String[]{"lid","4"}, new String[]{"cup","1"});
         String[][] items = tower.stackingItems();
-    
+        
         assertTrue(sameItem(items[0], "lid", "4"));
         assertTrue(sameItem(items[1], "lid", "3"));
         assertTrue(sameItem(items[3], "lid", "1"));

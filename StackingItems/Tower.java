@@ -47,83 +47,59 @@ public class Tower{
      * Inserta la copa identificada con el número i en la torre.
      * 
      * Este método valida si la copa ya está en la torre (para evitar duplicados) y si la operación 
-     * de inserción supera la altura máxima permitida. Si se puede insertar, crea una copa y la ingresa 
-     * en el ArrayList de copas, valida si la tapa con el mismo númeo ya está en la torre, (para colocar
-     * la tapa sobre la copa) y por último aumenta la altura de la torre 2*i - 1.
+     * de inserción supera la altura máxima permitida. Si se puede insertar, crea una copa y la apila
+     * validando si cabe en la última copa insertada o si no, por último aumenta la altura de la torre.
      * 
      * @param i El número de la copa
      */
-    public void pushCup(int i){
-        if (!cupsValues.contains(i) && height + 2*i - 1 <= maxHeight) {
-            cupsValues.add(i);
-            Cup cup = new Cup(i, maxHeight, width, height, isVisible);
-            cups.add(cup);
-            height += (cup.getHeight());
-            isOk = true;
-        } else if (cupsValues.contains(i)){
+    public void pushCup(int i) {
+        if (cupsValues.contains(i)) {
             showJOptionPane("La copa ya está en la torre.");
             isOk = false;
         } else {
-            showJOptionPane("Límite de altura máximo de la torre superado.");
-            isOk = false;
-        }
-    }
-    
-    public void pushCup2(int i) {
-        if (!cupsValues.contains(i)) {
-            System.out.println(cupsValues);
+            int basePosition;
             if (cups.size() == 0) {
-                cupsValues.add(i);
-                Cup cup = new Cup(i, maxHeight, width, height, isVisible);
-                cups.add(cup);
-                System.out.println(maxHeight - cup.getBasePosition()/20);
-                height += (cup.getHeight());
-                isOk = true;
+                basePosition = height;
             } else if (i < cupsValues.get(cups.size() - 1)) {
-                cupsValues.add(i);
-                int basePosition = cups.get(cups.size() - 1).getBasePosition();
-                System.out.println(maxHeight - basePosition/20);
-                Cup cup = new Cup(i, maxHeight, width, maxHeight - basePosition/20, isVisible);
-                cups.add(cup);
-                isOk = true;
+                int lastBase = cups.get(cups.size() - 1).getBasePosition();
+                basePosition = maxHeight - lastBase / 20;
             } else {
                 int index = cups.size() - 1;
-                System.out.println("indice  " + index);
-                int basePosition = cups.get(index).getBasePosition();
-                int cupHeight = cups.get(index).getHeight();
-                
                 int lastValue = cupsValues.get(index);
-                System.out.println(maxHeight - basePosition/20 + cupHeight - 1);
-                System.out.println("altura " + cups.get(index).getHeight());
+                int cupHeight = cups.get(index).getHeight();
+                int lastBase = cups.get(index).getBasePosition();
                 while (index >= 0 && lastValue <= cupsValues.get(index) && i > cupsValues.get(index)) {
-                    System.out.println("lastValue: " + lastValue + ", actualValue: " + cupsValues.get(index));
-                    basePosition = cups.get(index).getBasePosition();
+                    lastBase = cups.get(index).getBasePosition();
                     cupHeight = cups.get(index).getHeight();
-                    System.out.println(maxHeight - basePosition/20 + cupHeight - 1);
-                    System.out.println("altura " + cups.get(index).getHeight());
-                    System.out.println("indice  " + index);
-                    if (index != cups.size() - 1) {
-                        lastValue = cupsValues.get(index);
-                    }
+                    if (index != cups.size() - 1) { lastValue = cupsValues.get(index); }
                     index--;
-                    
                 }
-                cupsValues.add(i);
-                Cup cup = new Cup(i, maxHeight, width, maxHeight - basePosition/20 + cupHeight - 1, isVisible);
-                cups.add(cup);
-                isOk = true;
+                basePosition = maxHeight - lastBase / 20 + cupHeight - 1;
+                if (maxHeight < basePosition + 2 * i - 1) {
+                    showJOptionPane("Límite de altura máximo de la torre superado.");
+                    isOk = false;
+                    return;
+                }
+        
+                if (height < basePosition + 2 * i - 1) {
+                    height = basePosition + 2 * i - 1;
+                }
             }
-            
+            cupsValues.add(i);
+            Cup cup = new Cup(i, maxHeight, width, basePosition, isVisible);
+            cups.add(cup);
+            if (cups.size() == 1) {
+                height += cup.getHeight();
+            }
+            isOk = true;
         }
-        System.out.println(cupsValues);
     }
     
     /**
      * Quita de la torre la última copa insertada.
      * 
      * Este método valida si hay copas en la torre, si las hay entonces remueve la última del ArrayList, 
-     * baja la posición de las tapas que estaban arriba y disminuye la altura de la torre según la altura 
-     * de la copa removida (2*i - 1)
+     * baja la posición de las tapas que estaban arriba y recalcula la altura de la torre 
      */
     public void popCup() {
         int cupPosition = 0;
@@ -136,7 +112,7 @@ public class Tower{
                 if (lid.getBasePosition() < cupPosition) { lid.moveDown(rCup.getHeight()); }
             }
             rCup.makeInvisible();
-            height -= rCup.getHeight();
+            height = recalculateHeight();
             isOk = true;
         } else {
             showJOptionPane("No es posible hacer popCup porque no hay copas en la torre.");
@@ -147,43 +123,36 @@ public class Tower{
     /**
      * Quita de la torre la copa con el número i.
      * 
-     * Este método valida si la copa está en la torre, si está entonces remueve del ArrayList y baja 
-     * la posición de las tapas y copas que estaban arriba. También disminuye la altura de la torre según la altura 
-     * de la copa removida (2*i - 1)
+     * Este método valida si la copa está en la torre, si está entonces reconstruye la torre usando StackingItems
+     * sin la copa con el número i
      * 
      * @param i El número de la copa
      */
     public void removeCup(int i) {
-        if (cupsValues.contains(i)) {
-            cupsValues.remove(Integer.valueOf(i));
-            int counter = 0;
-            int cupPosition = 0;
-            for (Cup cup : cups) {
-                if (i*2 - 1 == cup.getHeight()) {
-                    Cup rCup = cups.remove(counter);
-                    rCup.makeInvisible();
-                    cupPosition = rCup.getBasePosition();
-                    break;
+        if (!cupsValues.contains(i)) {
+            showJOptionPane("La copa no existe en la torre");
+            isOk = false;
+        } else {
+            String[][] items = stackingItems();
+            ArrayList<String[]> newItems = new ArrayList<>();
+            boolean removed = false;
+            for (int j = 0; j < items.length; j++) {
+                if (!removed && items[j][0].equals("cup") && Integer.parseInt(items[j][1]) == i) {
+                    removed = true;
+                } else { 
+                    newItems.add(items[j]); 
                 }
-                counter += 1;
             }
 
-            for (Lid lid : lids) {
-                if (lid.getBasePosition() < cupPosition) {
-                    lid.moveDown(2*i - 1);
-                }
-            }
+            while (cups.size() > 0) { popCup(); }
             
-            for (Cup cup : cups) {
-                if (cup.getBasePosition() < cupPosition) {
-                    cup.moveDown(2*i - 1);
-                }
+            while (lids.size() > 0) { popLid(); }
+
+            for (String[] item : newItems) {
+                int value = Integer.parseInt(item[1]);
+                if (item[0].equals("cup")) { pushCup(value); } else { pushLid(value); }
             }
-            height -= 2*i - 1;
             isOk = true;
-        } else {
-            showJOptionPane( "La copa no existe en la torre");
-            isOk = false;
         }
     }
     
@@ -626,5 +595,25 @@ public class Tower{
     
         isOk = false;
         return null;
+    }
+    
+    private int recalculateHeight() {
+        if (cupsValues.isEmpty()) {return 0;}
+        int newHeight = 0;
+        for (int i = 0; i < cupsValues.size(); i++) {
+            int value = cupsValues.get(i);
+            int cupHeight = 2 * value - 1;
+            if (i == 0) {newHeight = cupHeight; } 
+            else {
+                int previous = cupsValues.get(i - 1);
+                if (value < previous) {
+                    continue;
+                }
+                int index = i - 1;
+                while (index >= 0 && value > cupsValues.get(index)) {index--; }
+                newHeight += cupHeight;
+            }
+        }
+        return newHeight;
     }
 }
