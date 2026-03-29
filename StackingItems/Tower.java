@@ -69,37 +69,54 @@ public class Tower{
         }
     }
     
-    /*
-     * Por aquí va la cosa mas o menos para meter copas dentro de otras
-     * 
-     * public void pushCup(int i){
-     * if (!cupsValues.contains(i) && height + 2*i - 1 <= maxHeight) {
+    public void pushCup2(int i) {
+        if (!cupsValues.contains(i)) {
+            System.out.println(cupsValues);
+            if (cups.size() == 0) {
                 cupsValues.add(i);
-                Cup lastCup = null;
-                if (cups.size() > 0) {
-                    lastCup = cups.get(cups.size() - 1);
-                }
-        
-                if (lastCup != null && i < lastCup.getValue()) {
-                    height += (1 - lastCup.getHeight());
-                    Cup cup = new Cup(i, maxHeight, width, height, isVisible);
-                    cups.add(cup);
-                    height += (lastCup.getHeight() - 1);
-                } else {
-                    Cup cup = new Cup(i, maxHeight, width, height, isVisible);
-                    height += (cup.getHeight());
-                    cups.add(cup);
-                }
+                Cup cup = new Cup(i, maxHeight, width, height, isVisible);
+                cups.add(cup);
+                System.out.println(maxHeight - cup.getBasePosition()/20);
+                height += (cup.getHeight());
                 isOk = true;
-            } else if (cupsValues.contains(i)){
-                showJOptionPane("La copa ya está en la torre.");
-                isOk = false;
+            } else if (i < cupsValues.get(cups.size() - 1)) {
+                cupsValues.add(i);
+                int basePosition = cups.get(cups.size() - 1).getBasePosition();
+                System.out.println(maxHeight - basePosition/20);
+                Cup cup = new Cup(i, maxHeight, width, maxHeight - basePosition/20, isVisible);
+                cups.add(cup);
+                isOk = true;
             } else {
-                showJOptionPane("Límite de altura máximo de la torre superado.");
-                isOk = false;
+                int index = cups.size() - 1;
+                System.out.println("indice  " + index);
+                int basePosition = cups.get(index).getBasePosition();
+                int cupHeight = cups.get(index).getHeight();
+                
+                int lastValue = cupsValues.get(index);
+                System.out.println(maxHeight - basePosition/20 + cupHeight - 1);
+                System.out.println("altura " + cups.get(index).getHeight());
+                while (index >= 0 && lastValue <= cupsValues.get(index) && i > cupsValues.get(index)) {
+                    System.out.println("lastValue: " + lastValue + ", actualValue: " + cupsValues.get(index));
+                    basePosition = cups.get(index).getBasePosition();
+                    cupHeight = cups.get(index).getHeight();
+                    System.out.println(maxHeight - basePosition/20 + cupHeight - 1);
+                    System.out.println("altura " + cups.get(index).getHeight());
+                    System.out.println("indice  " + index);
+                    if (index != cups.size() - 1) {
+                        lastValue = cupsValues.get(index);
+                    }
+                    index--;
+                    
+                }
+                cupsValues.add(i);
+                Cup cup = new Cup(i, maxHeight, width, maxHeight - basePosition/20 + cupHeight - 1, isVisible);
+                cups.add(cup);
+                isOk = true;
             }
+            
         }
-     */
+        System.out.println(cupsValues);
+    }
     
     /**
      * Quita de la torre la última copa insertada.
