@@ -42,7 +42,7 @@ public class Lid extends StackingItem {
     
     private void assignColor(int value) {
         String[] colors = {"LPink","LGreen","LRed","LBlue","LYellow","black"};
-        String color = colors[value - 1 % 5];
+        String color = colors[(value - 1) % 5];
         this.color = color;
     }
     
