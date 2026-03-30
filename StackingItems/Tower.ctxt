@@ -36,6 +36,7 @@ comment19.text=\r\n\ M\u00E9todo\ para\ crear\ la\ interfaz\ de\ la\ torre\r\n\ 
 comment2.params=cups
 comment2.target=Tower(int)
 comment2.text=\r\n\ Constructor\ 2\ de\ la\ clase\ Tower\r\n\ Crea\ una\ torre\ con\ el\ n\u00FAmero\ de\ copas\ deseadas\ desde\ 1\ a\ cups.\r\n\ \r\n\ @param\ cups\ Cantidad\ de\ copas\r\n
+<<<<<<< Updated upstream
 comment20.params=value
 comment20.target=boolean\ isLidInTower(int)
 comment21.params=message
@@ -55,12 +56,37 @@ comment26.target=int\ effectiveHeight(java.lang.String[][])
 comment26.text=\r\n\ Calcula\ la\ altura\ efectiva\ de\ una\ configuraci\u00F3n\ de\ la\ torre.\r\n\r\n\ La\ altura\ efectiva\ no\ se\ calcula\ usando\ el\ atributo\ height\ de\ la\ clase,\r\n\ sino\ interpretando\ la\ disposici\u00F3n\ de\ los\ elementos\ en\ items.\r\n\r\n\ @param\ items\ matriz\ con\ los\ elementos\ de\ la\ torre\ ordenados\ desde\ la\ base\ hasta\ la\ cima\r\n\ @return\ la\ altura\ efectiva\ de\ la\ configuraci\u00F3n\ dada\r\n
 comment27.params=
 comment27.target=int\ recalculateHeight()
+=======
+comment20.params=
+comment20.target=void\ cover()
+comment21.params=
+comment21.target=java.lang.String[][]\ swapToReduce()
+comment22.params=value
+comment22.target=boolean\ isLidInTower(int)
+comment22.text=\r\n\ Valida\ si\ la\ tapa\ est\u00E1\ en\ la\ torre\r\n\ \r\n\ @param\ int\ value\ N\u00FAmero\ de\ la\ tapa\r\n\ @return\ true\ si\ est\u00E1\ en\ la\ torre,\ false\ de\ lo\ contrario\r\n
+comment23.params=message
+comment23.target=void\ showJOptionPane(java.lang.String)
+comment23.text=\r\n\ Si\ el\ simulador\ est\u00E1\ visible,\ presenta\ un\ mensaje\ especial\ al\ usuario\ en\ caso\ de\ que\ \r\n\ no\ se\ pueda\ realizar\ alguna\ acci\u00F3n.\ Usa\ JOptionPane.\r\n\ \r\n\ @param\ message\ Mensaje\ del\ error\ ocurrido\r\n
+comment24.params=cups
+comment24.target=int\ calculateMaxHeight(int)
+comment24.text=\r\n\ Calcula\ la\ altura\ m\u00E1xima\ de\ una\ torre\ con\ determinado\ n\u00FAmero\ de\ copas.\r\n\ (Es\ para\ usarlo\ en\ el\ constructor\ 2)\r\n\ \r\n\ @param\ int\ cups\ N\u00FAmero\ de\ copas\r\n\ @return\ int\ maxHeight\ Altura\ m\u00E1xima\ de\ la\ torre\r\n
+comment25.params=i
+comment25.target=boolean\ cupAlreadyExists(int)
+comment25.text=\r\n\ Valida\ si\ la\ copa\ est\u00E1\ en\ la\ torre\r\n\ \r\n\ @param\ int\ i\ N\u00FAmero\ de\ la\ copa\r\n\ @return\ true\ si\ est\u00E1\ en\ la\ torre,\ false\ de\ lo\ contrario\r\n
+comment26.params=i
+comment26.target=int\ calculateBasePosition(int)
+comment26.text=\r\n\ Calcula\ la\ posici\u00F3n\ de\ la\ base\ para\ ubicar\ una\ nueva\ copa\r\n\ \r\n\ @param\ int\ i\ N\u00FAmero\ de\ la\ copa\r\n\ @return\ true\ si\ est\u00E1\ en\ la\ torre,\ false\ de\ lo\ contrario\r\n
+comment27.params=i
+comment27.target=int\ calculateMiddlePosition(int)
+comment28.params=
+comment28.target=int\ recalculateHeight()
+>>>>>>> Stashed changes
 comment3.params=i
 comment3.target=void\ pushCup(int)
-comment3.text=\r\n\ Inserta\ la\ copa\ identificada\ con\ el\ n\u00FAmero\ i\ en\ la\ torre.\r\n\ \r\n\ Este\ m\u00E9todo\ valida\ si\ la\ copa\ ya\ est\u00E1\ en\ la\ torre\ (para\ evitar\ duplicados)\ y\ si\ la\ operaci\u00F3n\ \r\n\ de\ inserci\u00F3n\ supera\ la\ altura\ m\u00E1xima\ permitida.\ Si\ se\ puede\ insertar,\ crea\ una\ copa\ y\ la\ apila\r\n\ validando\ si\ cabe\ en\ la\ \u00FAltima\ copa\ insertada\ o\ si\ no,\ por\ \u00FAltimo\ aumenta\ la\ altura\ de\ la\ torre.\r\n\ \r\n\ @param\ i\ El\ n\u00FAmero\ de\ la\ copa\r\n
+comment3.text=\r\n\ Inserta\ la\ copa\ identificada\ con\ el\ n\u00FAmero\ i\ en\ la\ torre.\r\n\ \r\n\ Este\ m\u00E9todo\ valida\ si\ la\ copa\ ya\ est\u00E1\ en\ la\ torre\ (para\ evitar\ duplicados)\ y\ si\ la\ operaci\u00F3n\ \r\n\ de\ inserci\u00F3n\ supera\ la\ altura\ m\u00E1xima\ permitida.\ Si\ se\ puede\ insertar,\ crea\ una\ copa\ y\ la\ apila,\r\n\ por\ \u00FAltimo\ aumenta\ la\ altura\ de\ la\ torre.\r\n\ \r\n\ @param\ i\ El\ n\u00FAmero\ de\ la\ copa\r\n
 comment4.params=
 comment4.target=void\ popCup()
-comment4.text=\r\n\ Quita\ de\ la\ torre\ la\ \u00FAltima\ copa\ insertada.\r\n\ \r\n\ Este\ m\u00E9todo\ valida\ si\ hay\ copas\ en\ la\ torre,\ si\ las\ hay\ entonces\ remueve\ la\ \u00FAltima\ del\ ArrayList,\ \r\n\ baja\ la\ posici\u00F3n\ de\ las\ tapas\ que\ estaban\ arriba\ y\ recalcula\ la\ altura\ de\ la\ torre\ \r\n
+comment4.text=\r\n\ Quita\ de\ la\ torre\ la\ \u00FAltima\ copa\ insertada.\r\n\ \r\n\ Este\ m\u00E9todo\ valida\ si\ hay\ copas\ en\ la\ torre,\ si\ las\ hay\ entonces\ remueve\ la\ \u00FAltima\ del\ ArrayList,\ \r\n\ baja\ la\ posici\u00F3n\ de\ las\ tapas\ que\ estaban\ arriba\ y\ recalcula\ la\ altura\ de\ la\ torre.\ \r\n
 comment5.params=i
 comment5.target=void\ removeCup(int)
 comment5.text=\r\n\ Quita\ de\ la\ torre\ la\ copa\ con\ el\ n\u00FAmero\ i.\r\n\ \r\n\ Este\ m\u00E9todo\ valida\ si\ la\ copa\ est\u00E1\ en\ la\ torre,\ si\ est\u00E1\ entonces\ reconstruye\ la\ torre\ usando\ StackingItems\r\n\ sin\ la\ copa\ con\ el\ n\u00FAmero\ i\r\n\ \r\n\ @param\ i\ El\ n\u00FAmero\ de\ la\ copa\r\n
@@ -76,4 +102,8 @@ comment8.text=\r\n\ Quita\ de\ la\ torre\ la\ tapa\ con\ el\ n\u00FAmero\ i.\r\n
 comment9.params=
 comment9.target=void\ orderTower()
 comment9.text=\r\n\ Ordena\ la\ torre\ de\ modo\ que\:\r\n\ -\ El\ orden\ es\ de\ mayor\ a\ menor.\r\n\ -\ El\ n\u00FAmero\ menor\ siempre\ queda\ en\ la\ cima\ de\ la\ torre.\r\n\ \r\n\ Crea\ un\ ArrayList\ de\ los\ n\u00FAmeros\ de\ las\ copas\ y\ los\ ordena\ de\ mayor\ a\ menor.\r\n\ Hace\ popCup\ de\ todas\ las\ copas\ de\ la\ torre.\r\n\ Hace\ pushCup\ en\ orden\ de\ las\ copas.\r\n\ Si\ habia\ una\ tapa\ y\ una\ copa\ con\ el\ mismo\ n\u00FAmero,\ ubica\ la\ tapa\ encima\ de\ la\ copa.\r\n
+<<<<<<< Updated upstream
 numComments=28
+=======
+numComments=29
+>>>>>>> Stashed changes

@@ -1,7 +1,7 @@
 import java.util.*;
+import javax.swing.JOptionPane;
 
 public class TowerContest {
-    
     /**
      * Resuelve el problema de la maratón.
      * 
@@ -48,10 +48,10 @@ public class TowerContest {
      * @param int h Altura de la torre
      */
     public void simulate(int n, int h) {
-        Tower tower = new Tower(h, 2*n);
-        tower.makeVisible();
         String result = solve(n, h);
         if(!result.equals("impossible")) {
+            Tower tower = new Tower(h, 2*n);
+            tower.makeVisible();
             String[] parts = result.split(" ");
             int[] cups = new int[parts.length];
             for(int i = 0; i < parts.length; i++) {
@@ -61,6 +61,9 @@ public class TowerContest {
             for (Integer cup : cups) {
                 tower.pushCup(cup);
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "No es posible simular la solución :(",
+            "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
