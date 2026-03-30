@@ -76,43 +76,25 @@ public class TowerContest {
     }
     
     private ArrayList<Integer> solve(ArrayList<Integer> cups,int h){
-        int height=h;
-        int newHeight=0;
-        int index=cups.size()-1;
-        int counter=0;
-        ArrayList<Integer> solution=new ArrayList<Integer>();
-        while(height>0){
-            newHeight=height-(2*cups.get(index)-1);
-            if(newHeight>=0){
-                height=newHeight;
-                solution.add(0,cups.get(index));
-                if(solution.size()!=cups.size()&&newHeight==0){
-                    ArrayList<Integer> newCups=new ArrayList<Integer>();
-                    for(int i=0;i<cups.size();i++){
-                        Integer value=cups.get(i);
-                        if(!solution.contains(value)){newCups.add(value);}
-                    }
-                    ArrayList<Integer> rest=this.solve(newCups,h-solution.size());
-                    if(rest!=null){
-                        solution.addAll(rest);
-                        return solution;
-                    }else{
-                        solution.remove(0);
-                        height=h;
-                    }
-                }
-            }else{newHeight=height;}
-            index--;
-            if(index<0&&height>0){
-                counter++;
-                newHeight=0;
-                height=h-counter;
-                index=cups.size()-1;
-                solution.clear();
+        int height = h;
+        int index = cups.size() - 1;
+        ArrayList<Integer> solution = new ArrayList<Integer>();
+        while (height > 0 && index >= 0) {
+            int cup = cups.get(index);
+            int newHeight = height - (2*cup - 1);
+            if (newHeight >= 0) {
+                height = newHeight;
+                solution.add(0, cup);
             }
-            if(height<=0){break;}
+            index--;
         }
-        if(solution.size()==cups.size()){return solution;}
-        return null;
+        ArrayList<Integer> remainingCups = new ArrayList<Integer>();
+        for(int i = 0; i < cups.size(); i++){
+            Integer value = cups.get(i);
+            if(!solution.contains(value)){ remainingCups.add(value); }
+        }
+        Collections.sort(remainingCups, Collections.reverseOrder());
+        solution.addAll(remainingCups);
+        return solution;
     }
 }
