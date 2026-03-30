@@ -7,6 +7,7 @@ public class Tower{
     private int width;
     private ArrayList<Cup> cups;
     private ArrayList<Lid> lids;
+    private ArrayList<StackingItem> items;
     private ArrayList<Integer> cupsValues;
     private ArrayList<Integer> lidsValues;
     private boolean isVisible;
@@ -25,6 +26,7 @@ public class Tower{
         this.width = width;
         this.cups = new ArrayList<Cup>();
         this.lids = new ArrayList<Lid>();
+        this.items = new ArrayList<StackingItem>();
         this.cupsValues = new ArrayList<Integer>();
         this.lidsValues = new ArrayList<Integer>();
         this.isVisible = false;
@@ -60,6 +62,7 @@ public class Tower{
                 cupsValues.add(i);
                 Cup cup = new Cup(i, maxHeight, width, basePosition, isVisible);
                 cups.add(cup);
+                items.add(cup);
                 if (cups.size() == 1) { height += cup.getHeight(); }
                 isOk = true;
             } else {
@@ -140,6 +143,43 @@ public class Tower{
      * @param i El número de la tapa
      */
     public void pushLid(int i) {
+        if (!lidAlreadyExists(i)) {
+            int basePosition = calculateBasePosition(i);
+            if (!(maxHeight < basePosition + 1)) {
+                if (height < basePosition + 1) { height = basePosition + 1; }
+                lidsValues.add(i);
+                Lid lid = new Lid(i, maxHeight, basePosition, width, isVisible);
+                lids.add(lid);
+                items.add(lid);
+                if (lids.size() == 1) { height += lid.getHeight(); }
+                isOk = true;
+            } else {
+                showJOptionPane("Límite de altura máximo de la torre superado.");
+                isOk = false;
+            }
+        }
+    }
+    
+    /*
+     * public void pushCup(int i) {
+        if (!cupAlreadyExists(i)) {
+            int basePosition = calculateBasePosition(i);
+            if (!(maxHeight < basePosition + 2*i - 1)) {
+                if (height < basePosition + 2*i - 1) { height = basePosition + 2*i - 1; }
+                cupsValues.add(i);
+                Cup cup = new Cup(i, maxHeight, width, basePosition, isVisible);
+                cups.add(cup);
+                items.add(cup);
+                if (cups.size() == 1) { height += cup.getHeight(); }
+                isOk = true;
+            } else {
+                showJOptionPane("Límite de altura máximo de la torre superado.");
+                isOk = false;
+            }
+        }
+    }
+    
+    public void pushLid(int i) {
         if (!lidsValues.contains(i) && height + 1 <= maxHeight) {
             lidsValues.add(i);
             Lid lid = new Lid(i, maxHeight, height, width, isVisible);
@@ -154,6 +194,7 @@ public class Tower{
             isOk = false;
         }
     }
+     */
     
     /**
      * Quita de la torre la última tapa insertada.
@@ -649,30 +690,45 @@ public class Tower{
     }
     
     /**
+     * Valida si la tapa está en la torre
+     * 
+     * @param int i Número de la tapa
+     * @return true si está en la torre, false de lo contrario
+     */
+    private boolean lidAlreadyExists(int i) {
+        if (lidsValues.contains(i)) {
+            showJOptionPane("La tapa ya está en la torre.");
+            isOk = false;
+            return true;
+        }
+        return false;
+    }
+    
+    /**
      * Calcula la posición de la base para ubicar una nueva copa
      * 
      * @param int i Número de la copa
      * @return true si está en la torre, false de lo contrario
      */
     private int calculateBasePosition(int i) {
-        if (cups.isEmpty()) { return height; }
+        if (items.isEmpty()) { return height; }
         
-        if (i < cupsValues.get(cups.size() - 1)) {
-            int lastBase = cups.get(cups.size() - 1).getBasePosition();
+        if (i < items.get(items.size() - 1).getValue()) {
+            int lastBase = items.get(cups.size() - 1).getBasePosition();
             return maxHeight - lastBase/20;
         }
         return calculateMiddlePosition(i);
     }
     
     private int calculateMiddlePosition(int i) {
-        int index = cups.size() - 1;
-        int lastValue = cupsValues.get(index);
-        int cupHeight = cups.get(index).getHeight();
-        int lastBase = cups.get(index).getBasePosition();
-        while (index >= 0 && lastValue <= cupsValues.get(index) && i > cupsValues.get(index)) {
-            lastBase = cups.get(index).getBasePosition();
-            cupHeight = cups.get(index).getHeight();
-            if (index != cups.size() - 1) { lastValue = cupsValues.get(index); }
+        int index = items.size() - 1;
+        int lastValue = items.get(index).getValue();
+        int cupHeight = items.get(index).getHeight();
+        int lastBase = items.get(index).getBasePosition();
+        while (index >= 0 && lastValue <= items.get(index).getValue() && i > items.get(index).getValue()) {
+            lastBase = items.get(index).getBasePosition();
+            cupHeight = items.get(index).getHeight();
+            if (index != items.size() - 1) { lastValue = items.get(index).getValue(); }
             index--;
         }
         return maxHeight - lastBase / 20 + cupHeight - 1;
