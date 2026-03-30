@@ -553,48 +553,95 @@ public class Tower{
     
         isOk = true;
     }
-
+    /**
+     * realiza posibles swaps para un arreglo y comprobar como es que se puede reducir la altura
+     * retorna los dos objetos que pueden reducir la altura y su longitud
+     * si no es posible reducirla retorna null
+     * 
+     * @return String[][] si hay objetos que la reduzcan o null si no los hay
+     */
     public String[][] swapToReduce() {
         String[][] original = stackingItems();
+        int originalHeight = effectiveHeight(original);
     
-        String[][] nuevo = new String[original.length][2];
         for (int i = 0; i < original.length; i++) {
-            nuevo[i][0] = original[i][0];
-            nuevo[i][1] = original[i][1];
-        }
+            for (int j = i + 1; j < original.length; j++) {
     
-        int baseHeight = height();
-    
-        for (int i = 0; i < nuevo.length; i++) {
-            for (int j = i + 1; j < nuevo.length; j++) {
-    
-                String[] o1 = new String[] { nuevo[i][0], nuevo[i][1] };
-                String[] o2 = new String[] { nuevo[j][0], nuevo[j][1] };
+                String[] o1 = new String[]{original[i][0], original[i][1]};
+                String[] o2 = new String[]{original[j][0], original[j][1]};
     
                 swap(o1, o2);
-                int newHeight = height();
     
-                while (cups.size() > 0) { popCup(); }
-                while (lids.size() > 0) { popLid(); }
+                int newHeight = effectiveHeight(stackingItems());
     
-                for (int k = 0; k < nuevo.length; k++) {
-                    int v = Integer.parseInt(nuevo[k][1]);
-                    if ("cup".equals(nuevo[k][0])) {
-                        pushCup(v);
-                    } else if ("lid".equals(nuevo[k][0])) {
-                        pushLid(v);
-                    }
-                }
+                restoreTower(original);
     
-                if (newHeight < baseHeight) {
+                if (newHeight < originalHeight) {
                     isOk = true;
-                    return new String[][] { o1, o2 };
+                    return new String[][]{o1, o2};
                 }
             }
         }
     
         isOk = false;
         return null;
+    }
+    
+    /**
+    * Restaura la torre exactamente al estado representado en la matriz items.
+    *
+    * Este método elimina todas las copas y tapas actuales de la torre y luego
+    * reconstruye la estructura en el mismo orden en que aparecen en items,
+    * usando pushCup y pushLid.
+    *
+    * @param items matriz con el estado que se quiere reconstruir en la torre
+    */
+    private void restoreTower(String[][] items) {
+        while (cups.size() > 0) { popCup(); }
+        while (lids.size() > 0) { popLid(); }
+        
+        for (int i = 0; i < items.length; i++) {
+            int value = Integer.parseInt(items[i][1]);
+        
+            if ("cup".equals(items[i][0])) {
+                pushCup(value);
+            } else if ("lid".equals(items[i][0])) {
+                pushLid(value);
+            }
+        }
+    }
+    
+    /**
+     * Calcula la altura efectiva de una configuración de la torre.
+     *
+     * La altura efectiva no se calcula usando el atributo height de la clase,
+     * sino interpretando la disposición de los elementos en items.
+     *
+     * @param items matriz con los elementos de la torre ordenados desde la base hasta la cima
+     * @return la altura efectiva de la configuración dada
+     */
+    private int effectiveHeight(String[][] items) {
+        int total = 0;
+    
+        for (int i = 0; i < items.length; i++) {
+            String type = items[i][0];
+            int value = Integer.parseInt(items[i][1]);
+    
+            if ("cup".equals(type)) {
+                total += 2 * value - 1;
+            } else if ("lid".equals(type)) {
+                boolean coversCup =
+                    i > 0 &&
+                    "cup".equals(items[i - 1][0]) &&
+                    items[i - 1][1].equals(items[i][1]);
+    
+                if (!coversCup) {
+                    total += 1;
+                }
+            }
+        }
+    
+        return total;
     }
     
     private int recalculateHeight() {
