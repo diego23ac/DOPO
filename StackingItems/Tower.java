@@ -47,24 +47,11 @@ public class Tower{
      * Inserta la copa identificada con el número i en la torre.
      * 
      * Este método valida si la copa ya está en la torre (para evitar duplicados) y si la operación 
-     * de inserción supera la altura máxima permitida. Si se puede insertar, crea una copa y la apila
-     * validando si cabe en la última copa insertada o si no, por último aumenta la altura de la torre.
      * de inserción supera la altura máxima permitida. Si se puede insertar, crea una copa y la apila,
      * por último aumenta la altura de la torre.
      * 
      * @param i El número de la copa
      */
-    public void pushCup(int i) {
-        if (cupsValues.contains(i)) {
-            showJOptionPane("La copa ya está en la torre.");
-            isOk = false;
-        } else {
-            int basePosition;
-            if (cups.size() == 0) {
-                basePosition = height;
-            } else if (i < cupsValues.get(cups.size() - 1)) {
-                int lastBase = cups.get(cups.size() - 1).getBasePosition();
-                basePosition = maxHeight - lastBase / 20;
     public void pushCup (int i) {
         if (!cupAlreadyExists(i)) {
             int basePosition = calculateBasePosition(i);
@@ -73,25 +60,6 @@ public class Tower{
                 showJOptionPane("Límite de altura máximo de la torre superado.");
                 isOk = false;
             } else {
-                int index = cups.size() - 1;
-                int lastValue = cupsValues.get(index);
-                int cupHeight = cups.get(index).getHeight();
-                int lastBase = cups.get(index).getBasePosition();
-                while (index >= 0 && lastValue <= cupsValues.get(index) && i > cupsValues.get(index)) {
-                    lastBase = cups.get(index).getBasePosition();
-                    cupHeight = cups.get(index).getHeight();
-                    if (index != cups.size() - 1) { lastValue = cupsValues.get(index); }
-                    index--;
-                }
-                basePosition = maxHeight - lastBase / 20 + cupHeight - 1;
-                if (maxHeight < basePosition + 2 * i - 1) {
-                    showJOptionPane("Límite de altura máximo de la torre superado.");
-                    isOk = false;
-                    return;
-                }
-        
-                if (height < basePosition + 2 * i - 1) {
-                    height = basePosition + 2 * i - 1;
                 Cup cup = new Cup(i, maxHeight, width, basePosition, isVisible);
                 cupsValues.add(i);
                 cups.add(cup);
@@ -100,14 +68,6 @@ public class Tower{
                 }
                 isOk = true;
             }
-            cupsValues.add(i);
-            Cup cup = new Cup(i, maxHeight, width, basePosition, isVisible);
-            cups.add(cup);
-            if (cups.size() == 1) {
-                height += cup.getHeight();
-            }
-            isOk = true;
-        }
         }    
     }
     
@@ -115,7 +75,6 @@ public class Tower{
      * Quita de la torre la última copa insertada.
      * 
      * Este método valida si hay copas en la torre, si las hay entonces remueve la última del ArrayList, 
-     * baja la posición de las tapas que estaban arriba y recalcula la altura de la torre 
      * baja la posición de las tapas que estaban arriba y recalcula la altura de la torre. 
      */
     public void popCup() {
@@ -509,32 +468,6 @@ public class Tower{
         frame.add(new Rectangle(maxHeight*20,2,"black",20,0));
         frame.add(new Rectangle(2,width*20 + 22,"black",0,maxHeight*20+1));
     }
-    
-    private boolean isLidInTower(int value) {
-        for (Lid lid : lids) {
-            if (lid.getValue() == value) { return true; }
-        }
-        return false;
-    }
-    
-    /**
-     * Si el simulador está visible, presenta un mensaje especial al usuario en caso de que 
-     * no se pueda realizar alguna acción. Usa JOptionPane.
-     * 
-     * @param message Mensaje del error ocurrido
-     */
-    private void showJOptionPane(String message) {
-        if (isVisible) {
-            JOptionPane.showMessageDialog(null, message,
-            "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-    
-    private static int calculateMaxHeight(int cups) {
-        int maxHeight = 0;
-        for (int i = 1; i <= cups; i++) { maxHeight += 2*i - 1; }
-        return maxHeight;
-    }
 
     public void cover() {
         boolean moved = true;
@@ -746,23 +679,10 @@ public class Tower{
     }
     
     private int recalculateHeight() {
-        if (cupsValues.isEmpty()) {return 0;}
-        int newHeight = 0;
-        for (int i = 0; i < cupsValues.size(); i++) {
         if (cupsValues.isEmpty()) { return 0; }
         int newHeight = 2*cupsValues.get(0) - 1;
         for (int i = 1; i < cupsValues.size(); i++) {
             int value = cupsValues.get(i);
-            int cupHeight = 2 * value - 1;
-            if (i == 0) {newHeight = cupHeight; } 
-            else {
-                int previous = cupsValues.get(i - 1);
-                if (value < previous) {
-                    continue;
-                }
-                int index = i - 1;
-                while (index >= 0 && value > cupsValues.get(index)) {index--; }
-                newHeight += cupHeight;
             int previous = cupsValues.get(i - 1);
             if (value >= previous) {
                 newHeight += 2*value - 1;
