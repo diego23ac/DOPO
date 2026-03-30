@@ -1,18 +1,13 @@
-public class Cup {
-    private int value;
-    private int height;
-    private String color;
-    private int yBasePosition;
+public class Cup extends StackingItem{
     private Rectangle cupRectangle[];
     private Lid lid;
-    private boolean isVisible;
 
     public Cup(int value,int towerMaxHeight,int towerWidth,int towerHeight,boolean isVisible) {
-        this.value = value;
+        super(value, isVisible);
         this.height = 2*value -1;
         this.assignColor(value);
         this.cupRectangle = new Rectangle[3];
-        this.createCup(towerMaxHeight,towerWidth, towerHeight);
+        this.create(towerMaxHeight,towerWidth, towerHeight);
         if (isVisible) { makeVisible(); }
     }
     
@@ -42,12 +37,8 @@ public class Cup {
             }
         }
     }
-
-    public int getHeight() { return height; }
     
-    public int getBasePosition() { return yBasePosition; }
-    
-    public int getValue() { return value; }
+    public String getType(){ return "cup"; }
     
     private void assignColor(int value) {
         String[] colors = {"CPink","CGreen","CRed","CBlue","CYellow","black"};
@@ -55,7 +46,7 @@ public class Cup {
         this.color = color;
     }
     
-    private void createCup(int towerMaxHeight, int towerWidth, int towerHeight) {
+    private void create(int towerMaxHeight, int towerWidth, int towerHeight) {
         int middle = 10*(towerWidth - height) + 22;
         if (height > 1) {
             Rectangle base = new Rectangle(20, height*20, color,middle,20*(towerMaxHeight - towerHeight - 1));

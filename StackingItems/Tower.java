@@ -536,8 +536,7 @@ public class Tower{
         isOk = false;
         return null;
     }
-    
-<<<<<<< Updated upstream
+
     /**
     * Restaura la torre exactamente al estado representado en la matriz items.
     *
@@ -593,7 +592,8 @@ public class Tower{
         }
     
         return total;
-=======
+    }
+    
     //Metodos para que el código no quede tan largo :D
     
     /**
@@ -677,7 +677,6 @@ public class Tower{
             index--;
         }
         return maxHeight - lastBase/20 + cupHeight - 1;
->>>>>>> Stashed changes
     }
     
     private int recalculateHeight() {

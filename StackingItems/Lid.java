@@ -1,21 +1,17 @@
 import java.util.*;
 
-public class Lid {
-    private static final int HEIGHT = 1;
-    private int value;
+public class Lid extends StackingItem {
     private int width;
-    private String color;
-    private int yBasePosition;
     private Rectangle lidRectangle[];
     private Cup cup;
-    private boolean isVisible;
     
     public Lid(int value, int towerMaxHeight, int towerHeight, int towerWidth, boolean isVisible) {
-        this.value = value;
+        super(value, isVisible);
+        this.height = 1;
         this.width = 2*value - 1;
         this.assignColor(value);
         this.lidRectangle = new Rectangle[2];
-        this.createLid(towerMaxHeight,towerWidth, towerHeight);
+        this.create(towerMaxHeight,towerWidth, towerHeight);
         if(isVisible) { makeVisible(); }
     }
 
@@ -42,9 +38,7 @@ public class Lid {
     
     public int getWidth(){ return width; }
     
-    public int getBasePosition() {return yBasePosition; }
-    
-    public int getValue() { return value; }
+    public String getType(){ return "lid"; }
     
     private void assignColor(int value) {
         String[] colors = {"LPink","LGreen","LRed","LBlue","LYellow","black"};
@@ -52,10 +46,10 @@ public class Lid {
         this.color = color;
     }
     
-    private void createLid(int towerMaxHeight, int towerWidth, int towerHeight) {
+    private void create(int towerMaxHeight, int towerWidth, int towerHeight) {
         int middle = 10*(towerWidth - width) + 22;
-        lidRectangle[0] = new Rectangle(20 * HEIGHT, width * 20, color,middle, 20*(towerMaxHeight - towerHeight - 1));
-        lidRectangle[1] = new Rectangle(12 * HEIGHT, 12 * HEIGHT, "LYellowDiamond",(10*towerWidth) + 16, 20*(towerMaxHeight - towerHeight) - 16);
+        lidRectangle[0] = new Rectangle(20, width * 20, color,middle, 20*(towerMaxHeight - towerHeight - 1));
+        lidRectangle[1] = new Rectangle(12, 12, "LYellowDiamond",(10*towerWidth) + 16, 20*(towerMaxHeight - towerHeight) - 16);
         yBasePosition = 20*(towerMaxHeight - towerHeight - 1);
     }
 }
