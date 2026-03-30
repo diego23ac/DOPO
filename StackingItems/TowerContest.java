@@ -64,6 +64,14 @@ public class TowerContest {
         }
     }
     
+    /**
+     * Resuelve los casos triviales mostrados en el video del ProblemJ, que es cuando
+     * la altura h es 2*n + 1. Para ello la secuencia es [n, 2, n - 1, n - 2, ..., 1],
+     * teniendo en cuenta que el dos no se repite y que esto solo funciona para n > 3
+     * 
+     * @param int n Numero de copas
+     * @param int h Altura de la torre
+     */
     private ArrayList<Integer> trivialSolution(int n, int h){
         ArrayList<Integer> solution = new ArrayList<Integer>();
         solution.add(n);
@@ -75,6 +83,12 @@ public class TowerContest {
         return solution;
     }
     
+    /**
+     * Resuelve los casos no triviales que es cuando la altura h no es 2*n + 1.
+     * 
+     * @param int n Numero de copas
+     * @param int h Altura de la torre
+     */
     private ArrayList<Integer> solve(ArrayList<Integer> cups,int h){
         int height = h;
         int index = cups.size() - 1;
