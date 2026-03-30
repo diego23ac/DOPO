@@ -104,6 +104,7 @@ public class TowerCC2Test {
     @Test
     public void accordingSShouldSwapCupAndLid() {
         Tower tower = new Tower(2);
+        tower.makeVisible();
         tower.pushLid(1);
         tower.swap(new String[]{"cup", "2"}, new String[]{"lid", "1"});
         

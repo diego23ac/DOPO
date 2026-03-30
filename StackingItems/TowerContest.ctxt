@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=TowerContest
+comment1.params=n\ h
+comment1.target=java.lang.String\ solve(int,\ int)
+comment1.text=\r\n\ Resuelve\ el\ problema\ de\ la\ marat\u00F3n.\r\n\ \r\n\ @param\ int\ n\ Numero\ de\ copas\r\n\ @param\ int\ h\ Altura\ de\ la\ torre\r\n\ @return\ String\ result\ Si\ es\ posible\ construir\ una\ torre\ de\ altura\ h\r\n\ con\ un\ n\u00FAmero\ n\ de\ copas,\ retorna\ las\ alturas\ de\ las\ copas\ en\ el\ orden\r\n\ en\ que\ deber\u00EDan\ ser\ insertadas.\ De\ lo\ contrario,\ retorna\ 'impossible'\r\n
+comment2.params=n\ h
+comment2.target=void\ simulate(int,\ int)
+comment2.text=\r\n\ Dibuja\ la\ imagen\ de\ la\ soluci\u00F3n,\ si\ existe\ y\ es\ posible\ graficarla.\r\n\ \r\n\ @param\ int\ n\ Numero\ de\ copas\r\n\ @param\ int\ h\ Altura\ de\ la\ torre\r\n
+comment3.params=cups\ h
+comment3.target=java.util.ArrayList\ solve(java.util.ArrayList,\ int)
+comment4.params=n\ h
+comment4.target=java.util.ArrayList\ trivial(int,\ int)
+numComments=5

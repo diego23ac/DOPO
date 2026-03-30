@@ -516,7 +516,7 @@ public class Tower{
     private static int calculateMaxHeight(int cups) {
         int maxHeight = 0;
         for (int i = 1; i <= cups; i++) { maxHeight += 2*i - 1; }
-        return maxHeight + 1;
+        return maxHeight;
     }
 
     public void cover() {

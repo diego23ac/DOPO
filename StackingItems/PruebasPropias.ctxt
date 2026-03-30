@@ -1,5 +1,5 @@
 #BlueJ class context
-comment0.target=PruebasPropiasTest
+comment0.target=PruebasPropias
 comment1.params=
 comment1.target=void\ ShouldPushCorrectly()
 comment2.params=
@@ -10,4 +10,6 @@ comment4.params=
 comment4.target=void\ ShouldPushCorrectly1324()
 comment5.params=
 comment5.target=void\ ShouldPushCorrectly4231()
-numComments=6
+comment6.params=
+comment6.target=void\ ShouldContest()
+numComments=7

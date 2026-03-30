@@ -1,9 +1,11 @@
+
+
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class PruebasPropiasTest {
+public class PruebasPropias {
     
     @Test
     public void ShouldPushCorrectly(){
@@ -52,6 +54,13 @@ public class PruebasPropiasTest {
         tower.makeVisible();
         for (int cup : cups) { tower.pushCup(cup); }
         System.out.println(tower.height());
+        assertEquals("si","si");
+    }
+    
+    @Test
+    public void ShouldContest(){
+        TowerContest contest = new TowerContest();
+        contest.solve(4,9);
         assertEquals("si","si");
     }
 }
