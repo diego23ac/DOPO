@@ -537,6 +537,7 @@ public class Tower{
         return null;
     }
     
+<<<<<<< Updated upstream
     /**
     * Restaura la torre exactamente al estado representado en la matriz items.
     *
@@ -676,6 +677,7 @@ public class Tower{
             index--;
         }
         return maxHeight - lastBase/20 + cupHeight - 1;
+>>>>>>> Stashed changes
     }
     
     private int recalculateHeight() {
