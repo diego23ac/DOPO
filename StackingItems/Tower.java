@@ -57,13 +57,13 @@ public class Tower{
     public void pushCup(int i) {
         if (!cupAlreadyExists(i)) {
             int basePosition = calculateBasePosition(i);
+            System.out.println("maxHeight: " + maxHeight + " height: " + height + " alturaEstimada: " + (basePosition + 2*i - 1));
             if (!(maxHeight < basePosition + 2*i - 1)) {
                 if (height < basePosition + 2*i - 1) { height = basePosition + 2*i - 1; }
                 cupsValues.add(i);
                 Cup cup = new Cup(i, maxHeight, width, basePosition, isVisible);
                 cups.add(cup);
                 items.add(cup);
-                if (cups.size() == 1) { height += cup.getHeight(); }
                 isOk = true;
             } else {
                 showJOptionPane("Límite de altura máximo de la torre superado.");
@@ -86,7 +86,7 @@ public class Tower{
             cupsValues.remove(Integer.valueOf(cupValue));
             cupPosition = rCup.getBasePosition();
             for (Lid lid : lids) {
-                if (lid.getBasePosition() < cupPosition) { lid.moveDown(rCup.getHeight()); }
+                if (lid.getBasePosition() > cupPosition) { lid.moveDown(rCup.getHeight()); }
             }
             rCup.makeInvisible();
             height = recalculateHeight();
@@ -151,7 +151,6 @@ public class Tower{
                 Lid lid = new Lid(i, maxHeight, basePosition, width, isVisible);
                 lids.add(lid);
                 items.add(lid);
-                if (lids.size() == 1) { height += lid.getHeight(); }
                 isOk = true;
             } else {
                 showJOptionPane("Límite de altura máximo de la torre superado.");
@@ -714,8 +713,8 @@ public class Tower{
         if (items.isEmpty()) { return height; }
         
         if (i < items.get(items.size() - 1).getValue()) {
-            int lastBase = items.get(cups.size() - 1).getBasePosition();
-            return maxHeight - lastBase/20;
+            int lastBase = items.get(items.size() - 1).getBasePosition();
+            return lastBase + 1;
         }
         return calculateMiddlePosition(i);
     }
@@ -723,15 +722,13 @@ public class Tower{
     private int calculateMiddlePosition(int i) {
         int index = items.size() - 1;
         int lastValue = items.get(index).getValue();
-        int cupHeight = items.get(index).getHeight();
-        int lastBase = items.get(index).getBasePosition();
-        while (index >= 0 && lastValue <= items.get(index).getValue() && i > items.get(index).getValue()) {
-            lastBase = items.get(index).getBasePosition();
-            cupHeight = items.get(index).getHeight();
+        int lastTop = items.get(index).getTopPosition();
+        while (index >= 0 && lastValue <= items.get(index).getValue() && i >= items.get(index).getValue()) {
+            lastTop = items.get(index).getTopPosition();
             if (index != items.size() - 1) { lastValue = items.get(index).getValue(); }
             index--;
         }
-        return maxHeight - lastBase / 20 + cupHeight - 1;
+        return lastTop;
     }
     
     private int recalculateHeight() {

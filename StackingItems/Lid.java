@@ -50,6 +50,7 @@ public class Lid extends StackingItem {
         int middle = 10*(towerWidth - width) + 22;
         lidRectangle[0] = new Rectangle(20, width * 20, color,middle, 20*(towerMaxHeight - towerHeight - 1));
         lidRectangle[1] = new Rectangle(12, 12, "LYellowDiamond",(10*towerWidth) + 16, 20*(towerMaxHeight - towerHeight) - 16);
-        yBasePosition = 20*(towerMaxHeight - towerHeight - 1);
+        yBasePosition = towerHeight;
+        System.out.println("Tapa: " + value + ", PosicionBase: " + yBasePosition + ", PosicionTope: " + this.getTopPosition());
     }
 }

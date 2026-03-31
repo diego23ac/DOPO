@@ -123,6 +123,17 @@ public class TowerCC2Test {
         assertFalse(tower.ok());
     }
     
+    @Test
+    public void ShouldPushCorrectlyCupsAndLids() {
+        Tower tower = new Tower(21,12);
+        tower.makeVisible();
+        tower.pushCup(2);
+        tower.pushCup(4);
+        tower.pushCup(3);
+        tower.pushLid(2);
+        tower.pushLid(3);
+    }
+    
     private boolean sameItem(String[] item, String type, String value) {
         return item[0].equals(type) && item[1].equals(value);
     }

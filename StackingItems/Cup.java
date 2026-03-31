@@ -38,7 +38,7 @@ public class Cup extends StackingItem{
         }
     }
     
-    public String getType(){ return "cup"; }
+    public String getType() { return "cup"; }
     
     private void assignColor(int value) {
         String[] colors = {"CPink","CGreen","CRed","CBlue","CYellow","black"};
@@ -51,7 +51,7 @@ public class Cup extends StackingItem{
         if (height > 1) {
             Rectangle base = new Rectangle(20, height*20, color,middle,20*(towerMaxHeight - towerHeight - 1));
             Rectangle ladoA = new Rectangle(height*20, 20, color,middle,20*(towerMaxHeight - towerHeight - height));
-            Rectangle ladoB = new Rectangle(height*20, 20, color, middle + height*20-20, 20*(towerMaxHeight - towerHeight - height));
+            Rectangle ladoB = new Rectangle(height*20, 20, color, middle + height*20 - 20, 20*(towerMaxHeight - towerHeight - height));
             cupRectangle[0] = base;
             cupRectangle[1] = ladoA;
             cupRectangle[2] = ladoB;
@@ -59,6 +59,7 @@ public class Cup extends StackingItem{
             Rectangle base = new Rectangle(20, height*20, color, middle, 20*(towerMaxHeight - towerHeight - 1));
             cupRectangle[0] = base;
         }
-        yBasePosition = towerMaxHeight*20 - 20 - towerHeight*20;
+        yBasePosition = towerHeight;
+        System.out.println("Copa: " + value + ", PosicionBase: " + yBasePosition + ", PosicionTope: " + this.getTopPosition());
     }
 }
