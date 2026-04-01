@@ -720,13 +720,17 @@ public class Tower{
     }
     
     private int calculateMiddlePosition(int i) {
-        int index = items.size() - 1;
-        int lastValue = items.get(index).getValue();
-        int lastTop = items.get(index).getTopPosition();
-        while (index >= 0 && lastValue <= items.get(index).getValue() && i >= items.get(index).getValue()) {
+        int maxPosition = 0;
+        for (int j = 0; j < items.size(); j++) {
+            if (items.get(j).getValue() >= items.get(maxPosition).getValue()) { maxPosition = j; }
+        }
+        int lastValue = items.get(maxPosition).getValue();
+        int lastTop = items.get(maxPosition).getTopPosition();
+        int index = maxPosition + 1;
+        while (index <= items.size() - 1 && ((lastValue >= items.get(index).getValue() && i < lastValue) || (lastValue < items.get(index).getValue()))) {
+            lastValue = items.get(index).getValue();
             lastTop = items.get(index).getTopPosition();
-            if (index != items.size() - 1) { lastValue = items.get(index).getValue(); }
-            index--;
+            index++;
         }
         return lastTop;
     }
