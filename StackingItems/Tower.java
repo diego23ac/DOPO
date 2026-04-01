@@ -82,14 +82,9 @@ public class Tower{
         int cupPosition = 0;
         if (cups.size() > 0) {
             Cup rCup = cups.remove(cups.size() - 1);
-            int cupValue = rCup.getValue();
-            cupsValues.remove(Integer.valueOf(cupValue));
-            cupPosition = rCup.getBasePosition();
-            for (Lid lid : lids) {
-                if (lid.getBasePosition() > cupPosition) { lid.moveDown(rCup.getHeight()); }
-            }
             rCup.makeInvisible();
-            height = recalculateHeight();
+            items.remove(rCup);
+            reDraw();
             isOk = true;
         } else {
             showJOptionPane("No es posible hacer popCup porque no hay copas en la torre.");
@@ -159,42 +154,6 @@ public class Tower{
         }
     }
     
-    /*
-     * public void pushCup(int i) {
-        if (!cupAlreadyExists(i)) {
-            int basePosition = calculateBasePosition(i);
-            if (!(maxHeight < basePosition + 2*i - 1)) {
-                if (height < basePosition + 2*i - 1) { height = basePosition + 2*i - 1; }
-                cupsValues.add(i);
-                Cup cup = new Cup(i, maxHeight, width, basePosition, isVisible);
-                cups.add(cup);
-                items.add(cup);
-                if (cups.size() == 1) { height += cup.getHeight(); }
-                isOk = true;
-            } else {
-                showJOptionPane("Límite de altura máximo de la torre superado.");
-                isOk = false;
-            }
-        }
-    }
-    
-    public void pushLid(int i) {
-        if (!lidsValues.contains(i) && height + 1 <= maxHeight) {
-            lidsValues.add(i);
-            Lid lid = new Lid(i, maxHeight, height, width, isVisible);
-            lids.add(lid);
-            height++;
-            isOk = true;
-        } else if (lidsValues.contains(i)){
-            showJOptionPane("La tapa ya está en la torre");
-            isOk = false;
-        } else {
-            showJOptionPane("Límite de altura máximo de la torre superado.");
-            isOk = false;
-        }
-    }
-     */
-    
     /**
      * Quita de la torre la última tapa insertada.
      * 
@@ -205,14 +164,9 @@ public class Tower{
         int lidPosition = 0;
         if (lids.size() > 0) {
             Lid rLid = lids.remove(lids.size() - 1);
-            int lidValue =  rLid.getValue();
-            lidsValues.remove(Integer.valueOf(lidValue));
-            lidPosition = rLid.getBasePosition();
-            for (Cup cup : cups) {
-                if (cup.getBasePosition() < lidPosition) { cup.moveDown(1); }
-            }
             rLid.makeInvisible();
-            height--;
+            items.remove(rLid);
+            reDraw();
             isOk = true;
         } else {
             showJOptionPane("No es posible hacer popLid porque no hay tapas en la torre.");
@@ -447,9 +401,7 @@ public class Tower{
      */
     public void makeVisible() {
         isVisible = true;
-        for(Cup cup : cups){ cup.makeVisible(); }
-
-        for(Lid lid : lids){ lid.makeVisible(); }
+        for(StackingItem item : items){ item.makeVisible(); }
         
         for(Rectangle rectangle: frame){ rectangle.makeVisible(); }
     }
@@ -460,9 +412,7 @@ public class Tower{
      */
     public void makeInvisible() {
         isVisible = false;
-        for(Cup cup : cups){ cup.makeInvisible(); }
-
-        for(Lid lid : lids){ lid.makeInvisible(); }
+        for(StackingItem item : items){ item.makeInvisible(); }
         
         for(Rectangle rectangle : frame){ rectangle.makeInvisible(); }
     }
@@ -475,6 +425,7 @@ public class Tower{
         makeInvisible();
         cups.clear();
         lids.clear();
+        items.clear();
         cupsValues.clear();
         lidsValues.clear();
         height = 0;
@@ -505,6 +456,19 @@ public class Tower{
         }
         frame.add(new Rectangle(maxHeight*20,2,"black",20,0));
         frame.add(new Rectangle(2,width*20 + 22,"black",0,maxHeight*20+1));
+    }
+    
+    private void reDraw() {
+        ArrayList<StackingItem> temporalItems = new ArrayList<StackingItem>(items);
+        exit();
+        for (StackingItem item : temporalItems) {
+            if ("cup".equals(item.getType())) {
+                pushCup(item.getValue());
+            } else if ("lid".equals(item.getType())) {
+                pushLid(item.getValue());
+            }
+        }
+        if (isVisible) { makeVisible(); }
     }
 
     public void cover() {
@@ -704,7 +668,7 @@ public class Tower{
     }
     
     /**
-     * Calcula la posición de la base para ubicar una nueva copa
+     * Calcula la posición de la base para ubicar un nuevo item
      * 
      * @param int i Número de la copa
      * @return true si está en la torre, false de lo contrario

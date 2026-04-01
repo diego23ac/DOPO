@@ -56,7 +56,7 @@ public class Propias
     @Test
     public void accordingCOShouldContestSolveRetu32rn1325(){
         Tower tower = new Tower(21,12);
-        tower.makeVisible();
+        
         tower.pushCup(3);
         tower.pushCup(2);
         tower.pushLid(1);
@@ -66,5 +66,7 @@ public class Propias
         tower.pushLid(3);
         tower.pushCup(4);
         tower.pushLid(4);
+        tower.makeVisible();
+        
     }
 }
