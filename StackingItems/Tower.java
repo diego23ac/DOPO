@@ -105,26 +105,14 @@ public class Tower{
             showJOptionPane("La copa no existe en la torre");
             isOk = false;
         } else {
-            String[][] items = stackingItems();
-            ArrayList<String[]> newItems = new ArrayList<>();
-            boolean removed = false;
-            for (int j = 0; j < items.length; j++) {
-                if (!removed && items[j][0].equals("cup") && Integer.parseInt(items[j][1]) == i) {
-                    removed = true;
-                } else { 
-                    newItems.add(items[j]); 
+            for (Cup cup : cups) {
+                if (cup.getValue() == i) {
+                    cup.makeInvisible();
+                    items.remove(cup);
+                    reDraw();
+                    isOk = true;
                 }
             }
-
-            while (cups.size() > 0) { popCup(); }
-            
-            while (lids.size() > 0) { popLid(); }
-
-            for (String[] item : newItems) {
-                int value = Integer.parseInt(item[1]);
-                if (item[0].equals("cup")) { pushCup(value); } else { pushLid(value); }
-            }
-            isOk = true;
         }
     }
     
@@ -183,36 +171,18 @@ public class Tower{
      * @param i El número de la copa
      */
     public void removeLid(int i) {
-        if (lidsValues.contains(i)) {
-            lidsValues.remove(Integer.valueOf(i));
-            int counter = 0;
-            int lidPosition = 0;
-            for (Lid lid : lids) {
-                if (i *2-1 == lid.getWidth()) {
-                    Lid rLid = lids.remove(counter);
-                    rLid.makeInvisible();
-                    lidPosition = rLid.getBasePosition();
-                    break;
-                }
-                counter += 1;
-            }
-            
-            for (Lid lid : lids) {
-                if (lid.getBasePosition() < lidPosition) {
-                    lid.moveDown(1);
-                }
-            }
-            
-            for (Cup cup : cups) {
-                if (cup.getBasePosition() < lidPosition) {
-                    cup.moveDown(1);
-                }
-            }
-            height--;
-            isOk = true;
-        } else {
+        if (!lidsValues.contains(i)) {
             showJOptionPane("La tapa no existe en la torre");
             isOk = false;
+        } else {
+            for (Lid lid : lids) {
+                if (lid.getValue() == i) {
+                    lid.makeInvisible();
+                    items.remove(lid);
+                    reDraw();
+                    isOk = true;
+                }
+            }
         }
     }
     

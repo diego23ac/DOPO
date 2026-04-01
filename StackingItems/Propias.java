@@ -66,6 +66,7 @@ public class Propias
         tower.pushLid(3);
         tower.pushCup(4);
         tower.pushLid(4);
+        tower.removeLid(3);
         tower.makeVisible();
         
     }
