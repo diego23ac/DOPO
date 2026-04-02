@@ -60,6 +60,6 @@ public class Cup extends StackingItem{
             cupRectangle[0] = base;
         }
         yBasePosition = towerHeight;
-        System.out.println("Copa: " + value + ", PosicionBase: " + yBasePosition + ", PosicionTope: " + this.getTopPosition());
+        //System.out.println("Copa: " + value + ", PosicionBase: " + yBasePosition + ", PosicionTope: " + this.getTopPosition());
     }
 }

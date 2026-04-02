@@ -66,8 +66,10 @@ public class Propias
         tower.pushLid(3);
         tower.pushCup(4);
         tower.pushLid(4);
-        tower.removeLid(3);
+        
+        tower.swap(new String[]{"cup","1"}, new String[]{"lid","1"});
         tower.makeVisible();
         
     }
+    
 }

@@ -57,7 +57,7 @@ public class Tower{
     public void pushCup(int i) {
         if (!cupAlreadyExists(i)) {
             int basePosition = calculateBasePosition(i);
-            System.out.println("maxHeight: " + maxHeight + " height: " + height + " alturaEstimada: " + (basePosition + 2*i - 1));
+            //System.out.println("maxHeight: " + maxHeight + " height: " + height + " alturaEstimada: " + (basePosition + 2*i - 1));
             if (!(maxHeight < basePosition + 2*i - 1)) {
                 if (height < basePosition + 2*i - 1) { height = basePosition + 2*i - 1; }
                 cupsValues.add(i);
@@ -105,14 +105,17 @@ public class Tower{
             showJOptionPane("La copa no existe en la torre");
             isOk = false;
         } else {
-            for (Cup cup : cups) {
+            Cup rCup = cups.get(0);
+            for (int j = 0; j < cups.size(); j++) {
+                Cup cup = cups.get(j);
                 if (cup.getValue() == i) {
-                    cup.makeInvisible();
-                    items.remove(cup);
-                    reDraw();
-                    isOk = true;
+                    rCup = cup;
                 }
             }
+            rCup.makeInvisible();
+            items.remove(rCup);
+            reDraw();
+            isOk = true;
         }
     }
     
@@ -175,14 +178,17 @@ public class Tower{
             showJOptionPane("La tapa no existe en la torre");
             isOk = false;
         } else {
-            for (Lid lid : lids) {
+            Lid rLid = lids.get(0);
+            for (int j = 0; j < lids.size(); j++) {
+                Lid lid = lids.get(j);
                 if (lid.getValue() == i) {
-                    lid.makeInvisible();
-                    items.remove(lid);
-                    reDraw();
-                    isOk = true;
+                    rLid = lid;
                 }
             }
+            rLid.makeInvisible();
+            items.remove(rLid);
+            reDraw();
+            isOk = true;
         }
     }
     
@@ -198,19 +204,16 @@ public class Tower{
      */
     public void orderTower() {
         ArrayList<Integer> orderedValues = new ArrayList<Integer>();
+        ArrayList<Integer> lidsCopy = new ArrayList<Integer>(lidsValues);
         for (Cup cup : cups) {
             int cupValue = cup.getValue();
             orderedValues.add(cupValue);
         }
         Collections.sort(orderedValues, Collections.reverseOrder());
-        int cupsNumber = this.cups.size();
-        for(int i = 0; i < cupsNumber; i++) {
-            this.popCup();
-        }
-
-        for(Integer value: orderedValues){
+        exit();
+        for(Integer value : orderedValues){
             this.pushCup(value);
-            if (lidsValues.contains(value)){
+            if (lidsCopy.contains(value)){
                 removeLid(value);
                 pushLid(value);
             }
@@ -228,20 +231,17 @@ public class Tower{
      * Si habia una tapa y una copa con el mismo número, ubica la tapa encima de la copa.
      */
     public void reverseTower() {
-        ArrayList<Integer> reverseOrderedValues = new ArrayList<Integer>();
+        ArrayList<Integer> orderedValues = new ArrayList<Integer>();
+        ArrayList<Integer> lidsCopy = new ArrayList<Integer>(lidsValues);
         for (Cup cup : cups) {
             int cupValue = cup.getValue();
-            reverseOrderedValues.add(cupValue);
+            orderedValues.add(cupValue);
         }
-        Collections.sort(reverseOrderedValues);
-        int cupsNumber = this.cups.size();
-        for(int i = 0; i < cupsNumber; i++) {
-            this.popCup();
-        }
-
-        for(Integer value: reverseOrderedValues){
+        Collections.sort(orderedValues);
+        exit();
+        for(Integer value : orderedValues){
             this.pushCup(value);
-            if (lidsValues.contains(value)){
+            if (lidsCopy.contains(value)){
                 removeLid(value);
                 pushLid(value);
             }
@@ -274,11 +274,10 @@ public class Tower{
             String[] temporal = items[o1ItemsPosition];
             items[o1ItemsPosition] = items[o2ItemsPosition];
             items[o2ItemsPosition] = temporal;
-            
-            while (cups.size() > 0) { popCup(); }
-        
-            while (lids.size() > 0) { popLid(); }
-    
+            for (int i = 0; i < items.length; i++) {
+                System.out.println(items[i][0] + " " + items[i][1]);
+            }
+            exit();
             for (int i = 0; i < items.length; i++) {
                 if ("cup".equals(items[i][0])) { 
                     pushCup(Integer.parseInt(items[i][1]));
@@ -355,7 +354,7 @@ public class Tower{
             temporalItems.add(item);
         }
         
-        temporalItems.sort((a,b) -> Integer.compare((int)b[2], (int)a[2]));
+        temporalItems.sort((a,b) -> Integer.compare((int)a[2], (int)b[2]));
         String[][] items = new String[temporalItems.size()][2];
         
         for (int i = 0; i < temporalItems.size(); i++) {
@@ -661,7 +660,7 @@ public class Tower{
         int lastValue = items.get(maxPosition).getValue();
         int lastTop = items.get(maxPosition).getTopPosition();
         int index = maxPosition + 1;
-        while (index <= items.size() - 1 && ((lastValue >= items.get(index).getValue() && i < lastValue) || (lastValue < items.get(index).getValue()))) {
+        while (index <= items.size() - 1 && ((lastValue >= items.get(index).getValue() && i < lastValue) || (lastValue <= items.get(index).getValue()))) {
             lastValue = items.get(index).getValue();
             lastTop = items.get(index).getTopPosition();
             index++;
