@@ -1,6 +1,12 @@
 import java.util.*;
 import javax.swing.JOptionPane;
 
+/**
+ * Representa una torre formada por items (por el momento copas y tapas).
+ *
+ * Se pueden insertar, remover, reorganizar sus elementos, consultar información
+ * como altura o elementos apilados y se puede hacer visible o invisible.
+ */
 public class Tower{
     private int height;
     private int maxHeight;
@@ -50,14 +56,13 @@ public class Tower{
      * 
      * Este método valida si la copa ya está en la torre (para evitar duplicados) y si la operación 
      * de inserción supera la altura máxima permitida. Si se puede insertar, crea una copa y la apila,
-     * por último aumenta la altura de la torre.
+     * también aumenta la altura de la torre.
      * 
      * @param i El número de la copa
      */
     public void pushCup(int i) {
         if (!cupAlreadyExists(i)) {
             int basePosition = calculateBasePosition(i);
-            //System.out.println("maxHeight: " + maxHeight + " height: " + height + " alturaEstimada: " + (basePosition + 2*i - 1));
             if (!(maxHeight < basePosition + 2*i - 1)) {
                 if (height < basePosition + 2*i - 1) { height = basePosition + 2*i - 1; }
                 cupsValues.add(i);
@@ -75,8 +80,8 @@ public class Tower{
     /**
      * Quita de la torre la última copa insertada.
      * 
-     * Este método valida si hay copas en la torre, si las hay entonces remueve la última del ArrayList, 
-     * baja la posición de las tapas que estaban arriba y recalcula la altura de la torre. 
+     * Este método valida si hay copas en la torre, si las hay entonces remueve la última apilada y reconstruye 
+     * la torre pero sin considerar la copa eliminada.
      */
     public void popCup() {
         int cupPosition = 0;
@@ -95,7 +100,7 @@ public class Tower{
     /**
      * Quita de la torre la copa con el número i.
      * 
-     * Este método valida si la copa está en la torre, si está entonces reconstruye la torre usando StackingItems
+     * Este método valida si la copa está en la torre, si está entonces reconstruye la torre pero
      * sin la copa con el número i
      * 
      * @param i El número de la copa
@@ -123,8 +128,8 @@ public class Tower{
      * Inserta la tapa identificada con el número i en la torre.
      * 
      * Este método valida si la tapa ya está en la torre (para evitar duplicados) y si la operación 
-     * de inserción supera la altura máxima permitida. Si se puede insertar, crea una tapa, la ingresa 
-     * en el ArrayList de tapas y aumenta la altura de la torre en 1.
+     * de inserción supera la altura máxima permitida. Si se puede insertar, crea una tapa y la apila,
+     * también la altura de la torre.
      * 
      * @param i El número de la tapa
      */
@@ -148,8 +153,8 @@ public class Tower{
     /**
      * Quita de la torre la última tapa insertada.
      * 
-     * Este método valida si hay tapas en la torre, si las hay entonces remueve la última del ArrayList,
-     * baja la posición de las copas que estaban arriba y disminuye la altura de la torre en 1.
+     * Este método valida si hay tapas en la torre, si las hay entonces remueve la última apilada y reconstruye 
+     * la torre pero sin considerar la tapa eliminada.
      */
     public void popLid() {
         int lidPosition = 0;
@@ -168,10 +173,10 @@ public class Tower{
     /**
      * Quita de la torre la tapa con el número i.
      * 
-     * Este método valida si la tapa está en la torre, si está entonces remueve del ArrayList y baja 
-     * la posición de las tapas y copas que estaban arriba. También disminuye 1 a la altura de la torre.
+     * Este método valida si la tapa está en la torre, si está entonces reconstruye la torre pero
+     * sin la tapa con el número i
      * 
-     * @param i El número de la copa
+     * @param i El número de la tapa
      */
     public void removeLid(int i) {
         if (!lidsValues.contains(i)) {
@@ -198,13 +203,12 @@ public class Tower{
      * - El número menor siempre queda en la cima de la torre.
      * 
      * Crea un ArrayList de los números de las copas y los ordena de mayor a menor.
-     * Hace popCup de todas las copas de la torre.
-     * Hace pushCup en orden de las copas.
+     * Reconstruye la torre haciendo pushCup de las copas en orden.
      * Si habia una tapa y una copa con el mismo número, ubica la tapa encima de la copa.
      */
     public void orderTower() {
         ArrayList<Integer> orderedValues = new ArrayList<Integer>();
-        ArrayList<Integer> lidsCopy = new ArrayList<Integer>(lidsValues);
+        ArrayList<Integer> lidsTemporal = new ArrayList<Integer>(lidsValues);
         for (Cup cup : cups) {
             int cupValue = cup.getValue();
             orderedValues.add(cupValue);
@@ -213,7 +217,7 @@ public class Tower{
         exit();
         for(Integer value : orderedValues){
             this.pushCup(value);
-            if (lidsCopy.contains(value)){
+            if (lidsTemporal.contains(value)){
                 removeLid(value);
                 pushLid(value);
             }
@@ -226,13 +230,12 @@ public class Tower{
      * - El número menor siempre queda en la base de la torre.
      * 
      * Crea un ArrayList de los números de las copas y los ordena de menor a mayor.
-     * Hace popCup de todas las copas de la torre.
-     * Hace pushCup en orden de las copas.
+     * Reconstruye la torre haciendo pushCup de las copas en orden.
      * Si habia una tapa y una copa con el mismo número, ubica la tapa encima de la copa.
      */
     public void reverseTower() {
         ArrayList<Integer> orderedValues = new ArrayList<Integer>();
-        ArrayList<Integer> lidsCopy = new ArrayList<Integer>(lidsValues);
+        ArrayList<Integer> lidsTemporal = new ArrayList<Integer>(lidsValues);
         for (Cup cup : cups) {
             int cupValue = cup.getValue();
             orderedValues.add(cupValue);
@@ -241,7 +244,7 @@ public class Tower{
         exit();
         for(Integer value : orderedValues){
             this.pushCup(value);
-            if (lidsCopy.contains(value)){
+            if (lidsTemporal.contains(value)){
                 removeLid(value);
                 pushLid(value);
             }
@@ -257,13 +260,13 @@ public class Tower{
      * push con el nuevo orden del arreglo.
      *
      * @param o1 Objeto 1 identificado por su tipo y numero {{tipo:String},{valor:String}}.
-     * @param o2 Objeto 1 identificado por su tipo y numero {{tipo:String},{valor:String}}.
+     * @param o2 Objeto 2 identificado por su tipo y numero {{tipo:String},{valor:String}}.
      */
     public void swap(String[] o1, String[] o2) {
         String[][] items = stackingItems();
         int o1ItemsPosition = -1;
         int o2ItemsPosition = -1;
-        
+        boolean isVisible = this.isVisible;
         for (int i = 0; i < items.length; i++) {
             if (o1[0].equals(items[i][0]) && o1[1].equals(items[i][1])) { o1ItemsPosition = i; }
             
@@ -286,6 +289,7 @@ public class Tower{
                 }
             }
             isOk = true;
+            if (isVisible) { makeVisible(); }
         } else if (o1ItemsPosition == -1) {
             showJOptionPane("El objeto 1 no existe en la torre");
             isOk = false;
@@ -293,6 +297,30 @@ public class Tower{
             showJOptionPane("El objeto 2 no existe en la torre");
             isOk = false;
         }
+    }
+    
+    
+    /**
+     * Tapa las copas que tienen sus tapas en la torre.
+     *
+     * Obtiene los valores de las tapas y las guarda en una lista temporal, después
+     * reconstruye la torre de modo que si habia una tapa y una copa con el mismo número, 
+     * ubica la tapa encima de la copa.
+     */
+    public void cover() {
+        ArrayList<Integer> values = new ArrayList<Integer>(cupsValues);
+        ArrayList<Integer> lidsTemporal = new ArrayList<Integer>(lidsValues);
+        exit();
+        for(Integer value : values){
+            this.pushCup(value);
+            System.out.println("cup " + value);
+            if (lidsTemporal.contains(value)){
+                System.out.println("lid " + value);
+                removeLid(value);
+                pushLid(value);
+            }
+        }
+        isOk = true;
     }
 
     /**
@@ -308,7 +336,7 @@ public class Tower{
      * de la copa a una lista temporal. Ordena los valores de menor a mayor y convierte la lista 
      * a un arreglo de enteros y lo retorna.
      *
-     * @return items Arreglo con los números de las copas tapadas.
+     * @return liddedCups Arreglo con los números de las copas tapadas.
      */
     public int[] liddedCups() {
         ArrayList<Integer> temporalItems = new ArrayList<Integer>();
@@ -365,8 +393,35 @@ public class Tower{
     }
     
     /**
+     * realiza posibles swaps para un arreglo y comprobar como es que se puede reducir la altura
+     * retorna los dos objetos que pueden reducir la altura y su longitud. Si no es posible reducirla 
+     * entonces retorna null
+     * 
+     * @return String[][] si hay objetos que la reduzcan o null si no los hay
+     */
+    public String[][] swapToReduce() {
+        String[][] items = stackingItems();
+        int itemsHeight = height;    
+        for (int i = 0; i < items.length; i++) {
+            for (int j = i + 1; j < items.length; j++) {
+                String[] o1 = new String[]{items[i][0], items[i][1]};
+                String[] o2 = new String[]{items[j][0], items[j][1]};
+                swap(o1, o2);
+                int newHeight = height;
+                swap(o2, o1);
+                if (newHeight < itemsHeight) {
+                    isOk = true;
+                    return new String[][]{o1, o2};
+                }
+            }
+        }
+        isOk = false;
+        return null;
+    }
+    
+    /**
      * Hace visible la torre (incluyendo las copas y las tapas que estén en ella)
-     * recorriendo los ArrayList (cups, lids, frame) y llamando a makeVisible().
+     * recorriendo el ArrayList items y llamando a makeVisible() por cada item.
      */
     public void makeVisible() {
         isVisible = true;
@@ -377,7 +432,7 @@ public class Tower{
     
     /**
      * Hace invisible la torre (incluyendo las copas y las tapas que estén en ella)
-     * recorriendo los ArrayList (cups, lids, frame) y llamando a makeInvisible().
+     * recorriendo el ArrayList items y llamando a makeInvisible() por cada item.
      */
     public void makeInvisible() {
         isVisible = false;
@@ -408,6 +463,8 @@ public class Tower{
      */
     public boolean ok() { return isOk; }
     
+    //Metodos privados para que el código no quede tan largo :D
+    
     /**
      * Método para crear la interfaz de la torre
      * 
@@ -420,177 +477,11 @@ public class Tower{
         Canvas canvas = Canvas.getCanvas(maxHeight, width);
         frame = new ArrayList<Rectangle>();
         for(int i = 0; i < maxHeight; i++){
-            Rectangle rectangle = new Rectangle(3,20,"black",0,maxHeight*20 - i*20-20);
+            Rectangle rectangle = new Rectangle(3,20,"black",0,maxHeight*20 - i*20 - 20);
             frame.add(rectangle);
         }
         frame.add(new Rectangle(maxHeight*20,2,"black",20,0));
         frame.add(new Rectangle(2,width*20 + 22,"black",0,maxHeight*20+1));
-    }
-    
-    private void reDraw() {
-        ArrayList<StackingItem> temporalItems = new ArrayList<StackingItem>(items);
-        exit();
-        for (StackingItem item : temporalItems) {
-            if ("cup".equals(item.getType())) {
-                pushCup(item.getValue());
-            } else if ("lid".equals(item.getType())) {
-                pushLid(item.getValue());
-            }
-        }
-        if (isVisible) { makeVisible(); }
-    }
-
-    public void cover() {
-        boolean moved = true;
-    
-        while (moved) {
-            moved = false;
-            String[][] items = stackingItems();
-    
-            for (int i = 0; i < items.length; i++) {
-                if ("cup".equals(items[i][0])) {
-                    String v = items[i][1];
-    
-                    int lidIndex = -1;
-                    for (int j = 0; j < items.length; j++) {
-                        if ("lid".equals(items[j][0]) && v.equals(items[j][1])) {
-                            lidIndex = j;
-                            break;
-                        }
-                    }
-    
-                    if (lidIndex != -1 && lidIndex != i + 1) {
-                        if (lidIndex > i + 1) {
-                            swap(new String[]{"lid", v}, items[lidIndex - 1]);
-                        } else if (lidIndex + 1 < items.length) {
-                            swap(new String[]{"lid", v}, items[lidIndex + 1]);
-                        }
-                        moved = true;
-                        break;
-                    }
-                }
-            }
-        }
-    
-        isOk = true;
-    }
-    /**
-     * realiza posibles swaps para un arreglo y comprobar como es que se puede reducir la altura
-     * retorna los dos objetos que pueden reducir la altura y su longitud
-     * si no es posible reducirla retorna null
-     * 
-     * @return String[][] si hay objetos que la reduzcan o null si no los hay
-     */
-    public String[][] swapToReduce() {
-        String[][] original = stackingItems();
-        int originalHeight = effectiveHeight(original);
-    
-        for (int i = 0; i < original.length; i++) {
-            for (int j = i + 1; j < original.length; j++) {
-    
-                String[] o1 = new String[]{original[i][0], original[i][1]};
-                String[] o2 = new String[]{original[j][0], original[j][1]};
-    
-                swap(o1, o2);
-    
-                int newHeight = effectiveHeight(stackingItems());
-    
-                restoreTower(original);
-    
-                if (newHeight < originalHeight) {
-                    isOk = true;
-                    return new String[][]{o1, o2};
-                }
-            }
-        }
-    
-        isOk = false;
-        return null;
-    }
-
-    /**
-    * Restaura la torre exactamente al estado representado en la matriz items.
-    *
-    * Este método elimina todas las copas y tapas actuales de la torre y luego
-    * reconstruye la estructura en el mismo orden en que aparecen en items,
-    * usando pushCup y pushLid.
-    *
-    * @param items matriz con el estado que se quiere reconstruir en la torre
-    */
-    private void restoreTower(String[][] items) {
-        while (cups.size() > 0) { popCup(); }
-        while (lids.size() > 0) { popLid(); }
-        
-        for (int i = 0; i < items.length; i++) {
-            int value = Integer.parseInt(items[i][1]);
-        
-            if ("cup".equals(items[i][0])) {
-                pushCup(value);
-            } else if ("lid".equals(items[i][0])) {
-                pushLid(value);
-            }
-        }
-    }
-    
-    /**
-     * Calcula la altura efectiva de una configuración de la torre.
-     *
-     * La altura efectiva no se calcula usando el atributo height de la clase,
-     * sino interpretando la disposición de los elementos en items.
-     *
-     * @param items matriz con los elementos de la torre ordenados desde la base hasta la cima
-     * @return la altura efectiva de la configuración dada
-     */
-    private int effectiveHeight(String[][] items) {
-        int total = 0;
-    
-        for (int i = 0; i < items.length; i++) {
-            String type = items[i][0];
-            int value = Integer.parseInt(items[i][1]);
-    
-            if ("cup".equals(type)) {
-                total += 2 * value - 1;
-            } else if ("lid".equals(type)) {
-                boolean coversCup =
-                    i > 0 &&
-                    "cup".equals(items[i - 1][0]) &&
-                    items[i - 1][1].equals(items[i][1]);
-    
-                if (!coversCup) {
-                    total += 1;
-                }
-            }
-        }
-    
-        return total;
-    }
-    
-    //Metodos para que el código no quede tan largo :D
-    
-    /**
-     * Valida si la tapa está en la torre
-     * 
-     * @param int value Número de la tapa
-     * @return true si está en la torre, false de lo contrario
-     */
-    private boolean isLidInTower(int value) {
-        for (Lid lid : lids) {
-            if (lid.getValue() == value) { return true; }
-        }
-        return false;
-    }
-    
-    /**
-     * Si el simulador está visible, presenta un mensaje especial al usuario en caso de que 
-     * no se pueda realizar alguna acción. Usa JOptionPane.
-     * 
-     * @param message Mensaje del error ocurrido
-     */
-    private void showJOptionPane(String message) {
-        if (isVisible) {
-            JOptionPane.showMessageDialog(null, message,
-            "Error", JOptionPane.ERROR_MESSAGE);
-        }
     }
     
     /**
@@ -607,9 +498,39 @@ public class Tower{
     }
     
     /**
+     * Reconstruye la torre usando el ArrayList items.
+     */
+    private void reDraw() {
+        ArrayList<StackingItem> temporalItems = new ArrayList<StackingItem>(items);
+        boolean isVisible = this.isVisible;
+        exit();
+        for (StackingItem item : temporalItems) {
+            if ("cup".equals(item.getType())) {
+                pushCup(item.getValue());
+            } else if ("lid".equals(item.getType())) {
+                pushLid(item.getValue());
+            }
+        }
+        if (isVisible) { makeVisible(); }
+    }
+    
+    /**
+     * Si el simulador está visible, presenta un mensaje especial al usuario en caso de que 
+     * no se pueda realizar alguna acción. Usa JOptionPane.
+     * 
+     * @param message Mensaje del error ocurrido
+     */
+    private void showJOptionPane(String message) {
+        if (isVisible) {
+            JOptionPane.showMessageDialog(null, message,
+            "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    /**
      * Valida si la copa está en la torre
      * 
-     * @param int i Número de la copa
+     * @param i Número de la copa
      * @return true si está en la torre, false de lo contrario
      */
     private boolean cupAlreadyExists(int i) {
@@ -624,7 +545,7 @@ public class Tower{
     /**
      * Valida si la tapa está en la torre
      * 
-     * @param int i Número de la tapa
+     * @param i Número de la tapa
      * @return true si está en la torre, false de lo contrario
      */
     private boolean lidAlreadyExists(int i) {
@@ -639,7 +560,7 @@ public class Tower{
     /**
      * Calcula la posición de la base para ubicar un nuevo item
      * 
-     * @param int i Número de la copa
+     * @param i Número de la copa
      * @return true si está en la torre, false de lo contrario
      */
     private int calculateBasePosition(int i) {
@@ -652,32 +573,33 @@ public class Tower{
         return calculateMiddlePosition(i);
     }
     
+    /**
+     * Calcula los casos donde la posición está en el tope de la torre o entre dos items.
+     * Va validando posicion por posicion, de modo que el objeto encaje
+     * 
+     * @param i Número de la copa
+     * @return true si está en la torre, false de lo contrario
+     */
     private int calculateMiddlePosition(int i) {
         int maxPosition = 0;
         for (int j = 0; j < items.size(); j++) {
-            if (items.get(j).getValue() >= items.get(maxPosition).getValue()) { maxPosition = j; }
+            if (items.get(j).getValue() >= items.get(maxPosition).getValue()) { 
+                maxPosition = j;
+            }
         }
         int lastValue = items.get(maxPosition).getValue();
         int lastTop = items.get(maxPosition).getTopPosition();
         int index = maxPosition + 1;
+        if (items.get(maxPosition).getValue() <= i) {
+            return height;
+        }
+        
         while (index <= items.size() - 1 && ((lastValue >= items.get(index).getValue() && i < lastValue) || (lastValue <= items.get(index).getValue()))) {
+            System.out.println("Items: " + items+", maxPosition: "+maxPosition+ ", a: "+lastValue+", b: "+items.get(index).getValue()+", c: "+i);
             lastValue = items.get(index).getValue();
             lastTop = items.get(index).getTopPosition();
             index++;
         }
         return lastTop;
-    }
-    
-    private int recalculateHeight() {
-        if (cupsValues.isEmpty()) { return 0; }
-        int newHeight = 2*cupsValues.get(0) - 1;
-        for (int i = 1; i < cupsValues.size(); i++) {
-            int value = cupsValues.get(i);
-            int previous = cupsValues.get(i - 1);
-            if (value >= previous) {
-                newHeight += 2*value - 1;
-            }
-        }
-        return newHeight;
     }
 }

@@ -3,6 +3,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Clase de pruebas del Ciclo 2
+ */
 public class TowerCC2Test {
     
     /**
@@ -14,7 +17,6 @@ public class TowerCC2Test {
         Tower tower = new Tower(25, 15);
         int[] cups = {1, 2, 3, 4};
         int[] lids = {4, 1, 3, 2};
-        tower.makeVisible();
         for (int cup : cups) { tower.pushCup(cup); }
         
         for (int lid : lids) { tower.pushLid(lid); }
@@ -26,6 +28,7 @@ public class TowerCC2Test {
         
         assertTrue(sameItem(items[0], "lid", "4"));
         assertTrue(sameItem(items[1], "lid", "3"));
+        assertTrue(sameItem(items[2], "cup", "3"));
         assertTrue(sameItem(items[3], "lid", "1"));
         assertTrue(sameItem(items[4], "cup", "1"));
         assertTrue(sameItem(items[5], "cup", "4"));
@@ -104,7 +107,6 @@ public class TowerCC2Test {
     @Test
     public void accordingSShouldSwapCupAndLid() {
         Tower tower = new Tower(2);
-        tower.makeVisible();
         tower.pushLid(1);
         tower.swap(new String[]{"cup", "2"}, new String[]{"lid", "1"});
         

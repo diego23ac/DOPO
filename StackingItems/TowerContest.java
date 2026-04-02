@@ -1,13 +1,16 @@
 import java.util.*;
 import javax.swing.JOptionPane;
 
+/**
+ * Clase que desarrolla el problema de la maratón.
+ */
 public class TowerContest {
     /**
      * Resuelve el problema de la maratón.
      * 
-     * @param int n Numero de copas
-     * @param int h Altura de la torre
-     * @return String result Si es posible construir una torre de altura h
+     * @param n Numero de copas
+     * @param h Altura de la torre
+     * @return result Si es posible construir una torre de altura h
      * con un número n de copas, retorna las alturas de las copas en el orden
      * en que deberían ser insertadas. De lo contrario, retorna 'impossible'
      */
@@ -44,8 +47,8 @@ public class TowerContest {
     /**
      * Dibuja la imagen de la solución, si existe y es posible graficarla.
      * 
-     * @param int n Numero de copas
-     * @param int h Altura de la torre
+     * @param n Numero de copas
+     * @param h Altura de la torre
      */
     public void simulate(int n, int h) {
         String result = solve(n, h);
@@ -72,8 +75,8 @@ public class TowerContest {
      * la altura h es 2*n + 1. Para ello la secuencia es [n, 2, n - 1, n - 2, ..., 1],
      * teniendo en cuenta que el dos no se repite y que esto solo funciona para n > 3
      * 
-     * @param int n Numero de copas
-     * @param int h Altura de la torre
+     * @param n Numero de copas
+     * @param h Altura de la torre
      */
     private ArrayList<Integer> trivialSolution(int n, int h){
         ArrayList<Integer> solution = new ArrayList<Integer>();

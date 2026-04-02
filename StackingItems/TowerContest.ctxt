@@ -1,14 +1,15 @@
 #BlueJ class context
 comment0.target=TowerContest
+comment0.text=\r\n\ Clase\ que\ desarrolla\ el\ problema\ de\ la\ marat\u00F3n.\r\n
 comment1.params=n\ h
 comment1.target=java.lang.String\ solve(int,\ int)
-comment1.text=\r\n\ Resuelve\ el\ problema\ de\ la\ marat\u00F3n.\r\n\ \r\n\ @param\ int\ n\ Numero\ de\ copas\r\n\ @param\ int\ h\ Altura\ de\ la\ torre\r\n\ @return\ String\ result\ Si\ es\ posible\ construir\ una\ torre\ de\ altura\ h\r\n\ con\ un\ n\u00FAmero\ n\ de\ copas,\ retorna\ las\ alturas\ de\ las\ copas\ en\ el\ orden\r\n\ en\ que\ deber\u00EDan\ ser\ insertadas.\ De\ lo\ contrario,\ retorna\ 'impossible'\r\n
+comment1.text=\r\n\ Resuelve\ el\ problema\ de\ la\ marat\u00F3n.\r\n\ \r\n\ @param\ n\ Numero\ de\ copas\r\n\ @param\ h\ Altura\ de\ la\ torre\r\n\ @return\ result\ Si\ es\ posible\ construir\ una\ torre\ de\ altura\ h\r\n\ con\ un\ n\u00FAmero\ n\ de\ copas,\ retorna\ las\ alturas\ de\ las\ copas\ en\ el\ orden\r\n\ en\ que\ deber\u00EDan\ ser\ insertadas.\ De\ lo\ contrario,\ retorna\ 'impossible'\r\n
 comment2.params=n\ h
 comment2.target=void\ simulate(int,\ int)
-comment2.text=\r\n\ Dibuja\ la\ imagen\ de\ la\ soluci\u00F3n,\ si\ existe\ y\ es\ posible\ graficarla.\r\n\ \r\n\ @param\ int\ n\ Numero\ de\ copas\r\n\ @param\ int\ h\ Altura\ de\ la\ torre\r\n
+comment2.text=\r\n\ Dibuja\ la\ imagen\ de\ la\ soluci\u00F3n,\ si\ existe\ y\ es\ posible\ graficarla.\r\n\ \r\n\ @param\ n\ Numero\ de\ copas\r\n\ @param\ h\ Altura\ de\ la\ torre\r\n
 comment3.params=n\ h
 comment3.target=java.util.ArrayList\ trivialSolution(int,\ int)
-comment3.text=\r\n\ Resuelve\ los\ casos\ triviales\ mostrados\ en\ el\ video\ del\ ProblemJ,\ que\ es\ cuando\r\n\ la\ altura\ h\ es\ 2*n\ +\ 1.\ Para\ ello\ la\ secuencia\ es\ [n,\ 2,\ n\ -\ 1,\ n\ -\ 2,\ ...,\ 1],\r\n\ teniendo\ en\ cuenta\ que\ el\ dos\ no\ se\ repite\ y\ que\ esto\ solo\ funciona\ para\ n\ >\ 3\r\n\ \r\n\ @param\ int\ n\ Numero\ de\ copas\r\n\ @param\ int\ h\ Altura\ de\ la\ torre\r\n
+comment3.text=\r\n\ Resuelve\ los\ casos\ triviales\ mostrados\ en\ el\ video\ del\ ProblemJ,\ que\ es\ cuando\r\n\ la\ altura\ h\ es\ 2*n\ +\ 1.\ Para\ ello\ la\ secuencia\ es\ [n,\ 2,\ n\ -\ 1,\ n\ -\ 2,\ ...,\ 1],\r\n\ teniendo\ en\ cuenta\ que\ el\ dos\ no\ se\ repite\ y\ que\ esto\ solo\ funciona\ para\ n\ >\ 3\r\n\ \r\n\ @param\ n\ Numero\ de\ copas\r\n\ @param\ h\ Altura\ de\ la\ torre\r\n
 comment4.params=cups\ h
 comment4.target=java.util.ArrayList\ solve(java.util.ArrayList,\ int)
 comment4.text=\r\n\ Resuelve\ los\ casos\ no\ triviales\ que\ es\ cuando\ la\ altura\ h\ no\ es\ 2*n\ +\ 1.\r\n\ \r\n\ @param\ int\ n\ Numero\ de\ copas\r\n\ @param\ int\ h\ Altura\ de\ la\ torre\r\n

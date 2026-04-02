@@ -1,5 +1,6 @@
 #BlueJ class context
 comment0.target=TowerCC2Test
+comment0.text=\r\n\ Clase\ de\ pruebas\ del\ Ciclo\ 2\r\n
 comment1.params=
 comment1.target=void\ accordingCOShouldReorderItemsUsingThreeSwaps()
 comment1.text=\r\n\ Verifica\ que\ el\ m\u00E9todo\ swap()\ reordene\ de\ manera\ correcta\ las\r\n\ tapas\ y\ las\ copas\ de\ la\ torre\ al\ hacer\ varios\ intercambios\ (tres).\r\n
