@@ -581,21 +581,21 @@ public class Tower{
      * @return true si está en la torre, false de lo contrario
      */
     private int calculateMiddlePosition(int i) {
-        int maxPosition = 0;
+        int highestPosition = 0;
         for (int j = 0; j < items.size(); j++) {
-            if (items.get(j).getValue() >= items.get(maxPosition).getValue()) { 
-                maxPosition = j;
+            if (items.get(j).getTopPosition() == height) { 
+                highestPosition = j;
             }
         }
-        int lastValue = items.get(maxPosition).getValue();
-        int lastTop = items.get(maxPosition).getTopPosition();
-        int index = maxPosition + 1;
-        if (items.get(maxPosition).getValue() <= i) {
+        int lastValue = items.get(highestPosition).getValue();
+        int lastTop = items.get(highestPosition).getTopPosition();
+        int index = highestPosition + 1;
+        if (items.get(highestPosition).getValue() <= i) {
             return height;
         }
         
         while (index <= items.size() - 1 && ((lastValue >= items.get(index).getValue() && i < lastValue) || (lastValue <= items.get(index).getValue()))) {
-            System.out.println("Items: " + items+", maxPosition: "+maxPosition+ ", a: "+lastValue+", b: "+items.get(index).getValue()+", c: "+i);
+            //System.out.println("Items: " + items+", highestPosition: "+highestPosition+ ", a: "+lastValue+", b: "+items.get(index).getValue()+", c: "+i);
             lastValue = items.get(index).getValue();
             lastTop = items.get(index).getTopPosition();
             index++;

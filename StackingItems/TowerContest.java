@@ -95,7 +95,7 @@ public class TowerContest {
      * @param int n Numero de copas
      * @param int h Altura de la torre
      */
-    private ArrayList<Integer> solve(ArrayList<Integer> cups,int h){
+    private ArrayList<Integer> solve(ArrayList<Integer> cups, int h){
         int height = h;
         int index = cups.size() - 1;
         ArrayList<Integer> solution = new ArrayList<Integer>();

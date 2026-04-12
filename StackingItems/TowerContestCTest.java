@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
  * Clase de pruebas para el problema de la maratón
  */
 public class TowerContestCTest {
-    
     /**
      * Valida que para n = 4 y h = 11 el resultado debe ser 1 3 7 5
      */
@@ -29,22 +28,22 @@ public class TowerContestCTest {
     }
     
     /**
-     * Valida que para n=4 y h=12 el resultado es 5 3 1 7
+     * Valida que para n=4 y h=12 el resultado es 5 7 3 1
      */
     @Test
-    public void testAccordingORShouldSolveN_4H_12_Return5317() {
+    public void testAccordingORShouldSolveN_4H_12_Return5731() {
         TowerContest towerContest = new TowerContest();
         String result = towerContest.solve(4, 12);
-        assertEquals("5 3 1 7", result);
+        assertEquals("5 7 3 1", result);
     }
     
     /**
-     * Valida que para n=5 y h=16 el resultado es 7 5 3 1 9
+     * Valida que para n = 5 y h = 16 el resultado es 7 9 5 3 1
      */
     @Test
-    public void testAccordingORShouldSolveN_5H_16_Return75319() {
+    public void testAccordingORShouldSolveN_5H_16_Return79531() {
         TowerContest towerContest = new TowerContest();
         String result = towerContest.solve(5, 16);
-        assertEquals("7 5 3 1 9", result);
+        assertEquals("7 9 5 3 1", result);
     }
 }

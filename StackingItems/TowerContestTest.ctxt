@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.target=TowerContestTest
+comment0.text=\r\n\ Clase\ de\ pruebas\ de\ unidad\ propias\ para\ el\ problema\ de\ la\ marat\u00F3n\r\n
+comment1.params=
+comment1.target=void\ ShouldBeImpossibleSolveForNSquaredMinusTwo()
+comment1.text=\r\n\ Valida\ que\ para\ h\ \=\ n^2\ -\ 2\ es\ impossible\r\n
+comment2.params=
+comment2.target=void\ ShouldBeImpossibleSolveForHigherThanNSquared()
+comment2.text=\r\n\ Valida\ que\ para\ h\ >\ n^2\ es\ impossible\r\n
+comment3.params=
+comment3.target=void\ ShouldBeImpossibleSolveForLowerThan2NMinusOne()
+comment3.text=\r\n\ Valida\ que\ para\ h\ <\ 2*n\ -\ 1\ es\ impossible\r\n
+comment4.params=
+comment4.target=void\ ShouldSolveReturnTheTrivialSolutionForNHigherThanThree()
+comment4.text=\r\n\ Valida\ que\ para\ h\ \=\ 2*n\ +\ 1\ la\ soluci\u00F3n\ retornada\ son\ las\ alturas\r\n\ de\ la\ soluci\u00F3n\ trivial\ ([n,\ 2,\ n\ -\ 1,\ n\ -\ 2,\ ...,\ 1]\ si\ n\ >\ 3)\r\n
+comment5.params=
+comment5.target=void\ ShouldSolveNotReturnTheTrivialSolutionIfNIsLowerThanOrEqualsThree()
+comment5.text=\r\n\ Valida\ que\ la\ soluci\u00F3n\ trivial\ para\ n\ <\=\ 3\ no\ funciona\r\n
+comment6.params=
+comment6.target=void\ ShouldSolveNotImpossibleCases()
+comment6.text=\r\n\ Valida\ casos\ que\ no\ son\ imposibles\ o\ que\ no\ son\ la\ solucion\ trivial\r\n
+numComments=7
