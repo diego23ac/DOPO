@@ -14,12 +14,12 @@ public class TowerContest {
      * con un número n de copas, retorna las alturas de las copas en el orden
      * en que deberían ser insertadas. De lo contrario, retorna 'impossible'
      */
-    public String solve(int n, int h){
+    public static String solve(int n, int h){
         StringBuilder result = new StringBuilder();
-        if( h == n*n - 2  || h > n*n || h < 2*n - 1) { 
+        if(h == n*n - 2  || h > n*n || h < 2*n - 1) { 
             result.append("impossible"); 
         } else if (h == 2*n + 1) {
-            ArrayList<Integer> solution = this.trivialSolution(n, h);
+            ArrayList<Integer> solution = trivialSolution(n, h);
             for (int i = 0; i < solution.size(); i++) {
                 result.append(2*solution.get(i) - 1);
                 if (i < solution.size() - 1) {
@@ -31,7 +31,7 @@ public class TowerContest {
             for (int i = 1; i <= n; i++) {
                 cups.add(i);
             }
-            ArrayList<Integer> solution = this.solve(cups,h);
+            ArrayList<Integer> solution = solve(cups,h);
             if(solution == null) { return"impossible"; }
             
             for (int i = 0; i < solution.size(); i++) {
@@ -50,7 +50,7 @@ public class TowerContest {
      * @param n Numero de copas
      * @param h Altura de la torre
      */
-    public void simulate(int n, int h) {
+    public static void simulate(int n, int h) {
         String result = solve(n, h);
         if(!result.equals("impossible")) {
             Tower tower = new Tower(h, 2*n);
@@ -78,7 +78,7 @@ public class TowerContest {
      * @param n Numero de copas
      * @param h Altura de la torre
      */
-    private ArrayList<Integer> trivialSolution(int n, int h){
+    private static ArrayList<Integer> trivialSolution(int n, int h){
         ArrayList<Integer> solution = new ArrayList<Integer>();
         solution.add(n);
         solution.add(2);
@@ -95,7 +95,7 @@ public class TowerContest {
      * @param int n Numero de copas
      * @param int h Altura de la torre
      */
-    private ArrayList<Integer> solve(ArrayList<Integer> cups, int h){
+    private static ArrayList<Integer> solve(ArrayList<Integer> cups, int h){
         int height = h;
         int index = cups.size() - 1;
         ArrayList<Integer> solution = new ArrayList<Integer>();
