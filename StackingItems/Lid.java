@@ -5,8 +5,8 @@ public class Lid extends StackingItem {
     private Rectangle lidRectangle[];
     private Cup cup;
     
-    public Lid(int value, int towerMaxHeight, int towerHeight, int towerWidth, boolean isVisible) {
-        super(value, isVisible);
+    public Lid(int value, int towerMaxHeight, int towerHeight, int towerWidth, boolean isVisible, Tower tower) {
+        super(value, isVisible, tower);
         this.height = 1;
         this.width = 2*value - 1;
         this.assignColor(value);

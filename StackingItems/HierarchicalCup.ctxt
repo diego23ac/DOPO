@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=HierarchicalCup
+comment0.text=\r\n\ HierarchicalCup\ es\ un\ tipo\ de\ copa\ que\ desplaza\ los\ elementos\ de\ menor\ tama\u00F1o\r\n\ y\ que\ si\ logra\ llegar\ al\ fondo\ no\ se\ deja\ quitar.\r\n
+comment1.params=value\ towerMaxHeight\ towerWidth\ towerHeight\ isVisible\ tower\ items
+comment1.target=HierarchicalCup(int,\ int,\ int,\ int,\ boolean,\ Tower,\ java.util.ArrayList)
+comment1.text=\r\n\ Constructor\ de\ la\ copa\ de\ tipo\ opener\r\n
+comment2.params=items
+comment2.target=void\ switchSmallerItems(java.util.ArrayList)
+numComments=3

@@ -66,7 +66,7 @@ public class Tower{
             if (!(maxHeight < basePosition + 2*i - 1)) {
                 if (height < basePosition + 2*i - 1) { height = basePosition + 2*i - 1; }
                 cupsValues.add(i);
-                Cup cup = new Cup(i, maxHeight, width, basePosition, isVisible);
+                Cup cup = new Cup(i, maxHeight, width, basePosition, isVisible, this);
                 cups.add(cup);
                 items.add(cup);
                 isOk = true;
@@ -74,6 +74,36 @@ public class Tower{
                 showJOptionPane("Límite de altura máximo de la torre superado.");
                 isOk = false;
             }
+        }
+    }
+    
+    public void pushCup(String type, int i) {
+        if ("normal".equals(type)) {
+            this.pushCup(i);
+        } else if (!cupAlreadyExists(i) && ("opener".equals(type) || "hierarchical".equals(type))) {
+            int basePosition = calculateBasePosition(i);
+            if (!(maxHeight < basePosition + 2*i - 1)) {
+                if (height < basePosition + 2*i - 1) { height = basePosition + 2*i - 1; }
+                cupsValues.add(i);
+                if ("opener".equals(type)) {
+                    OpenerCup cup = new OpenerCup(i, maxHeight, width, basePosition, isVisible, this, items);
+                    cups.add(cup);
+                    items.add(cup);
+                    cup.deleteLidsInterrupting(items);
+                } else if ("hierarchical".equals(type)) {
+                    HierarchicalCup cup = new HierarchicalCup(i, maxHeight, width, basePosition, isVisible, this, items);
+                    cups.add(cup);
+                    items.add(cup);
+                    cup.switchSmallerItems(items);
+                }
+                isOk = true;
+            } else {
+                showJOptionPane("Límite de altura máximo de la torre superado.");
+                isOk = false;
+            }
+        } else {
+            showJOptionPane("Tipo de copa no identificado");
+            isOk = false;
         }
     }
     
@@ -119,6 +149,7 @@ public class Tower{
             }
             rCup.makeInvisible();
             items.remove(rCup);
+            cups.remove(rCup);
             reDraw();
             isOk = true;
         }
@@ -139,7 +170,7 @@ public class Tower{
             if (!(maxHeight < basePosition + 1)) {
                 if (height < basePosition + 1) { height = basePosition + 1; }
                 lidsValues.add(i);
-                Lid lid = new Lid(i, maxHeight, basePosition, width, isVisible);
+                Lid lid = new Lid(i, maxHeight, basePosition, width, isVisible, this);
                 lids.add(lid);
                 items.add(lid);
                 isOk = true;
@@ -192,6 +223,7 @@ public class Tower{
             }
             rLid.makeInvisible();
             items.remove(rLid);
+            lids.remove(rLid);
             reDraw();
             isOk = true;
         }

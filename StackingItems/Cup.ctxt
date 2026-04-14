@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=Cup
-comment1.params=value\ towerMaxHeight\ towerWidth\ towerHeight\ isVisible
-comment1.target=Cup(int,\ int,\ int,\ int,\ boolean)
+comment1.params=value\ towerMaxHeight\ towerWidth\ towerHeight\ isVisible\ tower
+comment1.target=Cup(int,\ int,\ int,\ int,\ boolean,\ Tower)
 comment2.params=value
 comment2.target=void\ moveDown(int)
 comment3.params=

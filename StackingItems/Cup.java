@@ -2,8 +2,8 @@ public class Cup extends StackingItem{
     private Rectangle cupRectangle[];
     private Lid lid;
 
-    public Cup(int value,int towerMaxHeight,int towerWidth,int towerHeight,boolean isVisible) {
-        super(value, isVisible);
+    public Cup(int value,int towerMaxHeight,int towerWidth,int towerHeight,boolean isVisible,Tower tower) {
+        super(value, isVisible, tower);
         this.height = 2*value -1;
         this.assignColor(value);
         this.cupRectangle = new Rectangle[3];
