@@ -7,7 +7,7 @@ import java.util.*;
 public class HierarchicalCup extends Cup {
     
     /**
-     * Constructor de la copa de tipo opener
+     * Constructor de la copa de tipo hierarchical
      */
     public HierarchicalCup(int value,int towerMaxHeight,int towerWidth,int towerHeight,boolean isVisible,Tower tower, ArrayList<StackingItem> items) {
         super(value, towerMaxHeight, towerWidth, towerHeight, isVisible, tower);
@@ -17,17 +17,15 @@ public class HierarchicalCup extends Cup {
         int index = items.size() - 2;
         StackingItem item = items.get(index);
         int value = item.getValue();
+        String[] o1 = new String[] {"cup",super.value + ""};
         while (index >= 0 && super.value > value) {
-            if (item instanceof Cup) {
-                tower.removeCup(value);
-                tower.pushCup(value);
-            } else {
-                tower.removeLid(value);
-                tower.pushLid(value);
-            }
+            String[] o2 = new String[] {item.getType(), item.getValue() + ""};
+            tower.swap(o1,o2);
             index--;
-            item = items.get(index);
-            value = item.getValue();
+            if (index != -1) {
+                item = items.get(index);
+                value = item.getValue();
+            }
         }
     }
 }

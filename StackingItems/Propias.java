@@ -10,7 +10,6 @@ public class Propias {
         Tower tower = new Tower(21, 12);
         tower.makeVisible();
         tower.pushLid(3);
-        tower.pushCup(4);
         tower.pushLid(4);
         tower.pushLid(5);
         tower.pushLid(2);
@@ -29,9 +28,8 @@ public class Propias {
         tower.pushLid(3);
         tower.pushCup(4);
         tower.pushLid(4);
-        tower.pushLid(5);
+        tower.pushLid(1);
         tower.pushLid(2);
-        tower.pushCup("hierarchical", 2);
-        tower.pushCup("hierarchical", 3);
+        tower.pushCup("hierarchical", 5);
     }
 }

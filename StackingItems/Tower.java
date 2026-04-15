@@ -309,9 +309,6 @@ public class Tower{
             String[] temporal = items[o1ItemsPosition];
             items[o1ItemsPosition] = items[o2ItemsPosition];
             items[o2ItemsPosition] = temporal;
-            for (int i = 0; i < items.length; i++) {
-                System.out.println(items[i][0] + " " + items[i][1]);
-            }
             exit();
             for (int i = 0; i < items.length; i++) {
                 if ("cup".equals(items[i][0])) { 

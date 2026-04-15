@@ -19,7 +19,9 @@ public class OpenerCup extends Cup {
         while (index >= 0 && item instanceof Lid) {
             tower.removeLid(item.getValue());
             index--;
-            item = items.get(index);
+            if (index != -1) {
+                item = items.get(index);
+            }
         }
     }
 }
