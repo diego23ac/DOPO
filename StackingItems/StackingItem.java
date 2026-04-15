@@ -9,6 +9,7 @@ public abstract class StackingItem {
     protected int yTopPosition;
     protected boolean isVisible;
     protected Tower tower;
+    protected boolean removable = true;
     
     /**
      * Constructor de la clase StackingItem

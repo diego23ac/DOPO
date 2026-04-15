@@ -319,6 +319,7 @@ public class Tower{
             }
             isOk = true;
             if (isVisible) { makeVisible(); }
+            System.out.println(this.items);
         } else if (o1ItemsPosition == -1) {
             showJOptionPane("El objeto 1 no existe en la torre");
             isOk = false;
@@ -327,7 +328,6 @@ public class Tower{
             isOk = false;
         }
     }
-    
     
     /**
      * Tapa las copas que tienen sus tapas en la torre.
@@ -342,9 +342,7 @@ public class Tower{
         exit();
         for(Integer value : values){
             this.pushCup(value);
-            System.out.println("cup " + value);
             if (lidsTemporal.contains(value)){
-                System.out.println("lid " + value);
                 removeLid(value);
                 pushLid(value);
             }
@@ -399,16 +397,9 @@ public class Tower{
      */
     public String[][] stackingItems() {
         ArrayList<Object[]> temporalItems = new ArrayList<>();
-        for (Cup cup : cups) {
-            int value = cup.getValue();
-            Object[] item = new Object[]{"cup", "" + value, cup.getBasePosition()};
-            temporalItems.add(item);
-        }
-    
-        for (Lid lid : lids) {
-            int value = lid.getValue();
-            Object[] item = new Object[]{"lid", "" + value, lid.getBasePosition()};
-            temporalItems.add(item);
+        for(StackingItem item: items) {
+            Object[] itemInformation = new Object[]{item.getType(), "" + item.getValue(), item.getBasePosition()};
+            temporalItems.add(itemInformation);
         }
         
         temporalItems.sort((a,b) -> Integer.compare((int)a[2], (int)b[2]));
@@ -599,7 +590,7 @@ public class Tower{
             int lastBase = items.get(items.size() - 1).getBasePosition();
             return lastBase + 1;
         }
-        return calculateMiddlePosition(i);
+        return calculateMiddlePosition(i, items);
     }
     
     /**
@@ -609,26 +600,24 @@ public class Tower{
      * @param i Número de la copa
      * @return true si está en la torre, false de lo contrario
      */
-    private int calculateMiddlePosition(int i) {
+    private int calculateMiddlePosition(int i, ArrayList<StackingItem> items) {
         int highestPosition = 0;
+        int subTowerHeight = 0;
+        for (int k = 0; k < items.size(); k++) {
+            if (items.get(k).getTopPosition() > subTowerHeight) { subTowerHeight = items.get(k).getTopPosition(); }
+        }
+        
         for (int j = 0; j < items.size(); j++) {
-            if (items.get(j).getTopPosition() == height) { 
-                highestPosition = j;
-            }
+            if (items.get(j).getTopPosition() == subTowerHeight) { highestPosition = j; }
         }
         int lastValue = items.get(highestPosition).getValue();
         int lastTop = items.get(highestPosition).getTopPosition();
         int index = highestPosition + 1;
         if (items.get(highestPosition).getValue() <= i) {
-            return height;
+            return lastTop;
+        } else {
+            ArrayList<StackingItem> NewItems = new ArrayList<>(items.subList(highestPosition + 1, items.size()));
+            return calculateMiddlePosition(i, NewItems);
         }
-        
-        while (index <= items.size() - 1 && ((lastValue >= items.get(index).getValue() && i < lastValue) || (lastValue <= items.get(index).getValue()))) {
-            //System.out.println("Items: " + items+", highestPosition: "+highestPosition+ ", a: "+lastValue+", b: "+items.get(index).getValue()+", c: "+i);
-            lastValue = items.get(index).getValue();
-            lastTop = items.get(index).getTopPosition();
-            index++;
-        }
-        return lastTop;
     }
 }

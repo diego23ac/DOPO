@@ -5,7 +5,6 @@ import java.util.*;
  * impiden el paso.
  */
 public class OpenerCup extends Cup {
-    
     /**
      * Constructor de la copa de tipo opener
      */
@@ -24,4 +23,9 @@ public class OpenerCup extends Cup {
             }
         }
     }
+    
+    /**
+     * @return "openerCup" Retorna el tipo del objeto como String, en este caso una copa opener.
+     */
+    public String getType() { return "openerCup"; }
 }

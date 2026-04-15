@@ -9,7 +9,7 @@ public class HierarchicalCup extends Cup {
     /**
      * Constructor de la copa de tipo hierarchical
      */
-    public HierarchicalCup(int value,int towerMaxHeight,int towerWidth,int towerHeight,boolean isVisible,Tower tower, ArrayList<StackingItem> items) {
+    public HierarchicalCup(int value,int towerMaxHeight,int towerWidth,int towerHeight,boolean isVisible,Tower tower,ArrayList<StackingItem> items) {
         super(value, towerMaxHeight, towerWidth, towerHeight, isVisible, tower);
     }
     
@@ -28,4 +28,9 @@ public class HierarchicalCup extends Cup {
             }
         }
     }
+    
+    /**
+     * @return "hierarchicalCup" Retorna el tipo del objeto como String, en este caso una copa jerárquica.
+     */
+    public String getType() { return "hierarchicalCup"; }
 }

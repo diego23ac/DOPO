@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class Propias {
-    
     @Test
     public void ShouldMakeAnOpenerCup() {
         Tower tower = new Tower(21, 12);
@@ -31,5 +30,17 @@ public class Propias {
         tower.pushLid(1);
         tower.pushLid(2);
         tower.pushCup("hierarchical", 5);
+    }
+    
+    @Test
+    public void ShouldPushCorrecly() {
+        Tower tower = new Tower(21, 12);
+        tower.makeVisible();
+        tower.pushCup(4);
+        tower.pushCup(3);
+        tower.pushCup(5);
+        tower.pushLid(2);
+        tower.pushLid(1);
+        tower.pushCup(2);
     }
 }
