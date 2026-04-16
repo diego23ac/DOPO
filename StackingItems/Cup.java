@@ -11,6 +11,7 @@ public class Cup extends StackingItem{
         if (isVisible) { makeVisible(); }
     }
     
+    @Override
     public void moveDown(int value){
         for(int i = 0; i < 3; i++){
             if (cupRectangle[i] != null) {
@@ -19,7 +20,8 @@ public class Cup extends StackingItem{
         }
         yBasePosition += value * 20;
     }
-
+    
+    @Override
     public void makeVisible(){
         isVisible = true;
         for(int i = 0; i < 3; i++){
@@ -29,6 +31,7 @@ public class Cup extends StackingItem{
         }
     }
     
+    @Override
     public void makeInvisible() {
         isVisible = false;
         for(int i = 0; i < 3; i++) {
@@ -41,6 +44,7 @@ public class Cup extends StackingItem{
     /**
      * @return "cup" Retorna el tipo del objeto como String, en este caso una copa.
      */
+    @Override
     public String getType() { return "cup"; }
     
     /**

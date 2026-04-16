@@ -8,5 +8,5 @@ comment2.params=items
 comment2.target=void\ switchSmallerItems(java.util.ArrayList)
 comment3.params=
 comment3.target=java.lang.String\ getType()
-comment3.text=\r\n\ @return\ "hierarchicalCup"\ Retorna\ el\ tipo\ del\ objeto\ como\ String,\ en\ este\ caso\ una\ copa\ jer\u00E1rquica.\r\n
+comment3.text=\r\n\ @return\ "hierarchical"\ Retorna\ el\ tipo\ del\ objeto\ como\ String,\ en\ este\ caso\ una\ copa\ jer\u00E1rquica.\r\n
 numComments=4

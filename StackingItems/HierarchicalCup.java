@@ -5,7 +5,6 @@ import java.util.*;
  * y que si logra llegar al fondo no se deja quitar.
  */
 public class HierarchicalCup extends Cup {
-    
     /**
      * Constructor de la copa de tipo hierarchical
      */
@@ -14,23 +13,26 @@ public class HierarchicalCup extends Cup {
     }
     
     public void switchSmallerItems(ArrayList<StackingItem> items) {
-        int index = items.size() - 2;
-        StackingItem item = items.get(index);
-        int value = item.getValue();
-        String[] o1 = new String[] {"cup",super.value + ""};
-        while (index >= 0 && super.value > value) {
-            String[] o2 = new String[] {item.getType(), item.getValue() + ""};
-            tower.swap(o1,o2);
-            index--;
-            if (index != -1) {
-                item = items.get(index);
-                value = item.getValue();
+        if (items.size() >= 2) {
+            String[] o1 = new String[]{"hierarchical", super.value + ""};
+            int index = items.indexOf(this) - 1;
+            while (index >= 0 && super.value > items.get(index).getValue()) {
+                StackingItem item = items.get(index);
+                String[] o2 = new String[]{item.getType(), item.getValue() + ""};
+                tower.swap(o1, o2);
+                index = items.indexOf(this) - 1;
+            }
+            
+            if (yBasePosition == 0) {
+                super.removable = false;
+                
             }
         }
     }
     
     /**
-     * @return "hierarchicalCup" Retorna el tipo del objeto como String, en este caso una copa jerárquica.
+     * @return "hierarchical" Retorna el tipo del objeto como String, en este caso una copa jerárquica.
      */
-    public String getType() { return "hierarchicalCup"; }
+    @Override
+    public String getType() { return "hierarchical"; }
 }

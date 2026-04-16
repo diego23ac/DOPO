@@ -31,7 +31,6 @@ public class Rectangle{
         isVisible = false;
     }
     
-
     /**
      * Make this rectangle visible. If it was already visible, do nothing.
      */
@@ -167,7 +166,7 @@ public class Rectangle{
             Canvas canvas = Canvas.getCanvas();
             canvas.draw(this, color,
                 new java.awt.Rectangle(xPosition + 80, yPosition + 80, width, height));
-            canvas.wait(5);
+            canvas.wait(20);
         }
     }
 

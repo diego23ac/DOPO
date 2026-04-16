@@ -13,13 +13,12 @@ public class OpenerCup extends Cup {
     }
     
     public void deleteLidsInterrupting(ArrayList<StackingItem> items) {
-        int index = items.size() - 2;
-        StackingItem item = items.get(index);
-        while (index >= 0 && item instanceof Lid) {
-            tower.removeLid(item.getValue());
-            index--;
-            if (index != -1) {
-                item = items.get(index);
+        if (items.size() >= 2) {
+            int index = items.indexOf(this) - 1;
+            while (index >= 0 && items.get(index) instanceof Lid) {
+                StackingItem item = items.get(index);
+                tower.removeLid(item.getValue());
+                index = items.indexOf(this) - 1;
             }
         }
     }
@@ -27,5 +26,6 @@ public class OpenerCup extends Cup {
     /**
      * @return "openerCup" Retorna el tipo del objeto como String, en este caso una copa opener.
      */
-    public String getType() { return "openerCup"; }
+    @Override
+    public String getType() { return "opener"; }
 }

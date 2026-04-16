@@ -15,6 +15,7 @@ public class Lid extends StackingItem {
         if(isVisible) { makeVisible(); }
     }
 
+    @Override
     public void moveDown(int value){
         for(int i = 0; i < 2; i++){
             lidRectangle[i].moveDown(value);
@@ -22,6 +23,7 @@ public class Lid extends StackingItem {
         yBasePosition += value * 20;
     }
     
+    @Override
     public void makeVisible() { 
         isVisible = true;
         for(int i = 0; i < 2; i++){
@@ -29,6 +31,7 @@ public class Lid extends StackingItem {
         }
     }
     
+    @Override
     public void makeInvisible() { 
         isVisible = false;
         for(int i = 0; i < 2; i++){
@@ -44,6 +47,7 @@ public class Lid extends StackingItem {
     /**
      * @return "lid" Retorna el tipo del objeto como String, en este caso una tapa.
      */
+    @Override
     public String getType(){ return "lid"; }
     
     /**
