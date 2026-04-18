@@ -1,8 +1,8 @@
 #BlueJ class context
 comment0.target=StackingItem
 comment0.text=\r\n\ Representa\ un\ elemento\ apilable\ en\ la\ torre.\r\n
-comment1.params=value\ isVisible
-comment1.target=StackingItem(int,\ boolean)
+comment1.params=value\ isVisible\ tower
+comment1.target=StackingItem(int,\ boolean,\ Tower)
 comment1.text=\r\n\ Constructor\ de\ la\ clase\ StackingItem\r\n\ \r\n\ @param\ value\ Valor\ asociado\ al\ item\r\n\ @param\ isVisible\ visibilidad\ de\ la\ torre\r\n
 comment2.params=
 comment2.target=int\ getHeight()

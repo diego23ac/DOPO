@@ -8,6 +8,8 @@ public abstract class StackingItem {
     protected int yBasePosition;
     protected int yTopPosition;
     protected boolean isVisible;
+    protected Tower tower;
+    protected boolean removable = true;
     
     /**
      * Constructor de la clase StackingItem
@@ -15,8 +17,9 @@ public abstract class StackingItem {
      * @param value Valor asociado al item
      * @param isVisible visibilidad de la torre
      */
-    public StackingItem(int value, boolean isVisible) {
+    public StackingItem(int value, boolean isVisible, Tower tower) {
         this.value = value;
+        this.tower = tower;
     }
     
     /**

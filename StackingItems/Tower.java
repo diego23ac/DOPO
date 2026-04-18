@@ -66,7 +66,7 @@ public class Tower{
             if (!(maxHeight < basePosition + 2*i - 1)) {
                 if (height < basePosition + 2*i - 1) { height = basePosition + 2*i - 1; }
                 cupsValues.add(i);
-                Cup cup = new Cup(i, maxHeight, width, basePosition, isVisible);
+                Cup cup = new Cup(i, maxHeight, width, basePosition, isVisible, this);
                 cups.add(cup);
                 items.add(cup);
                 isOk = true;
@@ -74,6 +74,36 @@ public class Tower{
                 showJOptionPane("Límite de altura máximo de la torre superado.");
                 isOk = false;
             }
+        }
+    }
+    
+    public void pushCup(String type, int i) {
+        if ("cup".equals(type)) {
+            this.pushCup(i);
+        } else if (!cupAlreadyExists(i) && ("opener".equals(type) || "hierarchical".equals(type))) {
+            int basePosition = calculateBasePosition(i);
+            if (!(maxHeight < basePosition + 2*i - 1)) {
+                if (height < basePosition + 2*i - 1) { height = basePosition + 2*i - 1; }
+                cupsValues.add(i);
+                if ("opener".equals(type)) {
+                    OpenerCup cup = new OpenerCup(i, maxHeight, width, basePosition, isVisible, this, items);
+                    cups.add(cup);
+                    items.add(cup);
+                    cup.deleteLidsInterrupting(items);
+                } else if ("hierarchical".equals(type)) {
+                    HierarchicalCup cup = new HierarchicalCup(i, maxHeight, width, basePosition, isVisible, this, items);
+                    cups.add(cup);
+                    items.add(cup);
+                    cup.switchSmallerItems(items);
+                }
+                isOk = true;
+            } else {
+                showJOptionPane("Límite de altura máximo de la torre superado.");
+                isOk = false;
+            }
+        } else {
+            showJOptionPane("Tipo de copa no identificado");
+            isOk = false;
         }
     }
     
@@ -119,6 +149,7 @@ public class Tower{
             }
             rCup.makeInvisible();
             items.remove(rCup);
+            cups.remove(rCup);
             reDraw();
             isOk = true;
         }
@@ -139,7 +170,52 @@ public class Tower{
             if (!(maxHeight < basePosition + 1)) {
                 if (height < basePosition + 1) { height = basePosition + 1; }
                 lidsValues.add(i);
-                Lid lid = new Lid(i, maxHeight, basePosition, width, isVisible);
+                Lid lid = new Lid(i, maxHeight, basePosition, width, isVisible, this);
+                lids.add(lid);
+                items.add(lid);
+                isOk = true;
+            } else {
+                showJOptionPane("Límite de altura máximo de la torre superado.");
+                isOk = false;
+            }
+        }
+    }
+    
+    public void pushLid(String type, int i) {
+        if ("lid".equals(type)) {
+            pushLid(i);
+            return;
+        }
+    
+        if (!cupsValues.contains(i) && "fearful".equals(type)) {
+            showJOptionPane("La copa compañera no está en la torre.");
+            isOk = false;
+            return;
+        }
+    
+        if (!lidAlreadyExists(i)) {
+            int basePosition;
+            if ("crazy".equals(type)) {
+                basePosition = 0;
+            } else {
+                basePosition = calculateBasePosition(i);
+            }
+            
+            if (!(maxHeight < basePosition + 1)) {
+                if (height < basePosition + 1) {
+                    height = basePosition + 1;
+                }
+                lidsValues.add(i);
+                Lid lid;
+                if ("fearful".equals(type)) {
+                    lid = new FearfulLid(i, maxHeight, basePosition, width, isVisible, this);
+                } else if ("crazy".equals(type)) {
+                    lid = new CrazyLid(i, maxHeight, basePosition, width, isVisible, this);
+                } else {
+                    showJOptionPane("Tipo de tapa no identificado");
+                    isOk = false;
+                    return;
+                }
                 lids.add(lid);
                 items.add(lid);
                 isOk = true;
@@ -192,6 +268,7 @@ public class Tower{
             }
             rLid.makeInvisible();
             items.remove(rLid);
+            lids.remove(rLid);
             reDraw();
             isOk = true;
         }
@@ -254,51 +331,36 @@ public class Tower{
     /**
      * Intercambia la posición de dos objetos de la torre.
      *
-     * Obtiene los elementos actuales de la torre usando stackingItems, 
-     * identifica las posiciones de los elementos a intercambiar y los intercambia 
-     * en el arreglo. Luego elimina todas las copas y tapas de la torre y vuelve a hacer
-     * push con el nuevo orden del arreglo.
+     * Obtiene los elementos actuales de la torre, identifica las posiciones de los elementos 
+     * a intercambiar y los intercambia en el arreglo. Luego elimina todas las copas y tapas 
+     * de la torre y vuelve a hacer push con el nuevo orden del arreglo.
      *
      * @param o1 Objeto 1 identificado por su tipo y numero {{tipo:String},{valor:String}}.
      * @param o2 Objeto 2 identificado por su tipo y numero {{tipo:String},{valor:String}}.
      */
     public void swap(String[] o1, String[] o2) {
-        String[][] items = stackingItems();
         int o1ItemsPosition = -1;
         int o2ItemsPosition = -1;
         boolean isVisible = this.isVisible;
-        for (int i = 0; i < items.length; i++) {
-            if (o1[0].equals(items[i][0]) && o1[1].equals(items[i][1])) { o1ItemsPosition = i; }
+        for (StackingItem item: this.items) {
+            if (o1[0].equals(item.getType()) && o1[1].equals(item.getValue()+"")) { o1ItemsPosition = items.indexOf(item); }
             
-            if (o2[0].equals(items[i][0]) && o2[1].equals(items[i][1])) { o2ItemsPosition = i;}
+            if (o2[0].equals(item.getType()) && o2[1].equals(item.getValue()+"")) { o2ItemsPosition = items.indexOf(item); }
         }
         
         if (o1ItemsPosition != -1 && o2ItemsPosition != -1) {
-            String[] temporal = items[o1ItemsPosition];
-            items[o1ItemsPosition] = items[o2ItemsPosition];
-            items[o2ItemsPosition] = temporal;
-            for (int i = 0; i < items.length; i++) {
-                System.out.println(items[i][0] + " " + items[i][1]);
-            }
-            exit();
-            for (int i = 0; i < items.length; i++) {
-                if ("cup".equals(items[i][0])) { 
-                    pushCup(Integer.parseInt(items[i][1]));
-                } else if ("lid".equals(items[i][0])) {
-                    pushLid(Integer.parseInt(items[i][1]));
-                }
-            }
+            Collections.swap(items, o1ItemsPosition, o2ItemsPosition);
+            reDraw();
             isOk = true;
             if (isVisible) { makeVisible(); }
         } else if (o1ItemsPosition == -1) {
             showJOptionPane("El objeto 1 no existe en la torre");
             isOk = false;
-        } else if (o1ItemsPosition == -1) {
+        } else if (o2ItemsPosition == -1) {
             showJOptionPane("El objeto 2 no existe en la torre");
             isOk = false;
         }
     }
-    
     
     /**
      * Tapa las copas que tienen sus tapas en la torre.
@@ -313,9 +375,7 @@ public class Tower{
         exit();
         for(Integer value : values){
             this.pushCup(value);
-            System.out.println("cup " + value);
             if (lidsTemporal.contains(value)){
-                System.out.println("lid " + value);
                 removeLid(value);
                 pushLid(value);
             }
@@ -370,16 +430,9 @@ public class Tower{
      */
     public String[][] stackingItems() {
         ArrayList<Object[]> temporalItems = new ArrayList<>();
-        for (Cup cup : cups) {
-            int value = cup.getValue();
-            Object[] item = new Object[]{"cup", "" + value, cup.getBasePosition()};
-            temporalItems.add(item);
-        }
-    
-        for (Lid lid : lids) {
-            int value = lid.getValue();
-            Object[] item = new Object[]{"lid", "" + value, lid.getBasePosition()};
-            temporalItems.add(item);
+        for(StackingItem item: items) {
+            Object[] itemInformation = new Object[]{item.getType(), "" + item.getValue(), item.getBasePosition()};
+            temporalItems.add(itemInformation);
         }
         
         temporalItems.sort((a,b) -> Integer.compare((int)a[2], (int)b[2]));
@@ -505,10 +558,11 @@ public class Tower{
         boolean isVisible = this.isVisible;
         exit();
         for (StackingItem item : temporalItems) {
-            if ("cup".equals(item.getType())) {
-                pushCup(item.getValue());
-            } else if ("lid".equals(item.getType())) {
+            if (item instanceof Cup) {
+                pushCup(item.getType(), item.getValue());
+            } else {
                 pushLid(item.getValue());
+                //pushLid(item.getType(), item.getValue());
             }
         }
         if (isVisible) { makeVisible(); }
@@ -570,7 +624,7 @@ public class Tower{
             int lastBase = items.get(items.size() - 1).getBasePosition();
             return lastBase + 1;
         }
-        return calculateMiddlePosition(i);
+        return calculateMiddlePosition(i, items);
     }
     
     /**
@@ -580,26 +634,24 @@ public class Tower{
      * @param i Número de la copa
      * @return true si está en la torre, false de lo contrario
      */
-    private int calculateMiddlePosition(int i) {
+    private int calculateMiddlePosition(int i, ArrayList<StackingItem> items) {
         int highestPosition = 0;
+        int subTowerHeight = 0;
+        for (int k = 0; k < items.size(); k++) {
+            if (items.get(k).getTopPosition() > subTowerHeight) { subTowerHeight = items.get(k).getTopPosition(); }
+        }
+        
         for (int j = 0; j < items.size(); j++) {
-            if (items.get(j).getTopPosition() == height) { 
-                highestPosition = j;
-            }
+            if (items.get(j).getTopPosition() == subTowerHeight) { highestPosition = j; }
         }
         int lastValue = items.get(highestPosition).getValue();
         int lastTop = items.get(highestPosition).getTopPosition();
         int index = highestPosition + 1;
         if (items.get(highestPosition).getValue() <= i) {
-            return height;
+            return lastTop;
+        } else {
+            ArrayList<StackingItem> NewItems = new ArrayList<>(items.subList(highestPosition + 1, items.size()));
+            return calculateMiddlePosition(i, NewItems);
         }
-        
-        while (index <= items.size() - 1 && ((lastValue >= items.get(index).getValue() && i < lastValue) || (lastValue <= items.get(index).getValue()))) {
-            //System.out.println("Items: " + items+", highestPosition: "+highestPosition+ ", a: "+lastValue+", b: "+items.get(index).getValue()+", c: "+i);
-            lastValue = items.get(index).getValue();
-            lastTop = items.get(index).getTopPosition();
-            index++;
-        }
-        return lastTop;
     }
 }

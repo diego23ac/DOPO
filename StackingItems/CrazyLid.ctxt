@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=CrazyLid
+comment0.text=\r\n\ CrazyLid\ es\ un\ tipo\ de\ tapa\ que\ en\ lugar\ de\ tapar\ a\ su\ copa\ como\r\n\ har\u00EDa\ una\ tapa\ normal,\ se\ ubica\ en\ su\ base\r\n
+comment1.params=value\ towerMaxHeight\ towerHeight\ towerWidth\ isVisible\ tower
+comment1.target=CrazyLid(int,\ int,\ int,\ int,\ boolean,\ Tower)
+comment1.text=\r\n\ Constructor\ de\ la\ tapa\ de\ tipo\ crazy\r\n
+comment2.params=
+comment2.target=java.lang.String\ getType()
+comment2.text=\r\n\ @return\ "crazy"\ Retorna\ el\ tipo\ del\ objeto\ como\ String,\ en\ este\ caso\ una\ tapa\ "loca".\r\n
+numComments=3

@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=FearfulLid
+comment0.text=\r\n\ FearfulLid\ es\ un\ tipo\ de\ tapa\ que\ cuando\ su\ compa\u00F1era\ (copa)\ no\ est\u00E1\r\n\ en\ la\ torre,\ no\ entra,\ y\ si\ est\u00E1\ tapando\ a\ su\ copa,\ no\ sale.\r\n
+comment1.params=value\ towerMaxHeight\ towerHeight\ towerWidth\ isVisible\ tower
+comment1.target=FearfulLid(int,\ int,\ int,\ int,\ boolean,\ Tower)
+comment1.text=\r\n\ Constructor\ de\ la\ tapa\ de\ tipo\ fearful\r\n
+comment2.params=
+comment2.target=java.lang.String\ getType()
+comment2.text=\r\n\ @return\ "fearful"\ Retorna\ el\ tipo\ del\ objeto\ como\ String,\ en\ este\ caso\ una\ tapa\ "miedosa".\r\n
+numComments=3
