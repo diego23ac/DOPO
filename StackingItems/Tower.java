@@ -108,19 +108,23 @@ public class Tower{
     }
     
     /**
-     * Quita de la torre la última copa insertada.
+     * Quita de la torre la última copa insertada si esta es removible.
      * 
      * Este método valida si hay copas en la torre, si las hay entonces remueve la última apilada y reconstruye 
      * la torre pero sin considerar la copa eliminada.
      */
     public void popCup() {
-        int cupPosition = 0;
         if (cups.size() > 0) {
             Cup rCup = cups.remove(cups.size() - 1);
-            rCup.makeInvisible();
-            items.remove(rCup);
-            reDraw();
-            isOk = true;
+            if (rCup.isRemovable()) {
+                rCup.makeInvisible();
+                items.remove(rCup);
+                reDraw();
+                isOk = true;
+            } else {
+                showJOptionPane("La copa no se puede remover de la torre");
+                isOk = false;
+            }
         } else {
             showJOptionPane("No es posible hacer popCup porque no hay copas en la torre.");
             isOk = false;
@@ -128,30 +132,34 @@ public class Tower{
     }
 
     /**
-     * Quita de la torre la copa con el número i.
+     * Quita de la torre la copa con el número i si esta es removible.
      * 
      * Este método valida si la copa está en la torre, si está entonces reconstruye la torre pero
-     * sin la copa con el número i
+     * sin la copa con el número i.
      * 
      * @param i El número de la copa
      */
     public void removeCup(int i) {
         if (!cupsValues.contains(i)) {
-            showJOptionPane("La copa no existe en la torre");
+            showJOptionPane("No es posible hacer removeCup porque la copa no existe en la torre");
             isOk = false;
         } else {
             Cup rCup = cups.get(0);
             for (int j = 0; j < cups.size(); j++) {
                 Cup cup = cups.get(j);
-                if (cup.getValue() == i) {
-                    rCup = cup;
-                }
+                if (cup.getValue() == i) { rCup = cup; }
             }
-            rCup.makeInvisible();
-            items.remove(rCup);
-            cups.remove(rCup);
-            reDraw();
-            isOk = true;
+            
+            if (rCup.isRemovable()) {
+                rCup.makeInvisible();
+                items.remove(rCup);
+                cups.remove(rCup);
+                reDraw();
+                isOk = true;
+            } else {
+                showJOptionPane("La copa no se puede remover de la torre");
+                isOk = false;
+            }
         }
     }
     
@@ -182,29 +190,16 @@ public class Tower{
     }
     
     public void pushLid(String type, int i) {
-        if ("lid".equals(type)) {
+        if ("normal".equals(type)) {
             pushLid(i);
-            return;
-        }
-    
-        if (!cupsValues.contains(i) && "fearful".equals(type)) {
+        } else if (!cupsValues.contains(i) && "fearful".equals(type)) {
             showJOptionPane("La copa compañera no está en la torre.");
             isOk = false;
-            return;
-        }
-    
-        if (!lidAlreadyExists(i)) {
-            int basePosition;
-            if ("crazy".equals(type)) {
-                basePosition = 0;
-            } else {
-                basePosition = calculateBasePosition(i);
-            }
-            
+        } else if (!lidAlreadyExists(i)) {
+            int basePosition = calculateBasePosition(i);
             if (!(maxHeight < basePosition + 1)) {
-                if (height < basePosition + 1) {
-                    height = basePosition + 1;
-                }
+                
+                if (height < basePosition + 1) { height = basePosition + 1; }
                 lidsValues.add(i);
                 Lid lid;
                 if ("fearful".equals(type)) {
@@ -218,6 +213,7 @@ public class Tower{
                 }
                 lids.add(lid);
                 items.add(lid);
+                setFearfulLidUnremovable(lid);
                 isOk = true;
             } else {
                 showJOptionPane("Límite de altura máximo de la torre superado.");
@@ -227,19 +223,23 @@ public class Tower{
     }
     
     /**
-     * Quita de la torre la última tapa insertada.
+     * Quita de la torre la última tapa insertada si esta es removible.
      * 
      * Este método valida si hay tapas en la torre, si las hay entonces remueve la última apilada y reconstruye 
      * la torre pero sin considerar la tapa eliminada.
      */
     public void popLid() {
-        int lidPosition = 0;
         if (lids.size() > 0) {
             Lid rLid = lids.remove(lids.size() - 1);
-            rLid.makeInvisible();
-            items.remove(rLid);
-            reDraw();
-            isOk = true;
+            if (rLid.isRemovable()) {
+                rLid.makeInvisible();
+                items.remove(rLid);
+                reDraw();
+                isOk = true;
+            } else {
+                showJOptionPane("La tapa no se puede remover de la torre");
+                isOk = false;
+            }
         } else {
             showJOptionPane("No es posible hacer popLid porque no hay tapas en la torre.");
             isOk = false;
@@ -247,7 +247,7 @@ public class Tower{
     }
 
     /**
-     * Quita de la torre la tapa con el número i.
+     * Quita de la torre la tapa con el número i si esta es removible.
      * 
      * Este método valida si la tapa está en la torre, si está entonces reconstruye la torre pero
      * sin la tapa con el número i
@@ -266,11 +266,17 @@ public class Tower{
                     rLid = lid;
                 }
             }
-            rLid.makeInvisible();
-            items.remove(rLid);
-            lids.remove(rLid);
-            reDraw();
-            isOk = true;
+            
+            if (rLid.isRemovable()) {
+                rLid.makeInvisible();
+                items.remove(rLid);
+                lids.remove(rLid);
+                reDraw();
+                isOk = true;
+            } else {
+                showJOptionPane("La tapa no se puede remover de la torre");
+                isOk = false;
+            }
         }
     }
     
@@ -372,6 +378,7 @@ public class Tower{
     public void cover() {
         ArrayList<Integer> values = new ArrayList<Integer>(cupsValues);
         ArrayList<Integer> lidsTemporal = new ArrayList<Integer>(lidsValues);
+        boolean isVisible = this.isVisible;
         exit();
         for(Integer value : values){
             this.pushCup(value);
@@ -380,6 +387,8 @@ public class Tower{
                 pushLid(value);
             }
         }
+            
+        if (isVisible) { makeVisible(); }
         isOk = true;
     }
 
@@ -652,6 +661,22 @@ public class Tower{
         } else {
             ArrayList<StackingItem> NewItems = new ArrayList<>(items.subList(highestPosition + 1, items.size()));
             return calculateMiddlePosition(i, NewItems);
+        }
+    }
+    
+    /**
+     * Este método lo que hace es que si una tapa es de tipo fearful y su compañera
+     * copa del mismo valor está en la torre, entonces marca la tapa como no removible.
+     * 
+     * @param lid Tapa la cual se va a marcar como no removible
+     */
+    private void setFearfulLidUnremovable(Lid lid) {
+        int index = items.indexOf(lid);
+        if (index > 0) {
+            StackingItem item = items.get(index - 1);
+            if (item instanceof Cup && item.getValue() == lid.getValue() && lid instanceof FearfulLid) {
+                lid.setRemovable(false);
+            }
         }
     }
 }

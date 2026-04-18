@@ -29,6 +29,8 @@ public class Propias {
         tower.pushLid(4);
         tower.pushCup("hierarchical", 5);
         tower.pushCup("hierarchical", 6);
+        tower.removeCup(6);
+        tower.removeCup(5);
     }
     
     @Test
@@ -38,7 +40,9 @@ public class Propias {
         tower.pushLid(3);
         tower.pushCup(4);
         tower.pushLid(4);
+        tower.pushCup(5);
         tower.pushLid("fearful", 5);
+        tower.popCup();
     }
     
     @Test

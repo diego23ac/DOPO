@@ -41,6 +41,16 @@ public abstract class StackingItem {
      * @return value El valor asociado al objeto
      */
     public int getValue() { return value; }
+    
+    /**
+     * @return true si el objeto es removible, false de lo contrario
+     */
+    public boolean isRemovable() { return removable; }
+    
+    /**
+     * Cambia el atributo removable al valor booleano deseado
+     */
+    public void setRemovable(boolean removable) { this.removable = removable; }
 
     public abstract void moveDown(int value);
 
