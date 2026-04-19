@@ -42,16 +42,25 @@ public class Propias {
         tower.pushLid(4);
         tower.pushCup(5);
         tower.pushLid("fearful", 5);
-        tower.popCup();
     }
     
     @Test
     public void ShouldMakeACrazyLid() {
         Tower tower = new Tower(21, 12);
         tower.makeVisible();
-        tower.pushLid(3);
         tower.pushCup(4);
-        tower.pushLid("crazy", 4);
+        tower.pushCup(3);
+        tower.pushLid("crazy", 3);
+    }
+    
+    @Test
+    public void ShouldBeFine() {
+        Tower tower = new Tower(21, 12);
+        tower.makeVisible();
+        tower.pushCup("hierarchical", 4);
+        tower.pushLid(5);
+        tower.pushCup("normal", 3);
+        tower.pushLid("crazy", 3);
     }
     
     @Test

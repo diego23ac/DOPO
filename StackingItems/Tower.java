@@ -77,6 +77,12 @@ public class Tower{
         }
     }
     
+    /**
+     * Inserta una copa de determinado tipo identificada con el número i en la torre.
+     * 
+     * @param type Tipo de la copa: "normal", "opener" o "hierarchical"
+     * @param i El número de la copa
+     */
     public void pushCup(String type, int i) {
         if ("normal".equals(type)) {
             this.pushCup(i);
@@ -86,16 +92,17 @@ public class Tower{
                 if (height < basePosition + 2*i - 1) { height = basePosition + 2*i - 1; }
                 cupsValues.add(i);
                 if ("opener".equals(type)) {
-                    OpenerCup cup = new OpenerCup(i, maxHeight, width, basePosition, isVisible, this, items);
+                    OpenerCup cup = new OpenerCup(i, maxHeight, width, basePosition, isVisible, this);
                     cups.add(cup);
                     items.add(cup);
                     cup.deleteLidsInterrupting(items);
                 } else if ("hierarchical".equals(type)) {
-                    HierarchicalCup cup = new HierarchicalCup(i, maxHeight, width, basePosition, isVisible, this, items);
+                    HierarchicalCup cup = new HierarchicalCup(i, maxHeight, width, basePosition, isVisible, this);
                     cups.add(cup);
                     items.add(cup);
                     cup.switchSmallerItems(items);
                 }
+                updateRemovables();
                 isOk = true;
             } else {
                 showJOptionPane("Límite de altura máximo de la torre superado.");
@@ -189,6 +196,12 @@ public class Tower{
         }
     }
     
+    /**
+     * Inserta una tapa de determinado tipo identificada con el número i en la torre.
+     * 
+     * @param type Tipo de la tapa: "normal", "fearful" o "crazy"
+     * @param i El número de la tapa
+     */
     public void pushLid(String type, int i) {
         if ("normal".equals(type)) {
             pushLid(i);
@@ -213,6 +226,7 @@ public class Tower{
                 }
                 lids.add(lid);
                 items.add(lid);
+                if (lid instanceof CrazyLid) { ((CrazyLid) lid).crazy(items); }
                 setFearfulLidUnremovable(lid);
                 isOk = true;
             } else {
@@ -292,6 +306,7 @@ public class Tower{
     public void orderTower() {
         ArrayList<Integer> orderedValues = new ArrayList<Integer>();
         ArrayList<Integer> lidsTemporal = new ArrayList<Integer>(lidsValues);
+        boolean isVisible = this.isVisible;
         for (Cup cup : cups) {
             int cupValue = cup.getValue();
             orderedValues.add(cupValue);
@@ -305,6 +320,7 @@ public class Tower{
                 pushLid(value);
             }
         }
+        if (isVisible) { makeVisible(); }
     }
     
     /**
@@ -319,6 +335,7 @@ public class Tower{
     public void reverseTower() {
         ArrayList<Integer> orderedValues = new ArrayList<Integer>();
         ArrayList<Integer> lidsTemporal = new ArrayList<Integer>(lidsValues);
+        boolean isVisible = this.isVisible;
         for (Cup cup : cups) {
             int cupValue = cup.getValue();
             orderedValues.add(cupValue);
@@ -332,6 +349,7 @@ public class Tower{
                 pushLid(value);
             }
         }
+        if (isVisible) { makeVisible(); }
     }
     
     /**

@@ -5,6 +5,13 @@
 public class FearfulLid extends Lid {
     /**
      * Constructor de la tapa de tipo fearful
+     * 
+     * @param value Valor asociado a la tapa
+     * @param towerMaxHeight Altura máxima de la torre
+     * @param towerWidth Ancho de la torre
+     * @param towerHeight Altura de la torre
+     * @param isVisible Visibilidad de la torre
+     * @param tower Torre a la cual pertenece
      */
     public FearfulLid(int value, int towerMaxHeight, int towerHeight, int towerWidth, boolean isVisible, Tower tower) {
         super(value, towerMaxHeight, towerHeight, towerWidth, isVisible, tower);

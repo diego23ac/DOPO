@@ -1,3 +1,5 @@
+import java.util.*;
+
 /**
  * CrazyLid es un tipo de tapa que en lugar de tapar a su copa como
  * haría una tapa normal, se ubica en su base
@@ -5,9 +7,33 @@
 public class CrazyLid extends Lid {
     /**
      * Constructor de la tapa de tipo crazy
+     * 
+     * @param value Valor asociado a la tapa
+     * @param towerMaxHeight Altura máxima de la torre
+     * @param towerWidth Ancho de la torre
+     * @param towerHeight Altura de la torre
+     * @param isVisible Visibilidad de la torre
+     * @param tower Torre a la cual pertenece
      */
     public CrazyLid(int value, int towerMaxHeight, int towerHeight, int towerWidth, boolean isVisible, Tower tower) {
         super(value, towerMaxHeight, towerHeight, towerWidth, isVisible, tower);
+    }
+    
+    /**
+     * Si tapa a la copa compañera, hace un swap entre esta tapa y la copa para que 
+     * la tapa quede debajo.
+     *
+     * @param items Lista actual de los objetos apilado en la torre
+     */
+    public void crazy(ArrayList<StackingItem> items) {
+        if (items.size() >= 2) {
+            StackingItem item = items.get(items.size() - 2);
+            if (item instanceof Cup && item.getValue() == super.value) {
+                String[] lid = new String[]{"crazy", super.value + ""};
+                String[] cup = new String[]{item.getType(), item.getValue() + ""};
+                tower.swap(lid, cup);
+            }
+        }
     }
     
     /**
