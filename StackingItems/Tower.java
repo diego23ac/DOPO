@@ -78,7 +78,7 @@ public class Tower{
     }
     
     public void pushCup(String type, int i) {
-        if ("cup".equals(type)) {
+        if ("normal".equals(type)) {
             this.pushCup(i);
         } else if (!cupAlreadyExists(i) && ("opener".equals(type) || "hierarchical".equals(type))) {
             int basePosition = calculateBasePosition(i);
@@ -357,6 +357,7 @@ public class Tower{
         if (o1ItemsPosition != -1 && o2ItemsPosition != -1) {
             Collections.swap(items, o1ItemsPosition, o2ItemsPosition);
             reDraw();
+            updateRemovables();
             isOk = true;
             if (isVisible) { makeVisible(); }
         } else if (o1ItemsPosition == -1) {
@@ -567,11 +568,20 @@ public class Tower{
         boolean isVisible = this.isVisible;
         exit();
         for (StackingItem item : temporalItems) {
+            String type = item.getType();
+            int value = item.getValue();
             if (item instanceof Cup) {
-                pushCup(item.getType(), item.getValue());
+                if ("cup".equals(type)) { 
+                    pushCup("normal", value); 
+                } else {
+                    pushCup(type, value);
+                }
             } else {
-                pushLid(item.getValue());
-                //pushLid(item.getType(), item.getValue());
+                if ("lid".equals(type)) { 
+                    pushLid("normal", value); 
+                } else {
+                    pushLid(type, value);
+                }
             }
         }
         if (isVisible) { makeVisible(); }
@@ -676,6 +686,27 @@ public class Tower{
             StackingItem item = items.get(index - 1);
             if (item instanceof Cup && item.getValue() == lid.getValue() && lid instanceof FearfulLid) {
                 lid.setRemovable(false);
+            }
+        }
+    }
+    
+    /**
+     * Actualiza los objetos no removibles de la torre, FearfulLids si su compañera está
+     * y HierarchicalCup si está en la base de la torre.
+     */
+    private void updateRemovables() {
+        for (Lid lid : lids) {
+            if (lid instanceof FearfulLid) { lid.setRemovable(true); }
+        }
+        
+        for (int i = 1; i < items.size(); i++) {
+            StackingItem item = items.get(i);
+            if (item instanceof Lid) { setFearfulLidUnremovable((Lid)item); }
+        }
+        
+        for (Cup cup : cups) {
+            if (cup instanceof HierarchicalCup && cup.getBasePosition() == 0) { 
+                cup.setRemovable(false);
             }
         }
     }
