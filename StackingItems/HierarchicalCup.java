@@ -7,8 +7,15 @@ import java.util.*;
 public class HierarchicalCup extends Cup {
     /**
      * Constructor de la copa de tipo hierarchical
+     * 
+     * @param value Valor asociado a la copa
+     * @param towerMaxHeight Altura máxima de la torre
+     * @param towerWidth Ancho de la torre
+     * @param towerHeight Altura de la torre
+     * @param isVisible Visibilidad de la torre
+     * @param tower Torre a la cual pertenece
      */
-    public HierarchicalCup(int value,int towerMaxHeight,int towerWidth,int towerHeight,boolean isVisible,Tower tower,ArrayList<StackingItem> items) {
+    public HierarchicalCup(int value,int towerMaxHeight,int towerWidth,int towerHeight,boolean isVisible,Tower tower) {
         super(value, towerMaxHeight, towerWidth, towerHeight, isVisible, tower);
     }
     

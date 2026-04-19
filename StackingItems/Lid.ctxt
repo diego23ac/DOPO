@@ -1,7 +1,9 @@
 #BlueJ class context
 comment0.target=Lid
+comment0.text=\r\n\ Clase\ que\ representa\ una\ tapa\r\n
 comment1.params=value\ towerMaxHeight\ towerHeight\ towerWidth\ isVisible\ tower
 comment1.target=Lid(int,\ int,\ int,\ int,\ boolean,\ Tower)
+comment1.text=\r\n\ Constructor\ de\ la\ clase\ Lid\r\n\ \r\n\ @param\ value\ Valor\ asociado\ a\ la\ tapa\r\n\ @param\ towerMaxHeight\ Altura\ m\u00E1xima\ de\ la\ torre\r\n\ @param\ towerWidth\ Ancho\ de\ la\ torre\r\n\ @param\ towerHeight\ Altura\ de\ la\ torre\r\n\ @param\ isVisible\ Visibilidad\ de\ la\ torre\r\n\ @param\ tower\ Torre\ a\ la\ cual\ pertenece\r\n
 comment2.params=value
 comment2.target=void\ moveDown(int)
 comment3.params=

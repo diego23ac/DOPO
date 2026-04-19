@@ -16,6 +16,7 @@ public abstract class StackingItem {
      * 
      * @param value Valor asociado al item
      * @param isVisible visibilidad de la torre
+     * @param tower Torre a la cual pertenece
      */
     public StackingItem(int value, boolean isVisible, Tower tower) {
         this.value = value;

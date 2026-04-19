@@ -1,10 +1,23 @@
 import java.util.*;
 
+/**
+ * Clase que representa una tapa
+ */
 public class Lid extends StackingItem {
     private int width;
     private Rectangle lidRectangle[];
     private Cup cup;
     
+    /**
+     * Constructor de la clase Lid
+     * 
+     * @param value Valor asociado a la tapa
+     * @param towerMaxHeight Altura máxima de la torre
+     * @param towerWidth Ancho de la torre
+     * @param towerHeight Altura de la torre
+     * @param isVisible Visibilidad de la torre
+     * @param tower Torre a la cual pertenece
+     */
     public Lid(int value, int towerMaxHeight, int towerHeight, int towerWidth, boolean isVisible, Tower tower) {
         super(value, isVisible, tower);
         this.height = 1;
@@ -76,6 +89,5 @@ public class Lid extends StackingItem {
         lidRectangle[0] = new Rectangle(20, width * 20, color,middle, 20*(towerMaxHeight - towerHeight - 1));
         lidRectangle[1] = new Rectangle(12, 12, "LYellowDiamond",(10*towerWidth) + 16, 20*(towerMaxHeight - towerHeight) - 16);
         yBasePosition = towerHeight;
-        //System.out.println("Tapa: " + value + ", PosicionBase: " + yBasePosition + ", PosicionTope: " + this.getTopPosition());
     }
 }

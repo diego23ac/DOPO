@@ -1,7 +1,20 @@
+/**
+ * Clase que representa una copa
+ */
 public class Cup extends StackingItem{
     private Rectangle cupRectangle[];
     private Lid lid;
 
+    /**
+     * Constructor de la clase Cup
+     * 
+     * @param value Valor asociado a la copa
+     * @param towerMaxHeight Altura máxima de la torre
+     * @param towerWidth Ancho de la torre
+     * @param towerHeight Altura de la torre
+     * @param isVisible Visibilidad de la torre
+     * @param tower Torre a la cual pertenece
+     */
     public Cup(int value,int towerMaxHeight,int towerWidth,int towerHeight,boolean isVisible,Tower tower) {
         super(value, isVisible, tower);
         this.height = 2*value -1;
@@ -84,6 +97,5 @@ public class Cup extends StackingItem{
             cupRectangle[0] = base;
         }
         yBasePosition = towerHeight;
-        //System.out.println("Copa: " + value + ", PosicionBase: " + yBasePosition + ", PosicionTope: " + this.getTopPosition());
     }
 }
