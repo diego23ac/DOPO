@@ -213,6 +213,7 @@ public class Tower{
                 }
                 lids.add(lid);
                 items.add(lid);
+                if (lid instanceof CrazyLid) { ((CrazyLid) lid).crazy(items); }
                 setFearfulLidUnremovable(lid);
                 isOk = true;
             } else {
