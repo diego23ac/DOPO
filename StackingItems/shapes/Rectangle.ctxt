@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Rectangle
+comment0.text=\r\n\ Un\ rect\u00E1ngulo\ que\ puede\ ser\ manipulado\ y\ que\ se\ dibuja\ en\ Canvas.\r\n\ \r\n\ Hereda\ de\ Figure\ los\ campos\ xPosition,\ yPosition,\ color,\ isVisible\ y\ todos\r\n\ los\ m\u00E9todos\ de\ movimiento,\ visibilidad\ y\ color.\ Sobreescribe\ draw()\ con\ su\ forma.\r\n
+comment1.params=height\ width\ color\ xPos\ yPos
+comment1.target=Rectangle(int,\ int,\ java.lang.String,\ int,\ int)
+comment1.text=\r\n\ Crea\ un\ rect\u00E1ngulo.\r\n\ \r\n\ @param\ height\ Altura\ del\ rect\u00E1ngulo\r\n\ @param\ width\ Ancho\ del\ rect\u00E1ngulo\r\n\ @param\ color\ Color\ del\ rect\u00E1ngulo\r\n\ @param\ xPos\ Posici\u00F3n\ en\ x\r\n\ @param\ yPos\ Posici\u00F3n\ en\ y\r\n
+comment2.params=newHeight\ newWidth
+comment2.target=void\ changeSize(int,\ int)
+comment2.text=\r\n\ Cambia\ el\ tama\u00F1o\ al\ nuevo\ tama\u00F1o.\r\n\ \r\n\ @param\ newHeight\ La\ altura\ nueva\ en\ pixeles.\ newHeight\ debe\ ser\ >\=0.\r\n\ @param\ newWidht\ El\ ancho\ nuevo\ en\ pixeles.\ newWidth\ debe\ ser\ >\=0.\r\n
+comment3.params=
+comment3.target=void\ draw()
+comment3.text=\r\n\ Dibuja\ el\ rect\u00E1ngulo\ en\ el\ canvas\ con\ sus\ especificaciones.\r\n
+numComments=4
