@@ -1,6 +1,5 @@
 package tower;
 
-
 import java.util.*;
 
 /**

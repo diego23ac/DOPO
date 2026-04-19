@@ -79,7 +79,7 @@ public abstract class Figure {
      * 
      * @param distance La distancia deseada en pixeles
      */
-    public void moveVertical(int distance){
+    public void moveVertical(int distance) {
         erase();
         yPosition += distance;
         draw();
@@ -90,7 +90,7 @@ public abstract class Figure {
      * 
      * @param distance La distancia deseada en pixeles
      */
-    public void slowMoveHorizontal(int distance){
+    public void slowMoveHorizontal(int distance) {
         int delta;
 
         if(distance < 0) {
@@ -111,7 +111,7 @@ public abstract class Figure {
      * 
      * @param distance La distancia deseada en pixeles
      */
-    public void slowMoveVertical(int distance){
+    public void slowMoveVertical(int distance) {
         int delta;
 
         if(distance < 0) {
@@ -132,8 +132,8 @@ public abstract class Figure {
      * @param color El nuevo color. Los colores válidos son " "CRed", "black", "CBlue", 
      * "CYellow", "CGreen", "CPink", "white", "LBlue", "LYellow", "LGreen", "LPink", 
      * "LRed" y "LYellowDiamond"
-     */
-    public void changeColor(String newColor){
+     */ 
+    public void changeColor(String newColor) {
         color = newColor;
         draw();
     }
