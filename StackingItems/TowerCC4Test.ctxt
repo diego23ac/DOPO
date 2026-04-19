@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.target=TowerCC4Test
+comment0.text=\r\n\ Clase\ de\ pruebas\ del\ Ciclo\ 4\r\n
+comment1.params=
+comment1.target=void\ accordingCOShouldDeleteBlockingLidsWhenPushingOpenerCup()
+comment1.text=\r\n\ Verifica\ que\ una\ copa\ de\ tipo\ opener\ elimine\ las\ tapas\r\n\ que\ le\ impiden\ el\ paso\ al\ entrar\ en\ la\ torre.\r\n
+comment2.params=
+comment2.target=void\ accordingORShouldMoveHierarchicalCupBelowSmallerItems()
+comment2.text=\r\n\ Verifica\ que\ una\ copa\ de\ tipo\ hierarchical\ desplace\r\n\ hacia\ arriba\ los\ objetos\ de\ menor\ tama\u00F1o.\r\n
+comment3.params=
+comment3.target=void\ accordingSShouldNotRemoveHierarchicalCupWhenItReachesBase()
+comment3.text=\r\n\ Verifica\ que\ una\ copa\ de\ tipo\ hierarchical\ no\ se\ deje\ remover\r\n\ cuando\ logra\ llegar\ a\ la\ base\ de\ la\ torre.\r\n
+comment4.params=
+comment4.target=void\ accordingBGShouldNotPushFearfulLidWithoutCompanionCup()
+comment4.text=\r\n\ Verifica\ que\ una\ tapa\ de\ tipo\ fearful\ no\ entre\r\n\ si\ su\ copa\ compa\u00F1era\ no\ est\u00E1\ en\ la\ torre.\r\n
+comment5.params=
+comment5.target=void\ accordingMVShouldNotRemoveFearfulLidWhenItIsCoveringItsCup()
+comment5.text=\r\n\ Verifica\ que\ una\ tapa\ de\ tipo\ fearful\ no\ se\ deje\ quitar\r\n\ cuando\ est\u00E1\ tapando\ a\ su\ copa\ compa\u00F1era.\r\n
+comment6.params=item\ type\ value
+comment6.target=boolean\ sameItem(java.lang.String[],\ java.lang.String,\ java.lang.String)
+comment6.text=\r\n\ Compara\ si\ un\ item\ tiene\ el\ tipo\ y\ valor\ esperados.\r\n
+numComments=7
