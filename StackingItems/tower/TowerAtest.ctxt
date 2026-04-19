@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=TowerAtest
+comment0.text=\r\n\ Clase\ de\ pruebas\ de\ aceptaci\u00F3n\ del\ Ciclo\ 4\r\n
+comment1.params=
+comment1.target=void\ shouldAcceptOpenerCupBehavior()
+comment1.text=\r\n\ Evidencia\ visualmente\ que\ una\ copa\ opener\ elimina\ las\ tapas\r\n\ que\ le\ impiden\ el\ paso\ al\ entrar\ a\ la\ torre.\r\n
+comment2.params=
+comment2.target=void\ shouldAcceptCrazyLidBehavior()
+comment2.text=\r\n\ Evidencia\ visualmente\ que\ una\ tapa\ crazy\ no\ queda\ como\ tapa\ normal,\r\n\ sino\ que\ se\ ubica\ en\ la\ base\ de\ su\ copa\ compa\u00F1era.\r\n
+numComments=3
